@@ -6,6 +6,8 @@
 	--text-color: #3f3f46;
 	--text-muted: #71717a;
 	--border-color: #e4e4e7;
+	--scrollbar-color: #d4d4d8;
+	--scrollbar-hover: #a1a1aa;
 	--accent-color: #d97757;
 	--accent-hover: #c26143;
 	--focus-ring: rgba(217, 119, 87, 0.4);
@@ -27,6 +29,8 @@
 	--text-color: #e4e4e7;
 	--text-muted: #a1a1aa;
 	--border-color: #3f3f46;
+	--scrollbar-color: #52525b;
+	--scrollbar-hover: #71717a;
 	--accent-color: #d97757;
 	--accent-hover: #e48a6d;
 }
@@ -35,6 +39,8 @@
 *::before,
 *::after {
 	box-sizing: border-box;
+	scrollbar-color: var(--scrollbar-color) transparent;
+	scrollbar-width: thin;
 }
 
 html,
@@ -95,14 +101,14 @@ textarea:focus {
 }
 
 ::-webkit-scrollbar-track {
-	background: var(--bg-color);
+	background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: var(--border-color);
+	background: var(--scrollbar-color);
 	border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: var(--text-muted);
+	background: var(--scrollbar-hover);
 }
