@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { createPersistentState } from '$lib/state.svelte';
 	import { readFileAsText } from '$lib/utils/file';
+	import { analyze, type AnalysisResults } from '$lib/utils/engine';
+	import ResultsPanel from '$lib/components/ResultsPanel.svelte';
 
 	const cvText = createPersistentState('cvwc_cv', '');
 	const jdText = createPersistentState('cvwc_jd', '');
 	let analyzing = $state(false);
-	let hasAnalyzed = $state(false);
+	let analysisResult = $state<AnalysisResults | null>(null);
 
 	async function handleDrop(e: DragEvent, type: 'cv' | 'jd') {
 		e.preventDefault();
@@ -25,16 +27,16 @@
 		}
 	}
 
-	function handleAnalyze() {
+	async function handleAnalyze() {
 		if (!cvText.value.trim() || !jdText.value.trim()) return;
 
 		analyzing = true;
 
-		// Simulate analysis delay for now
-		setTimeout(() => {
+		try {
+			analysisResult = await analyze(cvText.value, jdText.value);
+		} finally {
 			analyzing = false;
-			hasAnalyzed = true;
-		}, 800);
+		}
 	}
 </script>
 
@@ -87,13 +89,8 @@
 		</button>
 	</div>
 
-	{#if hasAnalyzed}
-		<section class="results-panel" aria-live="polite">
-			<h2>Analysis Results</h2>
-			<div class="placeholder-content">
-				<p>Results will be displayed here. (To be implemented in subsequent specs)</p>
-			</div>
-		</section>
+	{#if analysisResult}
+		<ResultsPanel results={analysisResult} cvText={cvText.value} />
 	{/if}
 </div>
 
@@ -184,26 +181,5 @@
 	.btn-primary:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
-	}
-
-	.results-panel {
-		margin-top: 2rem;
-		padding: 2rem;
-		background-color: var(--surface-color);
-		border: 1px solid var(--border-color);
-		border-radius: 12px;
-	}
-
-	.results-panel h2 {
-		margin: 0 0 1.5rem 0;
-		font-size: 1.5rem;
-	}
-
-	.placeholder-content {
-		color: var(--text-muted);
-		text-align: center;
-		padding: 2rem;
-		border: 1px dashed var(--border-color);
-		border-radius: 8px;
 	}
 </style>
