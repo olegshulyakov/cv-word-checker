@@ -250,74 +250,17 @@
 		"vos"
 	],
 	"weakWords": {
-		"responsável por": [
-			"liderou",
-			"gerenciou",
-			"conduziu",
-			"encabeçou"
-		],
-		"ajudou": [
-			"facilitou",
-			"assistiu",
-			"apoiou",
-			"guiou",
-			"habilitou"
-		],
-		"trabalhou em": [
-			"desenvolveu",
-			"projetou",
-			"construiu",
-			"criou",
-			"implementou"
-		],
-		"bom": [
-			"excelente",
-			"proficiente",
-			"eficaz",
-			"forte",
-			"capaz"
-		],
-		"vários": [
-			"múltiplos",
-			"diversos",
-			"uma gama de",
-			"numerosos"
-		],
-		"lidou com": [
-			"coordenou",
-			"administrou",
-			"gerenciou",
-			"supervisionou"
-		],
-		"participou de": [
-			"contribuiu para",
-			"colaborou em",
-			"engajou-se em",
-			"parceirou em"
-		],
-		"tentou": [
-			"esforçou-se",
-			"empenhou-se",
-			"objetivou"
-		],
-		"estava encarregado de": [
-			"dirigiu",
-			"governou",
-			"supervisionou",
-			"controlou"
-		],
-		"fez": [
-			"produziu",
-			"elaborou",
-			"gerou",
-			"formulou"
-		],
-		"realizou": [
-			"executou",
-			"desempenhou",
-			"concluiu",
-			"alcançou"
-		]
+		"responsável por": ["liderou", "gerenciou", "conduziu", "encabeçou"],
+		"ajudou": ["facilitou", "assistiu", "apoiou", "guiou", "habilitou"],
+		"trabalhou em": ["desenvolveu", "projetou", "construiu", "criou", "implementou"],
+		"bom": ["excelente", "proficiente", "eficaz", "forte", "capaz"],
+		"vários": ["múltiplos", "diversos", "uma gama de", "numerosos"],
+		"lidou com": ["coordenou", "administrou", "gerenciou", "supervisionou"],
+		"participou de": ["contribuiu para", "colaborou em", "engajou-se em", "parceirou em"],
+		"tentou": ["esforçou-se", "empenhou-se", "objetivou"],
+		"estava encarregado de": ["dirigiu", "governou", "supervisionou", "controlou"],
+		"fez": ["produziu", "elaborou", "gerou", "formulou"],
+		"realizou": ["executou", "desempenhou", "concluiu", "alcançou"]
 	},
 	"technicalSkillsKeywords": [
 		"javascript",

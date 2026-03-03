@@ -194,74 +194,17 @@
 		"eussent"
 	],
 	"weakWords": {
-		"responsable de": [
-			"a dirigé",
-			"a géré",
-			"a piloté",
-			"a supervisé"
-		],
-		"aidé": [
-			"facilité",
-			"assisté",
-			"soutenu",
-			"guidé",
-			"permis"
-		],
-		"travaillé sur": [
-			"développé",
-			"conçu",
-			"construit",
-			"créé",
-			"implémenté"
-		],
-		"bon": [
-			"excellent",
-			"compétent",
-			"efficace",
-			"fort",
-			"capable"
-		],
-		"divers": [
-			"multiples",
-			"variés",
-			"une gamme de",
-			"nombreux"
-		],
-		"géré": [
-			"coordonné",
-			"administré",
-			"dirigé",
-			"supervisé"
-		],
-		"participé à": [
-			"contribué à",
-			"collaboré sur",
-			"engagé dans",
-			"partenaire sur"
-		],
-		"essayé": [
-			"tenté",
-			"efforcé",
-			"aspiré"
-		],
-		"était en charge de": [
-			"dirigé",
-			"gouverné",
-			"supervisé",
-			"contrôlé"
-		],
-		"fait": [
-			"produit",
-			"conçu",
-			"généré",
-			"formulé"
-		],
-		"effectué": [
-			"exécuté",
-			"accompli",
-			"réalisé",
-			"atteint"
-		]
+		"responsable de": ["a dirigé", "a géré", "a piloté", "a supervisé"],
+		"aidé": ["facilité", "assisté", "soutenu", "guidé", "permis"],
+		"travaillé sur": ["développé", "conçu", "construit", "créé", "implémenté"],
+		"bon": ["excellent", "compétent", "efficace", "fort", "capable"],
+		"divers": ["multiples", "variés", "une gamme de", "nombreux"],
+		"géré": ["coordonné", "administré", "dirigé", "supervisé"],
+		"participé à": ["contribué à", "collaboré sur", "engagé dans", "partenaire sur"],
+		"essayé": ["tenté", "efforcé", "aspiré"],
+		"était en charge de": ["dirigé", "gouverné", "supervisé", "contrôlé"],
+		"fait": ["produit", "conçu", "généré", "formulé"],
+		"effectué": ["exécuté", "accompli", "réalisé", "atteint"]
 	},
 	"technicalSkillsKeywords": [
 		"javascript",

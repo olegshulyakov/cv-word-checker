@@ -351,74 +351,17 @@
 		"yo"
 	],
 	"weakWords": {
-		"responsable de": [
-			"dirigió",
-			"lideró",
-			"gestionó",
-			"encabezó"
-		],
-		"ayudó": [
-			"facilitó",
-			"asistió",
-			"apoyó",
-			"guió",
-			"habilitó"
-		],
-		"trabajó en": [
-			"desarrolló",
-			"diseñó",
-			"construyó",
-			"creó",
-			"implementó"
-		],
-		"bueno": [
-			"excelente",
-			"competente",
-			"eficaz",
-			"fuerte",
-			"capaz"
-		],
-		"varios": [
-			"múltiples",
-			"diversos",
-			"una gama de",
-			"numerosos"
-		],
-		"manejó": [
-			"coordinó",
-			"administró",
-			"gestionó",
-			"supervisó"
-		],
-		"participó en": [
-			"contribuyó a",
-			"colaboró en",
-			"se involucró en",
-			"se asoció en"
-		],
-		"intentó": [
-			"se esforzó",
-			"procuró",
-			"aspiró"
-		],
-		"estaba a cargo de": [
-			"dirigió",
-			"gobernó",
-			"supervisó",
-			"controló"
-		],
-		"hizo": [
-			"produjo",
-			"elaboró",
-			"generó",
-			"formuló"
-		],
-		"realizó": [
-			"ejecutó",
-			"desempeñó",
-			"logró",
-			"alcanzó"
-		]
+		"responsable de": ["dirigió", "lideró", "gestionó", "encabezó"],
+		"ayudó": ["facilitó", "asistió", "apoyó", "guió", "habilitó"],
+		"trabajó en": ["desarrolló", "diseñó", "construyó", "creó", "implementó"],
+		"bueno": ["excelente", "competente", "eficaz", "fuerte", "capaz"],
+		"varios": ["múltiples", "diversos", "una gama de", "numerosos"],
+		"manejó": ["coordinó", "administró", "gestionó", "supervisó"],
+		"participó en": ["contribuyó a", "colaboró en", "se involucró en", "se asoció en"],
+		"intentó": ["se esforzó", "procuró", "aspiró"],
+		"estaba a cargo de": ["dirigió", "gobernó", "supervisó", "controló"],
+		"hizo": ["produjo", "elaboró", "generó", "formuló"],
+		"realizó": ["ejecutó", "desempeñó", "logró", "alcanzó"]
 	},
 	"technicalSkillsKeywords": [
 		"javascript",

@@ -271,74 +271,17 @@
 		"zwischen"
 	],
 	"weakWords": {
-		"verantwortlich für": [
-			"leitete",
-			"verantwortete",
-			"trieb voran",
-			"verwaltete",
-			"führte an"
-		],
-		"geholfen": [
-			"erleichtert",
-			"unterstützt",
-			"gefördert",
-			"angeleitet",
-			"ermöglicht"
-		],
-		"gearbeitet an": [
-			"entwickelt",
-			"entworfen",
-			"erstellt",
-			"implementiert"
-		],
-		"gut": [
-			"ausgezeichnet",
-			"kompetent",
-			"effektiv",
-			"stark",
-			"fähig"
-		],
-		"verschiedene": [
-			"mehrere",
-			"vielfältige",
-			"eine Reihe von",
-			"zahlreiche"
-		],
-		"bearbeitet": [
-			"koordiniert",
-			"administriert",
-			"verwaltet",
-			"beaufsichtigt"
-		],
-		"teilgenommen an": [
-			"beigetragen zu",
-			"zusammengearbeitet an",
-			"engagiert in",
-			"beteiligt an"
-		],
-		"versucht": [
-			"bestrebt",
-			"bemüht",
-			"angestrebt"
-		],
-		"war zuständig für": [
-			"leitete",
-			"regelte",
-			"überwachte",
-			"kontrollierte"
-		],
-		"gemacht": [
-			"produziert",
-			"gefertigt",
-			"erzeugt",
-			"formuliert"
-		],
-		"getan": [
-			"ausgeführt",
-			"verrichtet",
-			"vollbracht",
-			"erreicht"
-		]
+		"verantwortlich für": ["leitete", "verantwortete", "trieb voran", "verwaltete", "führte an"],
+		"geholfen": ["erleichtert", "unterstützt", "gefördert", "angeleitet", "ermöglicht"],
+		"gearbeitet an": ["entwickelt", "entworfen", "erstellt", "implementiert"],
+		"gut": ["ausgezeichnet", "kompetent", "effektiv", "stark", "fähig"],
+		"verschiedene": ["mehrere", "vielfältige", "eine Reihe von", "zahlreiche"],
+		"bearbeitet": ["koordiniert", "administriert", "verwaltet", "beaufsichtigt"],
+		"teilgenommen an": ["beigetragen zu", "zusammengearbeitet an", "engagiert in", "beteiligt an"],
+		"versucht": ["bestrebt", "bemüht", "angestrebt"],
+		"war zuständig für": ["leitete", "regelte", "überwachte", "kontrollierte"],
+		"gemacht": ["produziert", "gefertigt", "erzeugt", "formuliert"],
+		"getan": ["ausgeführt", "verrichtet", "vollbracht", "erreicht"]
 	},
 	"technicalSkillsKeywords": [
 		"javascript",
