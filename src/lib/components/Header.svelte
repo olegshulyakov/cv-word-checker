@@ -2,6 +2,7 @@
 	import { Sun, Moon, Monitor, Github, Globe } from 'lucide-svelte';
 	import { themeState } from '$lib/theme.svelte';
 	import { i18n, currentLang } from '$lib/i18n.svelte';
+	import favicon from '$lib/assets/favicon.svg';
 
 	function handleLangChange(e: Event) {
 		const target = e.target as HTMLSelectElement;
@@ -12,7 +13,7 @@
 <header>
 	<div class="container">
 		<a href="/" class="logo">
-			<span class="icon">cv</span>
+			<img src={favicon} alt="Logo" class="icon" />
 			<span class="text">{i18n.t('header.title')}</span>
 		</a>
 
@@ -89,12 +90,9 @@
 	}
 
 	.logo .icon {
-		background-color: var(--accent-color);
-		color: white;
-		padding: 0.25rem 0.5rem;
-		border-radius: 4px;
-		font-weight: 800;
-		letter-spacing: -0.5px;
+		width: 32px;
+		height: 32px;
+		display: block;
 	}
 
 	.logo .text {
