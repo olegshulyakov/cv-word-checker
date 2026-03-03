@@ -1,11 +1,32 @@
 <script lang="ts">
-	let cvText = $state('');
-	let jdText = $state('');
+	import { createPersistentState } from '$lib/state.svelte';
+	import { readFileAsText } from '$lib/utils/file';
+
+	const cvText = createPersistentState('cvwc_cv', '');
+	const jdText = createPersistentState('cvwc_jd', '');
 	let analyzing = $state(false);
 	let hasAnalyzed = $state(false);
 
+	async function handleDrop(e: DragEvent, type: 'cv' | 'jd') {
+		e.preventDefault();
+		const file = e.dataTransfer?.files[0];
+		if (file) {
+			const ext = file.name.split('.').pop()?.toLowerCase();
+			if (['txt', 'md', 'html'].includes(ext || '')) {
+				const text = await readFileAsText(file);
+				if (type === 'cv') {
+					cvText.value = text;
+				} else {
+					jdText.value = text;
+				}
+			} else {
+				alert('Only .txt, .md, and .html files are supported.');
+			}
+		}
+	}
+
 	function handleAnalyze() {
-		if (!cvText.trim() || !jdText.trim()) return;
+		if (!cvText.value.trim() || !jdText.value.trim()) return;
 
 		analyzing = true;
 
@@ -31,7 +52,9 @@
 			<label for="cv">Your CV</label>
 			<textarea
 				id="cv"
-				bind:value={cvText}
+				bind:value={cvText.value}
+				ondrop={(e) => handleDrop(e, 'cv')}
+				ondragover={(e) => e.preventDefault()}
 				placeholder="Paste your full resume text here..."
 				spellcheck="false"
 			></textarea>
@@ -41,7 +64,9 @@
 			<label for="jd">Job Description</label>
 			<textarea
 				id="jd"
-				bind:value={jdText}
+				bind:value={jdText.value}
+				ondrop={(e) => handleDrop(e, 'jd')}
+				ondragover={(e) => e.preventDefault()}
 				placeholder="Paste the job posting requirements here..."
 				spellcheck="false"
 			></textarea>
@@ -52,7 +77,7 @@
 		<button
 			class="btn-primary"
 			onclick={handleAnalyze}
-			disabled={!cvText.trim() || !jdText.trim() || analyzing}
+			disabled={!cvText.value.trim() || !jdText.value.trim() || analyzing}
 		>
 			{#if analyzing}
 				Analyzing...

@@ -1,7 +1,12 @@
+<script lang="ts">
+	import { clearAllData } from '$lib/state.svelte';
+</script>
+
 <footer class="footer">
 	<div class="container">
 		<p class="processing-note">All processing is local. Your data never leaves your browser.</p>
 		<nav class="links">
+			<button class="btn-clear" onclick={clearAllData}>Clear all data</button>
 			<a href="/privacy">Privacy Policy</a>
 		</nav>
 	</div>
@@ -41,15 +46,24 @@
 
 	.links {
 		display: flex;
+		align-items: center;
 		gap: 1rem;
 	}
 
-	a {
+	a, .btn-clear {
 		color: var(--text-muted);
 		text-decoration: none;
 	}
 
-	a:hover {
+	.btn-clear {
+		background: none;
+		border: none;
+		padding: 0;
+		font: inherit;
+		cursor: pointer;
+	}
+
+	a:hover, .btn-clear:hover {
 		color: var(--accent-color);
 		text-decoration: underline;
 	}

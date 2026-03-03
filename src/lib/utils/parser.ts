@@ -1,0 +1,30 @@
+export function stripHtmlAndMarkdown(text: string): string {
+	if (!text) return '';
+
+	// Simple HTML strip
+	let parsed = text.replace(/<[^>]+>/g, ' ');
+
+	// Decode some common HTML entities
+	parsed = parsed
+		.replace(/&nbsp;/g, ' ')
+		.replace(/&amp;/g, '&')
+		.replace(/&lt;/g, '<')
+		.replace(/&gt;/g, '>');
+
+	// Simple markdown strip (headers, bold, italic, lists, links)
+	// Remove blockquotes
+	parsed = parsed.replace(/^>\s+/gm, '');
+	// Remove list markers
+	parsed = parsed.replace(/^[-*+]\s+/gm, '');
+	parsed = parsed.replace(/^\d+\.\s+/gm, '');
+	// Remove headers
+	parsed = parsed.replace(/^#{1,6}\s+/gm, '');
+	// Remove links [text](url) -> text
+	parsed = parsed.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+	// Remove bold/italic (catch **, *, __, _)
+	parsed = parsed.replace(/(\*\*|__)(.*?)\1/g, '$2');
+	parsed = parsed.replace(/(\*|_)(.*?)\1/g, '$2');
+
+	// Normalize spaces
+	return parsed.replace(/\s+/g, ' ').trim();
+}

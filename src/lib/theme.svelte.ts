@@ -8,7 +8,7 @@ export class ThemeState {
 
 	constructor() {
 		if (browser) {
-			const localTheme = localStorage.getItem('theme') as ThemePreference | null;
+			const localTheme = localStorage.getItem('cvwc_theme') as ThemePreference | null;
 			this.preference = localTheme === 'light' || localTheme === 'dark' ? localTheme : 'system';
 			this.apply();
 
@@ -25,9 +25,9 @@ export class ThemeState {
 		this.preference = theme;
 		if (browser) {
 			if (theme === 'system') {
-				localStorage.removeItem('theme');
+				localStorage.removeItem('cvwc_theme');
 			} else {
-				localStorage.setItem('theme', theme);
+				localStorage.setItem('cvwc_theme', theme);
 			}
 			this.apply();
 		}
