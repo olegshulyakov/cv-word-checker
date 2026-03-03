@@ -68,7 +68,11 @@
 				<span class="tooltip" aria-hidden="true">
 					<strong>{i18n.t('results.weakWordsTooltipTitle')}</strong><br />
 					{i18n.t('results.weakWordsTooltipPrefix')}
-					{segment.finding.suggestions.join(', ')}
+					<ul class="suggestion-list">
+						{#each segment.finding.suggestions as suggestion}
+							<li>{suggestion}</li>
+						{/each}
+					</ul>
 				</span>
 			</span>
 		{/if}
@@ -155,8 +159,20 @@
 	}
 
 	strong {
-		display: block;
-		margin-bottom: 0.25rem;
 		color: #ffc107;
+	}
+
+	.suggestion-list {
+		margin: 0;
+		padding: 0 0 0 1.25rem;
+		list-style: disc;
+	}
+
+	.suggestion-list li {
+		margin-bottom: 0.1rem;
+	}
+
+	.suggestion-list li:last-child {
+		margin-bottom: 0;
 	}
 </style>
