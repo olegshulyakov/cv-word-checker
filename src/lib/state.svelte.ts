@@ -43,8 +43,15 @@ export const STORAGE_KEYS = {
 	AI_CUSTOM_URL: 'cvwc_ai_custom_url'
 };
 
-export function clearAllData() {
-	if (!browser) return;
-	Object.values(STORAGE_KEYS).forEach((k) => localStorage.removeItem(k));
-	window.location.reload();
+export function clearAllData(confirmMessage: string) {
+	if (browser) {
+		if (!confirm(confirmMessage)) return;
+
+		try {
+			Object.values(STORAGE_KEYS).forEach((k) => localStorage.removeItem(k));
+			window.location.reload();
+		} catch (e) {
+			console.error('Failed to clear data:', e);
+		}
+	}
 }

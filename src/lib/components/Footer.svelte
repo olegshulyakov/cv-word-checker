@@ -9,7 +9,11 @@
 		<nav class="links">
 			<button
 				class="btn-clear"
-				onclick={() => clearAllData(i18n.t('footer.clearConfirm'))}
+				onclick={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					clearAllData(i18n.t('footer.clearConfirm'));
+				}}
 				type="button"
 			>
 				{i18n.t('footer.clearBtn')}
