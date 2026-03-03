@@ -27,7 +27,7 @@
 		"results.weakWordsDesc": "Мы нашли фразы, которые можно усилить. Наведите на выделенные слова для просмотра предложений.",
 		"results.weakWordsSuccess": "Отличная работа! В вашем резюме нет слабых или пассивных фраз.",
 		"results.weakWordsTooltipTitle": "Слабая фраза",
-		"results.weakWordsTooltipPrefix": "Рассмотрите возможность замены:",
+		"results.weakWordsTooltipPrefix": "Замена:",
 		"results.tableKeyword": "Ключевое слово",
 		"results.tableFoundInCv": "Найдено в резюме",
 		"results.tableFoundInPd": "Найдено в вакансии",
