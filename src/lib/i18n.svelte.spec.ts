@@ -9,7 +9,7 @@ vi.mock('./locales/en.json', () => ({
 			'page.analyzeBtn': 'Analyze'
 		},
 		stopWords: ['the', 'a'],
-		weakWords: { 'helped': ['assisted'] },
+		weakWords: { helped: ['assisted'] },
 		technicalSkillsKeywords: ['java'],
 		abilitiesKeywords: ['leadership'],
 		titleAndDegreeKeywords: ['engineer']
@@ -22,7 +22,7 @@ vi.mock('./locales/de.json', () => ({
 			'header.title': 'Lebenslauf-Check'
 		},
 		stopWords: ['der', 'die'],
-		weakWords: { 'geholfen': ['unterstützt'] },
+		weakWords: { geholfen: ['unterstützt'] },
 		technicalSkillsKeywords: ['java'],
 		abilitiesKeywords: ['führung'],
 		titleAndDegreeKeywords: ['ingenieur']
