@@ -3,6 +3,7 @@ import { stripHtmlAndMarkdown } from './parser';
 export interface KeywordResult {
 	term: string;
 	count: number;
+	cvCount?: number;
 }
 
 export interface MatchResults {
@@ -48,16 +49,16 @@ export function matchKeywords(
 	const jdKeywords = extractKeywords(jdText, stopWords);
 	const cvKeywords = extractKeywords(cvText, stopWords);
 
-	const cvTerms = new Set(cvKeywords.map((k) => k.term));
+	const cvTermCounts = new Map(cvKeywords.map((k) => [k.term, k.count]));
 
 	const presentKeywords: KeywordResult[] = [];
 	const missingKeywords: KeywordResult[] = [];
 
 	for (const kw of jdKeywords) {
-		if (cvTerms.has(kw.term)) {
-			presentKeywords.push(kw);
+		if (cvTermCounts.has(kw.term)) {
+			presentKeywords.push({ ...kw, cvCount: cvTermCounts.get(kw.term) });
 		} else {
-			missingKeywords.push(kw);
+			missingKeywords.push({ ...kw, cvCount: 0 });
 		}
 	}
 

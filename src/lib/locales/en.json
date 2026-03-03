@@ -28,7 +28,10 @@
 		"results.noOtherMissing": "No missing other terms!",
 		"results.weakWordsTitle": "Word Improvement Suggestions",
 		"results.weakWordsDesc": "We found phrases that could be strengthened. Hover over highlighted words for suggestions.",
-		"results.weakWordsSuccess": "Great job! We didn't find any weak or passive phrases in your CV."
+		"results.weakWordsSuccess": "Great job! We didn't find any weak or passive phrases in your CV.",
+		"results.tableKeyword": "Keyword",
+		"results.tableFoundInCv": "Found in CV",
+		"results.tableFoundInPd": "Found in PD"
 	},
 	"stopWords": [
 		"a",

@@ -46,127 +46,141 @@
 
 	<div class="keywords-section">
 		<h3>{i18n.t('results.skillsTitle')}</h3>
-		<div class="keyword-lists">
-			<div class="keyword-list">
-				<h4>
-					{i18n.t('results.presentInCv')}
-					<span class="count">({results.match.groups.skills.present.length})</span>
-				</h4>
-				<ul class="chips">
+		<div class="table-container">
+			<table class="keywordtable">
+				<thead>
+					<tr>
+						<th>{i18n.t('results.tableKeyword')}</th>
+						<th class="text-center">{i18n.t('results.tableFoundInCv')}</th>
+						<th class="text-center">{i18n.t('results.tableFoundInPd')}</th>
+					</tr>
+				</thead>
+				<tbody>
 					{#each results.match.groups.skills.present as kw (kw.term)}
-						<li class="chip chip-present">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="chip-icon"><polyline points="20 6 9 17 4 12"></polyline></svg
-							>
-							{kw.term} <span class="freq">({kw.count})</span>
-						</li>
-					{:else}
-						<li class="empty-state">{i18n.t('results.noMatchingSkills')}</li>
+						<tr>
+							<td>
+								<span class="status-icon present">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="14"
+										height="14"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg
+									>
+								</span>
+								<strong>{kw.term}</strong>
+							</td>
+							<td class="text-center count-cell">{kw.cvCount || 0}</td>
+							<td class="text-center count-cell">{kw.count}</td>
+						</tr>
 					{/each}
-				</ul>
-			</div>
-
-			<div class="keyword-list">
-				<h4>
-					{i18n.t('results.missingFromCv')}
-					<span class="count">({results.match.groups.skills.missing.length})</span>
-				</h4>
-				<ul class="chips">
 					{#each results.match.groups.skills.missing as kw (kw.term)}
-						<li class="chip chip-missing">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="chip-icon"
-								><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
-								></line></svg
-							>
-							{kw.term}
-						</li>
-					{:else}
-						<li class="empty-state">{i18n.t('results.noMissingSkills')}</li>
+						<tr class="missing-row">
+							<td>
+								<span class="status-icon missing">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="14"
+										height="14"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
+										></line></svg
+									>
+								</span>
+								<strong>{kw.term}</strong>
+							</td>
+							<td class="text-center count-cell error-text">0</td>
+							<td class="text-center count-cell">{kw.count}</td>
+						</tr>
 					{/each}
-				</ul>
-			</div>
+					{#if results.match.groups.skills.present.length === 0 && results.match.groups.skills.missing.length === 0}
+						<tr>
+							<td colspan="3" class="empty-state text-center">
+								{i18n.t('results.noMatchingSkills')}
+							</td>
+						</tr>
+					{/if}
+				</tbody>
+			</table>
 		</div>
 	</div>
 
 	<div class="keywords-section">
 		<h3>{i18n.t('results.otherTermsTitle')}</h3>
-		<div class="keyword-lists">
-			<div class="keyword-list">
-				<h4>
-					{i18n.t('results.presentInCv')}
-					<span class="count">({results.match.groups.other.present.length})</span>
-				</h4>
-				<ul class="chips">
+		<div class="table-container">
+			<table class="keywordtable">
+				<thead>
+					<tr>
+						<th>{i18n.t('results.tableKeyword')}</th>
+						<th class="text-center">{i18n.t('results.tableFoundInCv')}</th>
+						<th class="text-center">{i18n.t('results.tableFoundInPd')}</th>
+					</tr>
+				</thead>
+				<tbody>
 					{#each results.match.groups.other.present as kw (kw.term)}
-						<li class="chip chip-present">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="chip-icon"><polyline points="20 6 9 17 4 12"></polyline></svg
-							>
-							{kw.term} <span class="freq">({kw.count})</span>
-						</li>
-					{:else}
-						<li class="empty-state">{i18n.t('results.noOtherMatching')}</li>
+						<tr>
+							<td>
+								<span class="status-icon present">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="14"
+										height="14"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg
+									>
+								</span>
+								<strong>{kw.term}</strong>
+							</td>
+							<td class="text-center count-cell">{kw.cvCount || 0}</td>
+							<td class="text-center count-cell">{kw.count}</td>
+						</tr>
 					{/each}
-				</ul>
-			</div>
-
-			<div class="keyword-list">
-				<h4>
-					{i18n.t('results.missingFromCv')}
-					<span class="count">({results.match.groups.other.missing.length})</span>
-				</h4>
-				<ul class="chips">
 					{#each results.match.groups.other.missing as kw (kw.term)}
-						<li class="chip chip-missing">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="chip-icon"
-								><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
-								></line></svg
-							>
-							{kw.term}
-						</li>
-					{:else}
-						<li class="empty-state">{i18n.t('results.noOtherMissing')}</li>
+						<tr class="missing-row">
+							<td>
+								<span class="status-icon missing">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="14"
+										height="14"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
+										></line></svg
+									>
+								</span>
+								<strong>{kw.term}</strong>
+							</td>
+							<td class="text-center count-cell error-text">0</td>
+							<td class="text-center count-cell">{kw.count}</td>
+						</tr>
 					{/each}
-				</ul>
-			</div>
+					{#if results.match.groups.other.present.length === 0 && results.match.groups.other.missing.length === 0}
+						<tr>
+							<td colspan="3" class="empty-state text-center">
+								{i18n.t('results.noOtherMatching')}
+							</td>
+						</tr>
+					{/if}
+				</tbody>
+			</table>
 		</div>
 	</div>
 
@@ -268,92 +282,113 @@
 		font-weight: 600;
 	}
 
-	h4 {
-		margin: 0 0 0.75rem 0;
-		font-size: 1rem;
-		color: var(--text-muted);
+	.table-container {
+		width: 100%;
+		overflow-x: auto;
+		border: 1px solid var(--border-color);
+		border-radius: 8px;
+		background: var(--bg-color);
+	}
+
+	.keywordtable {
+		width: 100%;
+		border-collapse: collapse;
+		text-align: left;
+		font-size: 0.9375rem;
+	}
+
+	.keywordtable th,
+	.keywordtable td {
+		padding: 0.75rem 1rem;
+		border-bottom: 1px solid var(--border-color);
+	}
+
+	.keywordtable th {
+		background-color: rgba(0, 0, 0, 0.03);
+		font-weight: 600;
+		color: var(--text-color);
+	}
+
+	:global([data-theme='dark']) .keywordtable th {
+		background-color: rgba(255, 255, 255, 0.03);
+	}
+
+	.keywordtable tr:last-child td {
+		border-bottom: none;
+	}
+
+	.keywordtable tbody tr:hover {
+		background-color: rgba(0, 0, 0, 0.015);
+	}
+
+	:global([data-theme='dark']) .keywordtable tbody tr:hover {
+		background-color: rgba(255, 255, 255, 0.015);
+	}
+
+	.missing-row {
+		background-color: rgba(245, 158, 11, 0.02);
+	}
+
+	:global([data-theme='dark']) .missing-row {
+		background-color: rgba(245, 158, 11, 0.05);
+	}
+
+	.text-center {
+		text-align: center !important;
+	}
+
+	.count-cell {
+		font-variant-numeric: tabular-nums;
 		font-weight: 500;
 	}
 
-	.count {
-		font-size: 0.875rem;
-		font-weight: normal;
-		opacity: 0.8;
+	.error-text {
+		color: #d97706;
 	}
 
-	.keyword-lists {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1.5rem;
+	:global([data-theme='dark']) .error-text {
+		color: #fbbf24;
 	}
 
-	@media (min-width: 768px) {
-		.keyword-lists {
-			grid-template-columns: 1fr 1fr;
-		}
-	}
-
-	.chips {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-	}
-
-	.chip {
+	.status-icon {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.375rem;
-		padding: 0.25rem 0.75rem;
-		border-radius: 16px;
-		font-size: 0.875rem;
-		font-weight: 500;
+		justify-content: center;
+		margin-right: 0.5rem;
+		vertical-align: middle;
 	}
 
-	.chip-icon {
-		flex-shrink: 0;
+	.status-icon.present {
+		color: #059669;
 	}
 
-	.chip-present {
-		background-color: rgba(16, 185, 129, 0.1); /* emerald-500 tint */
-		color: #059669; /* emerald-600 */
-		border: 1px solid rgba(16, 185, 129, 0.2);
+	:global([data-theme='dark']) .status-icon.present {
+		color: #34d399;
 	}
 
-	:global([data-theme='dark']) .chip-present {
-		color: #34d399; /* emerald-400 */
+	.status-icon.missing {
+		color: #d97706;
 	}
 
-	.chip-missing {
-		background-color: rgba(245, 158, 11, 0.1); /* amber-500 tint */
-		color: #d97706; /* amber-600 */
-		border: 1px solid rgba(245, 158, 11, 0.2);
-	}
-
-	:global([data-theme='dark']) .chip-missing {
-		color: #fbbf24; /* amber-400 */
-	}
-
-	.freq {
-		opacity: 0.7;
-		font-size: 0.75rem;
+	:global([data-theme='dark']) .status-icon.missing {
+		color: #fbbf24;
 	}
 
 	.empty-state {
 		font-size: 0.875rem;
 		color: var(--text-muted);
 		font-style: italic;
+		padding: 1.5rem !important;
 	}
 
 	.empty-state.success {
 		font-style: normal;
-		padding: 1rem;
+		padding: 1rem !important;
 		background-color: rgba(16, 185, 129, 0.1);
 		color: #059669;
 		border-radius: 8px;
 		border: 1px solid rgba(16, 185, 129, 0.2);
+		text-align: left !important;
 	}
 
 	:global([data-theme='dark']) .empty-state.success {
