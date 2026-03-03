@@ -7,7 +7,10 @@ export function createPersistentState<T>(key: string, initialValue: T) {
 		const storedValue = localStorage.getItem(key);
 		if (storedValue !== null) {
 			try {
-				value = typeof initialValue === 'string' ? (storedValue as unknown as T) : JSON.parse(storedValue);
+				value =
+					typeof initialValue === 'string'
+						? (storedValue as unknown as T)
+						: JSON.parse(storedValue);
 			} catch {
 				// use initialValue on parse error
 			}

@@ -50,7 +50,8 @@
 		gap: 1rem;
 	}
 
-	a, .btn-clear {
+	a,
+	.btn-clear {
 		color: var(--text-muted);
 		text-decoration: none;
 	}
@@ -63,7 +64,8 @@
 		cursor: pointer;
 	}
 
-	a:hover, .btn-clear:hover {
+	a:hover,
+	.btn-clear:hover {
 		color: var(--accent-color);
 		text-decoration: underline;
 	}

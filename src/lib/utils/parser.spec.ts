@@ -4,7 +4,7 @@ import { stripHtmlAndMarkdown } from './parser';
 describe('stripHtmlAndMarkdown', () => {
 	it('should handle empty strings', () => {
 		expect(stripHtmlAndMarkdown('')).toBe('');
-		expect(stripHtmlAndMarkdown(null as any)).toBe('');
+		expect(stripHtmlAndMarkdown(null as unknown as string)).toBe('');
 	});
 
 	it('should strip HTML tags', () => {
@@ -39,7 +39,9 @@ describe('stripHtmlAndMarkdown', () => {
 	});
 
 	it('should strip blockquotes', () => {
-		expect(stripHtmlAndMarkdown(`> Quote line 1\n> Quote line 2`)).toBe('Quote line 1 Quote line 2');
+		expect(stripHtmlAndMarkdown(`> Quote line 1\n> Quote line 2`)).toBe(
+			'Quote line 1 Quote line 2'
+		);
 	});
 
 	it('should handle a mix of formatting', () => {
