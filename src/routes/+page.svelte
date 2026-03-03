@@ -75,19 +75,17 @@
 		</div>
 	</div>
 
-	<div class="actions">
-		<button
-			class="btn-primary"
-			onclick={handleAnalyze}
-			disabled={!cvText.value.trim() || !jdText.value.trim() || analyzing}
-		>
-			{#if analyzing}
-				{i18n.t('page.analyzingBtn')}
-			{:else}
-				{i18n.t('page.analyzeBtn')}
-			{/if}
-		</button>
-	</div>
+	{#if cvText.value.trim() && jdText.value.trim()}
+		<div class="actions">
+			<button class="btn-primary" onclick={handleAnalyze} disabled={analyzing}>
+				{#if analyzing}
+					{i18n.t('page.analyzingBtn')}
+				{:else}
+					{i18n.t('page.analyzeBtn')}
+				{/if}
+			</button>
+		</div>
+	{/if}
 
 	{#if analysisResult}
 		<ResultsPanel results={analysisResult} cvText={cvText.value} />
