@@ -1,7 +1,12 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 import { analyze } from './engine';
+import { i18n } from '../i18n.svelte';
 
 describe('engine', () => {
+	beforeAll(async () => {
+		await i18n.loadLanguage('en');
+	});
+
 	it('should analyze CV and JD', async () => {
 		const cvText = 'I am a React developer. I was responsible for the frontend.';
 		const jdText = 'Looking for a React and Svelte developer who is good at frontend.';

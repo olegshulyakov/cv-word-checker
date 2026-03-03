@@ -3,6 +3,7 @@
 	import { readFileAsText } from '$lib/utils/file';
 	import { analyze, type AnalysisResults } from '$lib/utils/engine';
 	import ResultsPanel from '$lib/components/ResultsPanel.svelte';
+	import { i18n } from '$lib/i18n.svelte';
 
 	const cvText = createPersistentState('cvwc_cv', '');
 	const jdText = createPersistentState('cvwc_jd', '');
@@ -22,7 +23,7 @@
 					jdText.value = text;
 				}
 			} else {
-				alert('Only .txt, .md, and .html files are supported.');
+				alert(i18n.t('page.fileError'));
 			}
 		}
 	}
@@ -42,34 +43,33 @@
 
 <div class="page-container">
 	<header class="page-header">
-		<h1>Optimize your CV for the job</h1>
+		<h1>{i18n.t('page.title')}</h1>
 		<p>
-			Paste your CV and the target job description below to identify missing keywords and areas for
-			improvement.
+			{i18n.t('page.subtitle')}
 		</p>
 	</header>
 
 	<div class="inputs-grid">
 		<div class="input-group">
-			<label for="cv">Your CV</label>
+			<label for="cv">{i18n.t('page.cvLabel')}</label>
 			<textarea
 				id="cv"
 				bind:value={cvText.value}
 				ondrop={(e) => handleDrop(e, 'cv')}
 				ondragover={(e) => e.preventDefault()}
-				placeholder="Paste your full resume text here..."
+				placeholder={i18n.t('page.cvPlaceholder')}
 				spellcheck="false"
 			></textarea>
 		</div>
 
 		<div class="input-group">
-			<label for="jd">Job Description</label>
+			<label for="jd">{i18n.t('page.jdLabel')}</label>
 			<textarea
 				id="jd"
 				bind:value={jdText.value}
 				ondrop={(e) => handleDrop(e, 'jd')}
 				ondragover={(e) => e.preventDefault()}
-				placeholder="Paste the job posting requirements here..."
+				placeholder={i18n.t('page.jdPlaceholder')}
 				spellcheck="false"
 			></textarea>
 		</div>
@@ -82,9 +82,9 @@
 			disabled={!cvText.value.trim() || !jdText.value.trim() || analyzing}
 		>
 			{#if analyzing}
-				Analyzing...
+				{i18n.t('page.analyzingBtn')}
 			{:else}
-				Analyze Match
+				{i18n.t('page.analyzeBtn')}
 			{/if}
 		</button>
 	</div>

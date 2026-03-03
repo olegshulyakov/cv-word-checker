@@ -1,8 +1,6 @@
 import { matchKeywords, type MatchResults } from './analyzer';
 import { findWeakWords, type WeakWordFinding } from './wordcheck';
-
-// In the future, this can be dynamically loaded based on the lang parameter
-import { stopWords, weakWords, skillsKeywords } from '../dictionaries/en';
+import { i18n } from '../i18n.svelte';
 
 export interface AnalysisResults {
 	match: MatchResults;
@@ -13,11 +11,14 @@ export interface AnalysisResults {
 export async function analyze(cvText: string, jdText: string): Promise<AnalysisResults> {
 	const start = performance.now();
 
-	// In the future, we would dynamically load the dictionary based on `lang`
-	// For now, we only have English, so we use the statically imported one.
-	const currentStopWords = stopWords;
-	const currentWeakWords = weakWords;
-	const currentSkillsKeywords = skillsKeywords;
+	const dict = i18n.dict;
+	if (!dict) {
+		throw new Error('Dictionary not loaded');
+	}
+
+	const currentStopWords = new Set(dict.stopWords);
+	const currentWeakWords = dict.weakWords;
+	const currentSkillsKeywords = new Set(dict.skillsKeywords);
 
 	const match = matchKeywords(cvText, jdText, currentStopWords, currentSkillsKeywords);
 	const weakWordsFound = findWeakWords(cvText, currentWeakWords);

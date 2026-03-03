@@ -3,8 +3,14 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import favicon from '$lib/assets/favicon.svg';
+	import { i18n, currentLang } from '$lib/i18n.svelte';
+	import { onMount } from 'svelte';
 
 	let { children } = $props();
+
+	onMount(() => {
+		i18n.loadLanguage(currentLang.value);
+	});
 </script>
 
 <svelte:head>
@@ -12,15 +18,17 @@
 	<title>CV Word Checker</title>
 </svelte:head>
 
-<div class="app-shell">
-	<Header />
+{#if i18n.isLoaded}
+	<div class="app-shell">
+		<Header />
 
-	<main>
-		{@render children()}
-	</main>
+		<main>
+			{@render children()}
+		</main>
 
-	<Footer />
-</div>
+		<Footer />
+	</div>
+{/if}
 
 <style>
 	.app-shell {

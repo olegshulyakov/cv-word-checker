@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { AnalysisResults } from '$lib/utils/engine';
 	import HighlightedCv from './HighlightedCv.svelte';
+	import { i18n } from '$lib/i18n.svelte';
 
 	let {
 		results,
@@ -18,15 +19,15 @@
 	});
 
 	function getScoreLabel(score: number) {
-		if (score >= 80) return 'Excellent Match';
-		if (score >= 50) return 'Fair Match';
-		return 'Needs Improvement';
+		if (score >= 80) return i18n.t('results.scoreExcellent');
+		if (score >= 50) return i18n.t('results.scoreFair');
+		return i18n.t('results.scoreNeedsImprovement');
 	}
 </script>
 
 <section class="results-panel" aria-live="polite">
 	<div class="header-section">
-		<h2>Analysis Results</h2>
+		<h2>{i18n.t('results.title')}</h2>
 		<div class="score-container">
 			<div
 				class="score-ring"
@@ -38,17 +39,18 @@
 			</div>
 			<div class="score-text">
 				<strong>{getScoreLabel(results.match.matchScore)}</strong>
-				<span class="time-label">Analyzed in {results.analysisTimeMs}ms</span>
+				<span class="time-label">{i18n.t('results.analyzedIn')} {results.analysisTimeMs}ms</span>
 			</div>
 		</div>
 	</div>
 
 	<div class="keywords-section">
-		<h3>Skills & Technologies</h3>
+		<h3>{i18n.t('results.skillsTitle')}</h3>
 		<div class="keyword-lists">
 			<div class="keyword-list">
 				<h4>
-					Present in CV <span class="count">({results.match.groups.skills.present.length})</span>
+					{i18n.t('results.presentInCv')}
+					<span class="count">({results.match.groups.skills.present.length})</span>
 				</h4>
 				<ul class="chips">
 					{#each results.match.groups.skills.present as kw (kw.term)}
@@ -68,14 +70,15 @@
 							{kw.term} <span class="freq">({kw.count})</span>
 						</li>
 					{:else}
-						<li class="empty-state">No matching skills found.</li>
+						<li class="empty-state">{i18n.t('results.noMatchingSkills')}</li>
 					{/each}
 				</ul>
 			</div>
 
 			<div class="keyword-list">
 				<h4>
-					Missing from CV <span class="count">({results.match.groups.skills.missing.length})</span>
+					{i18n.t('results.missingFromCv')}
+					<span class="count">({results.match.groups.skills.missing.length})</span>
 				</h4>
 				<ul class="chips">
 					{#each results.match.groups.skills.missing as kw (kw.term)}
@@ -97,7 +100,7 @@
 							{kw.term}
 						</li>
 					{:else}
-						<li class="empty-state">No missing skills!</li>
+						<li class="empty-state">{i18n.t('results.noMissingSkills')}</li>
 					{/each}
 				</ul>
 			</div>
@@ -105,11 +108,12 @@
 	</div>
 
 	<div class="keywords-section">
-		<h3>Other Terms</h3>
+		<h3>{i18n.t('results.otherTermsTitle')}</h3>
 		<div class="keyword-lists">
 			<div class="keyword-list">
 				<h4>
-					Present in CV <span class="count">({results.match.groups.other.present.length})</span>
+					{i18n.t('results.presentInCv')}
+					<span class="count">({results.match.groups.other.present.length})</span>
 				</h4>
 				<ul class="chips">
 					{#each results.match.groups.other.present as kw (kw.term)}
@@ -129,14 +133,15 @@
 							{kw.term} <span class="freq">({kw.count})</span>
 						</li>
 					{:else}
-						<li class="empty-state">No other matching terms found.</li>
+						<li class="empty-state">{i18n.t('results.noOtherMatching')}</li>
 					{/each}
 				</ul>
 			</div>
 
 			<div class="keyword-list">
 				<h4>
-					Missing from CV <span class="count">({results.match.groups.other.missing.length})</span>
+					{i18n.t('results.missingFromCv')}
+					<span class="count">({results.match.groups.other.missing.length})</span>
 				</h4>
 				<ul class="chips">
 					{#each results.match.groups.other.missing as kw (kw.term)}
@@ -158,7 +163,7 @@
 							{kw.term}
 						</li>
 					{:else}
-						<li class="empty-state">No missing other terms!</li>
+						<li class="empty-state">{i18n.t('results.noOtherMissing')}</li>
 					{/each}
 				</ul>
 			</div>
@@ -166,16 +171,16 @@
 	</div>
 
 	<div class="weak-words-section">
-		<h3>Word Improvement Suggestions ({results.weakWords.length})</h3>
+		<h3>{i18n.t('results.weakWordsTitle')} ({results.weakWords.length})</h3>
 		<p class="section-desc">
-			We found phrases that could be strengthened. Hover over highlighted words for suggestions.
+			{i18n.t('results.weakWordsDesc')}
 		</p>
 
 		{#if results.weakWords.length > 0}
 			<HighlightedCv text={cvText} findings={results.weakWords} />
 		{:else}
 			<div class="empty-state success">
-				<p>Great job! We didn't find any weak or passive phrases in your CV.</p>
+				<p>{i18n.t('results.weakWordsSuccess')}</p>
 			</div>
 		{/if}
 	</div>

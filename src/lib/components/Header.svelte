@@ -1,26 +1,41 @@
 <script lang="ts">
 	import { Sun, Moon, Monitor, Github, Globe } from 'lucide-svelte';
 	import { themeState } from '$lib/theme.svelte';
+	import { i18n, currentLang } from '$lib/i18n.svelte';
+
+	function handleLangChange(e: Event) {
+		const target = e.target as HTMLSelectElement;
+		i18n.loadLanguage(target.value);
+	}
 </script>
 
 <header>
 	<div class="container">
 		<a href="/" class="logo">
 			<span class="icon">cv</span>
-			<span class="text">Word Checker</span>
+			<span class="text">{i18n.t('header.title')}</span>
 		</a>
 
 		<div class="actions">
-			<!-- Language selector placeholder -->
-			<button class="icon-button" aria-label="Language selector" title="Language selector">
-				<Globe size={20} />
-			</button>
+			<div class="lang-selector">
+				<Globe size={18} class="globe-icon" />
+				<select
+					value={currentLang.value}
+					onchange={handleLangChange}
+					aria-label={i18n.t('header.languageSelector')}
+					title={i18n.t('header.languageSelector')}
+				>
+					{#each i18n.supportedLangs as lang (lang.code)}
+						<option value={lang.code}>{lang.label}</option>
+					{/each}
+				</select>
+			</div>
 
 			<button
 				class="icon-button"
 				onclick={() => themeState.toggle()}
-				aria-label="Toggle theme"
-				title="Toggle theme (current: {themeState.preference})"
+				aria-label={i18n.t('header.toggleTheme')}
+				title="{i18n.t('header.toggleTheme')} (current: {themeState.preference})"
 			>
 				{#if themeState.preference === 'light'}
 					<Sun size={20} />
@@ -36,8 +51,8 @@
 				target="_blank"
 				rel="noreferrer"
 				class="icon-button"
-				aria-label="GitHub repository"
-				title="GitHub repository"
+				aria-label={i18n.t('header.githubRepo')}
+				title={i18n.t('header.githubRepo')}
 			>
 				<Github size={20} />
 			</a>
@@ -96,6 +111,38 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+	}
+
+	.lang-selector {
+		display: flex;
+		align-items: center;
+		position: relative;
+		color: var(--text-muted);
+	}
+
+	:global(.globe-icon) {
+		position: absolute;
+		left: 0.5rem;
+		pointer-events: none;
+	}
+
+	.lang-selector select {
+		appearance: none;
+		background: transparent;
+		border: 1px solid transparent;
+		color: var(--text-color);
+		padding: 0.25rem 0.5rem 0.25rem 2rem;
+		border-radius: 6px;
+		font-size: 0.875rem;
+		cursor: pointer;
+		outline: none;
+		transition: all 0.2s;
+	}
+
+	.lang-selector select:hover,
+	.lang-selector select:focus {
+		background-color: var(--surface-hover);
+		border-color: var(--border-color);
 	}
 
 	.icon-button {
