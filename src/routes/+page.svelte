@@ -33,13 +33,19 @@
 		}
 	}
 
+	let error = $state<string | null>(null);
+
 	async function handleAnalyze() {
 		if (!cvText.value.trim() || !jdText.value.trim()) return;
 
 		analyzing = true;
+		error = null;
 
 		try {
 			analysisResult = await analyze(cvText.value, jdText.value);
+		} catch (e) {
+			console.error('Analysis failed:', e);
+			error = i18n.t('page.analysisError');
 		} finally {
 			analyzing = false;
 		}
@@ -89,6 +95,12 @@
 					{i18n.t('page.analyzeBtn')}
 				{/if}
 			</button>
+		</div>
+	{/if}
+
+	{#if error}
+		<div class="error-banner">
+			{error}
 		</div>
 	{/if}
 
@@ -183,5 +195,15 @@
 	.btn-primary:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
+	}
+
+	.error-banner {
+		background-color: rgba(239, 68, 68, 0.1);
+		color: var(--error-color);
+		padding: 1rem;
+		border-radius: 8px;
+		border: 1px solid rgba(239, 68, 68, 0.2);
+		text-align: center;
+		font-weight: 500;
 	}
 </style>

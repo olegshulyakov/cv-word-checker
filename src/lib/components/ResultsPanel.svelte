@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { AnalysisResults } from '$lib/utils/engine';
+	import type { KeywordResult } from '$lib/utils/analyzer';
 	import HighlightedCv from './HighlightedCv.svelte';
 	import { i18n } from '$lib/i18n.svelte';
 
@@ -14,7 +15,7 @@
 	let scoreColor = $derived.by(() => {
 		const score = results.match.matchScore;
 		if (score >= 80) return 'var(--success-color)';
-		if (score >= 50) return 'var(--warning-color, #f59e0b)';
+		if (score >= 50) return 'var(--warning-color)';
 		return 'var(--error-color)';
 	});
 
@@ -32,7 +33,9 @@
 			<div
 				class="score-ring"
 				role="img"
-				aria-label="Match score: {results.match.matchScore}% - {getScoreLabel(results.match.matchScore)}"
+				aria-label="Match score: {results.match.matchScore}% - {getScoreLabel(
+					results.match.matchScore
+				)}"
 				style="--score: {results.match.matchScore}; --score-color: {scoreColor};"
 			>
 				<div class="score-inner">
@@ -48,7 +51,7 @@
 
 	{#snippet keywordBlock(
 		title: string,
-		group: { present: any[]; missing: any[] },
+		group: { present: KeywordResult[]; missing: KeywordResult[] },
 		emptyStateMsg: string
 	)}
 		<div class="keywords-section">

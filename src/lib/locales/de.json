@@ -12,6 +12,7 @@
 		"page.jdPlaceholder": "Fügen Sie hier die Anforderungen der Stellenausschreibung ein...",
 		"page.analyzeBtn": "Übereinstimmung analysieren",
 		"page.analyzingBtn": "Wird analysiert...",
+		"page.analysisError": "Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
 		"page.fileError": "Nur .txt-, .md- und .html-Dateien werden unterstützt.",
 		"page.fileTooLarge": "Datei ist zu groß. Maximale Größe ist 5MB.",
 		"results.title": "Analyseergebnisse",
@@ -35,7 +36,9 @@
 		"results.otherKeywordsTitle": "Weitere Begriffe",
 		"results.titleAndDegreeTitle": "Titel & Abschluss",
 		"footer.note": "Die gesamte Verarbeitung erfolgt lokal. Ihre Daten verlassen niemals Ihren Browser.",
+		"results.noOtherMatching": "Keine weiteren passenden Begriffe gefunden.",
 		"footer.clearBtn": "Alle Daten löschen",
+		"footer.clearConfirm": "Sind Sie sicher, dass Sie alle Daten löschen möchten? Dies wird Ihren aktuellen Lebenslauf und den Text der Stellenbeschreibung löschen.",
 		"footer.privacyLink": "Datenschutzerklärung"
 	},
 	"stopWords": [

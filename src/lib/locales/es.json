@@ -12,6 +12,7 @@
 		"page.jdPlaceholder": "Pegue los requisitos de la oferta de trabajo aquí...",
 		"page.analyzeBtn": "Analizar coincidencia",
 		"page.analyzingBtn": "Analizando...",
+		"page.analysisError": "Error en el análisis. Por favor, inténtelo de nuevo.",
 		"page.fileError": "Solo se admiten archivos .txt, .md y .html.",
 		"page.fileTooLarge": "El archivo es demasiado grande. El tamaño máximo es 5MB.",
 		"results.title": "Resultados del análisis",
@@ -36,7 +37,9 @@
 		"results.titleAndDegreeTitle": "Título y Grado",
 		"footer.note": "Todo el procesamiento es local. Sus datos nunca salen de su navegador.",
 		"footer.clearBtn": "Borrar todos los datos",
-		"footer.privacyLink": "Política de Privacidad"
+		"footer.clearConfirm": "¿Está seguro de que desea borrar todos los datos? Esto eliminará su CV actual y el texto de la descripción del trabajo.",
+		"footer.privacyLink": "Política de Privacidad",
+		"results.noOtherMatching": "No se encontraron otros términos coincidentes."
 	},
 	"stopWords": [
 		"a",

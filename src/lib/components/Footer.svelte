@@ -7,7 +7,11 @@
 	<div class="container">
 		<p class="processing-note">{i18n.t('footer.note')}</p>
 		<nav class="links">
-			<button class="btn-clear" onclick={clearAllData} type="button">
+			<button
+				class="btn-clear"
+				onclick={() => clearAllData(i18n.t('footer.clearConfirm'))}
+				type="button"
+			>
 				{i18n.t('footer.clearBtn')}
 			</button>
 			<a href="/privacy">{i18n.t('footer.privacyLink')}</a>

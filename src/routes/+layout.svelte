@@ -9,7 +9,7 @@
 	let { children } = $props();
 
 	onMount(async () => {
-		i18n.loadLanguage(currentLang.value);
+		await i18n.loadLanguage(currentLang.value);
 		try {
 			const { registerSW } = await import('virtual:pwa-register');
 			registerSW({ immediate: true });
@@ -21,7 +21,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>CV Word Checker</title>
+	<title>{i18n.t('header.title')}</title>
 </svelte:head>
 
 {#if i18n.isLoaded}

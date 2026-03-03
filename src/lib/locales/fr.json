@@ -12,6 +12,7 @@
 		"page.jdPlaceholder": "Collez ici les exigences de l'offre d'emploi...",
 		"page.analyzeBtn": "Analyser la correspondance",
 		"page.analyzingBtn": "Analyse en cours...",
+		"page.analysisError": "Échec de l'analyse. Veuillez réessayer.",
 		"page.fileError": "Seuls les fichiers .txt, .md et .html sont pris en charge.",
 		"page.fileTooLarge": "Le fichier est trop volumineux. La taille maximale est de 5 Mo.",
 		"results.title": "Résultats de l'analyse",
@@ -36,7 +37,9 @@
 		"results.titleAndDegreeTitle": "Titre et Diplôme",
 		"footer.note": "Tout le traitement est local. Vos données ne quittent jamais votre navigateur.",
 		"footer.clearBtn": "Effacer toutes les données",
-		"footer.privacyLink": "Politique de confidentialité"
+		"footer.clearConfirm": "Êtes-vous sûr de vouloir effacer toutes les données ? Cela supprimera votre CV actuel et le texte de la description de poste.",
+		"footer.privacyLink": "Politique de confidentialité",
+		"results.noOtherMatching": "Aucun autre terme correspondant trouvé."
 	},
 	"stopWords": [
 		"a",

@@ -12,6 +12,7 @@
 		"page.jdPlaceholder": "在此粘贴职位的具体要求...",
 		"page.analyzeBtn": "分析匹配度",
 		"page.analyzingBtn": "正在分析...",
+		"page.analysisError": "分析失败。请再试一次。",
 		"page.fileError": "仅支持 .txt、.md 和 .html 文件。",
 		"page.fileTooLarge": "文件太大。最大限制为 5MB。",
 		"results.title": "分析结果",
@@ -36,7 +37,9 @@
 		"results.titleAndDegreeTitle": "头衔与学位",
 		"footer.note": "所有处理均在本地完成。您的数据绝不会离开浏览器。",
 		"footer.clearBtn": "清除所有数据",
-		"footer.privacyLink": "隐私政策"
+		"footer.clearConfirm": "您确定要清除所有数据吗？这将删除您当前的简历和职位描述文本。",
+		"footer.privacyLink": "隐私政策",
+		"results.noOtherMatching": "未发现其他匹配项。"
 	},
 	"stopWords": [
 		"的",

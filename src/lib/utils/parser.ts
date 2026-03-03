@@ -1,8 +1,11 @@
 export function stripHtmlAndMarkdown(text: string): string {
 	if (!text) return '';
 
+	// Remove script and style content
+	let parsed = text.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ');
+
 	// Simple HTML strip
-	let parsed = text.replace(/<[^>]+>/g, ' ');
+	parsed = parsed.replace(/<[^>]+>/g, ' ');
 
 	// Decode some common HTML entities
 	parsed = parsed

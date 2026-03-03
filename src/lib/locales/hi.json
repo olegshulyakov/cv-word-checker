@@ -12,6 +12,7 @@
 		"page.jdPlaceholder": "यहाँ नौकरी की आवश्यकताओं को पेस्ट करें...",
 		"page.analyzeBtn": "मिलान का विश्लेषण करें",
 		"page.analyzingBtn": "विश्लेषण हो रहा है...",
+		"page.analysisError": "विशेषण विफल रहा। कृपया पुनः प्रयास करें।",
 		"page.fileError": "केवल .txt, .md, और .html फ़ाइलें समर्थित हैं।",
 		"page.fileTooLarge": "फ़ाइल बहुत बड़ी है। अधिकतम आकार 5MB है।",
 		"results.title": "विश्लेषण परिणाम",
@@ -36,7 +37,9 @@
 		"results.titleAndDegreeTitle": "पद और डिग्री",
 		"footer.note": "सभी प्रोसेसिंग स्थानीय है। आपका डेटा कभी भी आपके ब्राउज़र से बाहर नहीं जाता है।",
 		"footer.clearBtn": "सभी डेटा साफ़ करें",
-		"footer.privacyLink": "गोपनीयता नीति"
+		"footer.clearConfirm": "क्या आप वाकई सारा डेटा साफ़ करना चाहते हैं? इससे आपका वर्तमान सीवी और नौकरी विवरण टेक्स्ट हटा दिया जाएगा।",
+		"footer.privacyLink": "गोपनीयता नीति",
+		"results.noOtherMatching": "कोई अन्य मिलान शब्द नहीं मिला।"
 	},
 	"stopWords": [
 		"अंदर",

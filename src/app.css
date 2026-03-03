@@ -11,6 +11,7 @@
 	--accent-color: #d97757;
 	--accent-hover: #c26143;
 	--focus-ring: rgba(217, 119, 87, 0.4);
+	--warning-color: #f59e0b;
 	--error-color: #ef4444;
 	--success-color: #10b981;
 
@@ -33,6 +34,7 @@
 	--scrollbar-hover: #71717a;
 	--accent-color: #d97757;
 	--accent-hover: #e48a6d;
+	--warning-color: #fbbf24;
 }
 
 *,

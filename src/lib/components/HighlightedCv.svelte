@@ -52,7 +52,7 @@
 </script>
 
 <div class="highlighted-cv">
-	{#each segments as segment, i (i)}
+	{#each segments as segment, i (segment.type === 'highlight' ? `h-${segment.finding?.startIndex}` : `t-${i}`)}
 		{#if segment.type === 'text'}
 			<span class="text-segment">{segment.content}</span>
 		{:else if segment.type === 'highlight' && segment.finding}
@@ -67,7 +67,8 @@
 				<mark class="highlight-mark">{segment.content}</mark>
 				<span class="tooltip" aria-hidden="true">
 					<strong>{i18n.t('results.weakWordsTooltipTitle')}</strong><br />
-					{i18n.t('results.weakWordsTooltipPrefix')} {segment.finding.suggestions.join(', ')}
+					{i18n.t('results.weakWordsTooltipPrefix')}
+					{segment.finding.suggestions.join(', ')}
 				</span>
 			</span>
 		{/if}

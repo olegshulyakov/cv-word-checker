@@ -12,6 +12,7 @@
 		"page.jdPlaceholder": "Cole os requisitos da vaga aqui...",
 		"page.analyzeBtn": "Analisar Correspondência",
 		"page.analyzingBtn": "Analisando...",
+		"page.analysisError": "Falha na análise. Por favor, tente novamente.",
 		"page.fileError": "Apenas arquivos .txt, .md e .html são suportados.",
 		"page.fileTooLarge": "O arquivo é muito grande. O tamanho máximo é 5MB.",
 		"results.title": "Resultados da Análise",
@@ -36,7 +37,9 @@
 		"results.titleAndDegreeTitle": "Título e Graduação",
 		"footer.note": "Todo o processamento é local. Seus dados nunca saem do seu navegador.",
 		"footer.clearBtn": "Limpar todos os dados",
-		"footer.privacyLink": "Política de Privacidade"
+		"footer.clearConfirm": "Tem certeza de que deseja limpar todos os dados? Isso excluirá seu currículo atual e o texto da descrição do cargo.",
+		"footer.privacyLink": "Política de Privacidade",
+		"results.noOtherMatching": "Nenhum outro termo correspondente encontrado."
 	},
 	"stopWords": [
 		"a",

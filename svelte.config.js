@@ -8,7 +8,7 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		adapter: adapter({
 			fallback: '404.html',
-			strict: false
+			strict: true
 		}),
 		paths: {
 			base: process.env.BASE_PATH || ''

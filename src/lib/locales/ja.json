@@ -12,6 +12,7 @@
 		"page.jdPlaceholder": "ここに求人内容の要件を貼り付けてください...",
 		"page.analyzeBtn": "マッチングを分析",
 		"page.analyzingBtn": "分析中...",
+		"page.analysisError": "解析に失敗しました。もう一度お試しください。",
 		"page.fileError": ".txt、.md、.html ファイルのみ対応しています。",
 		"page.fileTooLarge": "ファイルサイズが大きすぎます。最大 5MB です。",
 		"results.title": "分析結果",
@@ -36,7 +37,9 @@
 		"results.titleAndDegreeTitle": "役職・学位",
 		"footer.note": "すべての処理はローカルで行われます。データがブラウザの外に送信されることはありません。",
 		"footer.clearBtn": "すべてのデータを消去",
-		"footer.privacyLink": "プライバシーポリシー"
+		"footer.clearConfirm": "すべてのデータを消去してもよろしいですか？これにより、現在の履歴書と職務内容のテキストが削除されます。",
+		"footer.privacyLink": "プライバシーポリシー",
+		"results.noOtherMatching": "他の該当する用語は見つかりませんでした。"
 	},
 	"stopWords": [
 		"あそこ",
