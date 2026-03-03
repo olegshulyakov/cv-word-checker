@@ -5,7 +5,9 @@ export type LocaleDict = {
 	ui: Record<string, string>;
 	stopWords: string[];
 	weakWords: Record<string, string[]>;
-	skillsKeywords: string[];
+	technicalSkillsKeywords: string[];
+	abilitiesKeywords: string[];
+	titleAndDegreeKeywords: string[];
 };
 
 export const currentLang = createPersistentState('cvwc_lang', '');

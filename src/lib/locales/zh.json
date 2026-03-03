@@ -31,7 +31,11 @@
 		"results.weakWordsSuccess": "Great job! We didn't find any weak or passive phrases in your CV.",
 		"results.tableKeyword": "关键词",
 		"results.tableFoundInCv": "在简历中找到",
-		"results.tableFoundInPd": "在职位描述中找到"
+		"results.tableFoundInPd": "在职位描述中找到",
+		"results.technicalSkillsTitle": "Skills & Technologies",
+		"results.abilitiesTitle": "Abilities",
+		"results.otherKeywordsTitle": "Other Terms",
+		"results.titleAndDegreeTitle": "Title & Degree"
 	},
 	"stopWords": [
 		"a",
@@ -189,19 +193,77 @@
 		"yourselves"
 	],
 	"weakWords": {
-		"responsible for": ["led", "owned", "drove", "managed", "spearheaded"],
-		"helped": ["facilitated", "assisted", "supported", "guided", "enabled"],
-		"worked on": ["developed", "engineered", "built", "created", "implemented"],
-		"good": ["excellent", "proficient", "effective", "strong", "capable"],
-		"various": ["multiple", "diverse", "a range of", "numerous"],
-		"handled": ["coordinated", "administered", "managed", "oversaw"],
-		"participated in": ["contributed to", "collaborated on", "engaged in", "partnered on"],
-		"tried": ["attempted", "endeavored", "strove"],
-		"was in charge of": ["directed", "governed", "supervised", "controlled"],
-		"made": ["produced", "crafted", "generated", "formulated"],
-		"did": ["executed", "performed", "accomplished", "achieved"]
+		"responsible for": [
+			"led",
+			"owned",
+			"drove",
+			"managed",
+			"spearheaded"
+		],
+		"helped": [
+			"facilitated",
+			"assisted",
+			"supported",
+			"guided",
+			"enabled"
+		],
+		"worked on": [
+			"developed",
+			"engineered",
+			"built",
+			"created",
+			"implemented"
+		],
+		"good": [
+			"excellent",
+			"proficient",
+			"effective",
+			"strong",
+			"capable"
+		],
+		"various": [
+			"multiple",
+			"diverse",
+			"a range of",
+			"numerous"
+		],
+		"handled": [
+			"coordinated",
+			"administered",
+			"managed",
+			"oversaw"
+		],
+		"participated in": [
+			"contributed to",
+			"collaborated on",
+			"engaged in",
+			"partnered on"
+		],
+		"tried": [
+			"attempted",
+			"endeavored",
+			"strove"
+		],
+		"was in charge of": [
+			"directed",
+			"governed",
+			"supervised",
+			"controlled"
+		],
+		"made": [
+			"produced",
+			"crafted",
+			"generated",
+			"formulated"
+		],
+		"did": [
+			"executed",
+			"performed",
+			"accomplished",
+			"achieved"
+		]
 	},
-	"skillsKeywords": [
+	"technicalSkillsKeywords": [
 		"javascript",
 		"typescript",
 		"react",
@@ -248,5 +310,26 @@
 		"leadership",
 		"teamwork",
 		"problem solving"
+	],
+	"abilitiesKeywords": [
+		"leadership",
+		"teamwork",
+		"communication",
+		"problem solving",
+		"agile",
+		"scrum",
+		"kanban",
+		"management"
+	],
+	"titleAndDegreeKeywords": [
+		"bachelor",
+		"master",
+		"phd",
+		"degree",
+		"engineer",
+		"developer",
+		"manager",
+		"lead",
+		"architect"
 	]
 }

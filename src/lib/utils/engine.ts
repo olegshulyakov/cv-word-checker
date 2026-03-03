@@ -18,9 +18,18 @@ export async function analyze(cvText: string, jdText: string): Promise<AnalysisR
 
 	const currentStopWords = new Set(dict.stopWords);
 	const currentWeakWords = dict.weakWords;
-	const currentSkillsKeywords = new Set(dict.skillsKeywords);
+	const technicalSkillsKeywords = new Set(dict.technicalSkillsKeywords);
+	const abilitiesKeywords = new Set(dict.abilitiesKeywords);
+	const titleAndDegreeKeywords = new Set(dict.titleAndDegreeKeywords);
 
-	const match = matchKeywords(cvText, jdText, currentStopWords, currentSkillsKeywords);
+	const match = matchKeywords(
+		cvText,
+		jdText,
+		currentStopWords,
+		technicalSkillsKeywords,
+		abilitiesKeywords,
+		titleAndDegreeKeywords
+	);
 	const weakWordsFound = findWeakWords(cvText, currentWeakWords);
 
 	const end = performance.now();

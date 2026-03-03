@@ -11,8 +11,10 @@ export interface MatchResults {
 	presentKeywords: KeywordResult[];
 	missingKeywords: KeywordResult[];
 	groups: {
-		skills: { present: KeywordResult[]; missing: KeywordResult[] };
-		other: { present: KeywordResult[]; missing: KeywordResult[] };
+		technicalSkills: { present: KeywordResult[]; missing: KeywordResult[] };
+		abilities: { present: KeywordResult[]; missing: KeywordResult[] };
+		titleAndDegree: { present: KeywordResult[]; missing: KeywordResult[] };
+		otherKeywords: { present: KeywordResult[]; missing: KeywordResult[] };
 	};
 }
 
@@ -44,7 +46,9 @@ export function matchKeywords(
 	cvText: string,
 	jdText: string,
 	stopWords: Set<string>,
-	skillsKeywords: Set<string>
+	technicalSkillsKeywords: Set<string>,
+	abilitiesKeywords: Set<string>,
+	titleAndDegreeKeywords: Set<string>
 ): MatchResults {
 	const jdKeywords = extractKeywords(jdText, stopWords);
 	const cvKeywords = extractKeywords(cvText, stopWords);
@@ -67,23 +71,33 @@ export function matchKeywords(
 
 	// Grouping
 	const groups = {
-		skills: { present: [] as KeywordResult[], missing: [] as KeywordResult[] },
-		other: { present: [] as KeywordResult[], missing: [] as KeywordResult[] }
+		technicalSkills: { present: [] as KeywordResult[], missing: [] as KeywordResult[] },
+		abilities: { present: [] as KeywordResult[], missing: [] as KeywordResult[] },
+		titleAndDegree: { present: [] as KeywordResult[], missing: [] as KeywordResult[] },
+		otherKeywords: { present: [] as KeywordResult[], missing: [] as KeywordResult[] }
 	};
 
 	presentKeywords.forEach((kw) => {
-		if (skillsKeywords.has(kw.term)) {
-			groups.skills.present.push(kw);
+		if (technicalSkillsKeywords.has(kw.term)) {
+			groups.technicalSkills.present.push(kw);
+		} else if (abilitiesKeywords.has(kw.term)) {
+			groups.abilities.present.push(kw);
+		} else if (titleAndDegreeKeywords.has(kw.term)) {
+			groups.titleAndDegree.present.push(kw);
 		} else {
-			groups.other.present.push(kw);
+			groups.otherKeywords.present.push(kw);
 		}
 	});
 
 	missingKeywords.forEach((kw) => {
-		if (skillsKeywords.has(kw.term)) {
-			groups.skills.missing.push(kw);
+		if (technicalSkillsKeywords.has(kw.term)) {
+			groups.technicalSkills.missing.push(kw);
+		} else if (abilitiesKeywords.has(kw.term)) {
+			groups.abilities.missing.push(kw);
+		} else if (titleAndDegreeKeywords.has(kw.term)) {
+			groups.titleAndDegree.missing.push(kw);
 		} else {
-			groups.other.missing.push(kw);
+			groups.otherKeywords.missing.push(kw);
 		}
 	});
 

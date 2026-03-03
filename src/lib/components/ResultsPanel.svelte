@@ -44,145 +44,80 @@
 		</div>
 	</div>
 
-	<div class="keywords-section">
-		<h3>{i18n.t('results.skillsTitle')}</h3>
-		<div class="table-container">
-			<table class="keywordtable">
-				<thead>
-					<tr>
-						<th>{i18n.t('results.tableKeyword')}</th>
-						<th class="text-center">{i18n.t('results.tableFoundInCv')}</th>
-						<th class="text-center">{i18n.t('results.tableFoundInPd')}</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each results.match.groups.skills.present as kw (kw.term)}
+	{#snippet keywordBlock(title: string, group: { present: any[]; missing: any[] }, emptyStateMsg: string)}
+		<div class="keywords-section">
+			<h3>{title}</h3>
+			<div class="table-container">
+				<table class="keywordtable">
+					<thead>
 						<tr>
-							<td>
-								<span class="status-icon present">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="14"
-										height="14"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg
-									>
-								</span>
-								<strong>{kw.term}</strong>
-							</td>
-							<td class="text-center count-cell">{kw.cvCount || 0}</td>
-							<td class="text-center count-cell">{kw.count}</td>
+							<th>{i18n.t('results.tableKeyword')}</th>
+							<th class="text-center">{i18n.t('results.tableFoundInCv')}</th>
+							<th class="text-center">{i18n.t('results.tableFoundInPd')}</th>
 						</tr>
-					{/each}
-					{#each results.match.groups.skills.missing as kw (kw.term)}
-						<tr class="missing-row">
-							<td>
-								<span class="status-icon missing">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="14"
-										height="14"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
-										></line></svg
-									>
-								</span>
-								<strong>{kw.term}</strong>
-							</td>
-							<td class="text-center count-cell error-text">0</td>
-							<td class="text-center count-cell">{kw.count}</td>
-						</tr>
-					{/each}
-					{#if results.match.groups.skills.present.length === 0 && results.match.groups.skills.missing.length === 0}
-						<tr>
-							<td colspan="3" class="empty-state text-center">
-								{i18n.t('results.noMatchingSkills')}
-							</td>
-						</tr>
-					{/if}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{#each group.present as kw (kw.term)}
+							<tr>
+								<td>
+									<span class="status-icon present">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="14"
+											height="14"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+									</span>
+									<strong>{kw.term}</strong>
+								</td>
+								<td class="text-center count-cell">{kw.cvCount || 0}</td>
+								<td class="text-center count-cell">{kw.count}</td>
+							</tr>
+						{/each}
+						{#each group.missing as kw (kw.term)}
+							<tr class="missing-row">
+								<td>
+									<span class="status-icon missing">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="14"
+											height="14"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
+											></line></svg>
+									</span>
+									<strong>{kw.term}</strong>
+								</td>
+								<td class="text-center count-cell error-text">0</td>
+								<td class="text-center count-cell">{kw.count}</td>
+							</tr>
+						{/each}
+						{#if group.present.length === 0 && group.missing.length === 0}
+							<tr>
+								<td colspan="3" class="empty-state text-center">
+									{emptyStateMsg}
+								</td>
+							</tr>
+						{/if}
+					</tbody>
+				</table>
+			</div>
 		</div>
-	</div>
+	{/snippet}
 
-	<div class="keywords-section">
-		<h3>{i18n.t('results.otherTermsTitle')}</h3>
-		<div class="table-container">
-			<table class="keywordtable">
-				<thead>
-					<tr>
-						<th>{i18n.t('results.tableKeyword')}</th>
-						<th class="text-center">{i18n.t('results.tableFoundInCv')}</th>
-						<th class="text-center">{i18n.t('results.tableFoundInPd')}</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each results.match.groups.other.present as kw (kw.term)}
-						<tr>
-							<td>
-								<span class="status-icon present">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="14"
-										height="14"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg
-									>
-								</span>
-								<strong>{kw.term}</strong>
-							</td>
-							<td class="text-center count-cell">{kw.cvCount || 0}</td>
-							<td class="text-center count-cell">{kw.count}</td>
-						</tr>
-					{/each}
-					{#each results.match.groups.other.missing as kw (kw.term)}
-						<tr class="missing-row">
-							<td>
-								<span class="status-icon missing">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="14"
-										height="14"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
-										></line></svg
-									>
-								</span>
-								<strong>{kw.term}</strong>
-							</td>
-							<td class="text-center count-cell error-text">0</td>
-							<td class="text-center count-cell">{kw.count}</td>
-						</tr>
-					{/each}
-					{#if results.match.groups.other.present.length === 0 && results.match.groups.other.missing.length === 0}
-						<tr>
-							<td colspan="3" class="empty-state text-center">
-								{i18n.t('results.noOtherMatching')}
-							</td>
-						</tr>
-					{/if}
-				</tbody>
-			</table>
-		</div>
-	</div>
+	{@render keywordBlock(i18n.t('results.technicalSkillsTitle'), results.match.groups.technicalSkills, i18n.t('results.noMatchingSkills'))}
+	{@render keywordBlock(i18n.t('results.abilitiesTitle'), results.match.groups.abilities, 'No matching abilities found.')}
+	{@render keywordBlock(i18n.t('results.otherKeywordsTitle'), results.match.groups.otherKeywords, i18n.t('results.noOtherMatching'))}
+	{@render keywordBlock(i18n.t('results.titleAndDegreeTitle'), results.match.groups.titleAndDegree, 'No title or degree keywords matched.')}
 
 	<div class="weak-words-section">
 		<h3>{i18n.t('results.weakWordsTitle')} ({results.weakWords.length})</h3>
