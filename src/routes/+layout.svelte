@@ -8,8 +8,14 @@
 
 	let { children } = $props();
 
-	onMount(() => {
+	onMount(async () => {
 		i18n.loadLanguage(currentLang.value);
+		try {
+			const { registerSW } = await import('virtual:pwa-register');
+			registerSW({ immediate: true });
+		} catch (e) {
+			console.warn('PWA service worker registration failed', e);
+		}
 	});
 </script>
 
