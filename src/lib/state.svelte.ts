@@ -34,16 +34,17 @@ export function createPersistentState<T>(key: string, initialValue: T) {
 	};
 }
 
+export const STORAGE_KEYS = {
+	CV: 'cvwc_cv',
+	JD: 'cvwc_jd',
+	LANG: 'cvwc_lang',
+	THEME: 'cvwc_theme',
+	AI_AGENT: 'cvwc_ai_agent',
+	AI_CUSTOM_URL: 'cvwc_ai_custom_url'
+};
+
 export function clearAllData() {
 	if (!browser) return;
-	const keys = [
-		'cvwc_cv',
-		'cvwc_jd',
-		'cvwc_lang',
-		'cvwc_theme',
-		'cvwc_ai_agent',
-		'cvwc_ai_custom_url'
-	];
-	keys.forEach((k) => localStorage.removeItem(k));
+	Object.values(STORAGE_KEYS).forEach((k) => localStorage.removeItem(k));
 	window.location.reload();
 }

@@ -50,26 +50,85 @@ export function matchKeywords(
 	abilitiesKeywords: Set<string>,
 	titleAndDegreeKeywords: Set<string>
 ): MatchResults {
+	const cleanCv = stripHtmlAndMarkdown(cvText).toLowerCase();
+	const cleanJd = stripHtmlAndMarkdown(jdText).toLowerCase();
+
 	const jdKeywords = extractKeywords(jdText, stopWords);
 	const cvKeywords = extractKeywords(cvText, stopWords);
 
 	const cvTermCounts = new Map(cvKeywords.map((k) => [k.term, k.count]));
 
+	// To handle multi-word phrase matching (BUG-03), we'll also check the full list of controlled keywords
+	const controlledKeywords = new Set([
+		...technicalSkillsKeywords,
+		...abilitiesKeywords,
+		...titleAndDegreeKeywords
+	]);
+
+	// Filter and combine results: standard single-word keywords + detected multi-word keywords
+	// For JD
+	const finalJdKeywords: KeywordResult[] = [...jdKeywords];
+	for (const kw of controlledKeywords) {
+		if (kw.includes(' ')) {
+			// It's a phrase
+			const escapedKw = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+			const regex = new RegExp(`\\b${escapedKw}\\b`, 'gu');
+			const count = (cleanJd.match(regex) || []).length;
+			if (count > 0) {
+				if (!finalJdKeywords.some((k) => k.term === kw)) {
+					finalJdKeywords.push({ term: kw, count });
+				}
+				// Subtract counts from individual words to avoid double-counting (BUG-03)
+				const words = kw.split(' ');
+				for (const word of words) {
+					const existing = finalJdKeywords.find((k) => k.term === word);
+					if (existing) {
+						existing.count = Math.max(0, existing.count - count);
+					}
+				}
+			}
+		}
+	}
+
+	// For CV
+	const finalCvTermCounts = new Map(cvTermCounts);
+	for (const kw of controlledKeywords) {
+		if (kw.includes(' ')) {
+			const escapedKw = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+			const regex = new RegExp(`\\b${escapedKw}\\b`, 'gu');
+			const count = (cleanCv.match(regex) || []).length;
+			if (count > 0) {
+				finalCvTermCounts.set(kw, count);
+				// Subtract from individual words
+				const words = kw.split(' ');
+				for (const word of words) {
+					const existingCount = finalCvTermCounts.get(word) || 0;
+					finalCvTermCounts.set(word, Math.max(0, existingCount - count));
+				}
+			}
+		}
+	}
+
+	// Remove zero-count keywords from finalJdKeywords (those completely swallowed by phrases)
+	const filteredJdKeywords = finalJdKeywords.filter((k) => k.count > 0);
+
 	const presentKeywords: KeywordResult[] = [];
 	const missingKeywords: KeywordResult[] = [];
 
-	for (const kw of jdKeywords) {
-		if (cvTermCounts.has(kw.term)) {
-			presentKeywords.push({ ...kw, cvCount: cvTermCounts.get(kw.term) });
+	for (const kw of filteredJdKeywords) {
+		if (finalCvTermCounts.has(kw.term) && (finalCvTermCounts.get(kw.term) || 0) > 0) {
+			presentKeywords.push({ ...kw, cvCount: finalCvTermCounts.get(kw.term) });
 		} else {
 			missingKeywords.push({ ...kw, cvCount: 0 });
 		}
 	}
 
 	const matchScore =
-		jdKeywords.length > 0 ? Math.round((presentKeywords.length / jdKeywords.length) * 100) : 0;
+		filteredJdKeywords.length > 0
+			? Math.round((presentKeywords.length / filteredJdKeywords.length) * 100)
+			: 0;
 
-	// Grouping
+	// Grouping with hierarchy to avoid double-assignment (BUG-05)
 	const groups = {
 		technicalSkills: { present: [] as KeywordResult[], missing: [] as KeywordResult[] },
 		abilities: { present: [] as KeywordResult[], missing: [] as KeywordResult[] },

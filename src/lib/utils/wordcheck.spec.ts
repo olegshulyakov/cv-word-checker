@@ -48,4 +48,16 @@ describe('wordcheck', () => {
 		expect(findings.length).toBe(1);
 		expect(findings[0].originalPhrase).toBe('Responsible for');
 	});
+
+	it('should handle non-Latin word boundaries (TEST-01)', () => {
+		const japaneseText = '私は責任がある。新しい技術を助けた。'; // "I am responsible. Helped new tech."
+		const dict = {
+			責任がある: ['led'],
+			助けた: ['assisted']
+		};
+		const findings = findWeakWords(japaneseText, dict);
+		expect(findings.length).toBe(2);
+		expect(findings[0].originalPhrase).toBe('責任がある');
+		expect(findings[1].originalPhrase).toBe('助けた');
+	});
 });

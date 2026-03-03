@@ -13,9 +13,9 @@
 
 	let scoreColor = $derived.by(() => {
 		const score = results.match.matchScore;
-		if (score >= 80) return '#10b981'; // emerald-500
-		if (score >= 50) return '#f59e0b'; // amber-500
-		return '#ef4444'; // red-500
+		if (score >= 80) return 'var(--success-color)';
+		if (score >= 50) return 'var(--warning-color, #f59e0b)';
+		return 'var(--error-color)';
 	});
 
 	function getScoreLabel(score: number) {
@@ -25,16 +25,18 @@
 	}
 </script>
 
-<section class="results-panel" aria-live="polite">
+<section class="results-panel">
 	<div class="header-section">
 		<h2>{i18n.t('results.title')}</h2>
 		<div class="score-container">
 			<div
 				class="score-ring"
+				role="img"
+				aria-label="Match score: {results.match.matchScore}% - {getScoreLabel(results.match.matchScore)}"
 				style="--score: {results.match.matchScore}; --score-color: {scoreColor};"
 			>
 				<div class="score-inner">
-					<span class="score-value">{results.match.matchScore}%</span>
+					<span class="score-value" aria-hidden="true">{results.match.matchScore}%</span>
 				</div>
 			</div>
 			<div class="score-text">
@@ -64,7 +66,7 @@
 						{#each group.present as kw (kw.term)}
 							<tr>
 								<td>
-									<span class="status-icon present">
+									<span class="status-icon present" aria-hidden="true">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="14"
@@ -86,7 +88,7 @@
 						{#each group.missing as kw (kw.term)}
 							<tr class="missing-row">
 								<td>
-									<span class="status-icon missing">
+									<span class="status-icon missing" aria-hidden="true">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="14"
@@ -107,7 +109,7 @@
 									</span>
 									<strong>{kw.term}</strong>
 								</td>
-								<td class="text-center count-cell error-text">0</td>
+								<td class="text-center count-cell warning-text">0</td>
 								<td class="text-center count-cell">{kw.count}</td>
 							</tr>
 						{/each}
@@ -124,26 +126,37 @@
 		</div>
 	{/snippet}
 
-	{@render keywordBlock(
-		i18n.t('results.technicalSkillsTitle'),
-		results.match.groups.technicalSkills,
-		i18n.t('results.noMatchingSkills')
-	)}
-	{@render keywordBlock(
-		i18n.t('results.abilitiesTitle'),
-		results.match.groups.abilities,
-		'No matching abilities found.'
-	)}
-	{@render keywordBlock(
-		i18n.t('results.otherKeywordsTitle'),
-		results.match.groups.otherKeywords,
-		i18n.t('results.noOtherMatching')
-	)}
-	{@render keywordBlock(
-		i18n.t('results.titleAndDegreeTitle'),
-		results.match.groups.titleAndDegree,
-		'No title or degree keywords matched.'
-	)}
+	{#if results.match.groups.technicalSkills.present.length > 0 || results.match.groups.technicalSkills.missing.length > 0}
+		{@render keywordBlock(
+			i18n.t('results.technicalSkillsTitle'),
+			results.match.groups.technicalSkills,
+			i18n.t('results.noMatchingSkills')
+		)}
+	{/if}
+
+	{#if results.match.groups.abilities.present.length > 0 || results.match.groups.abilities.missing.length > 0}
+		{@render keywordBlock(
+			i18n.t('results.abilitiesTitle'),
+			results.match.groups.abilities,
+			i18n.t('results.noMatchingAbilities')
+		)}
+	{/if}
+
+	{#if results.match.groups.otherKeywords.present.length > 0 || results.match.groups.otherKeywords.missing.length > 0}
+		{@render keywordBlock(
+			i18n.t('results.otherKeywordsTitle'),
+			results.match.groups.otherKeywords,
+			i18n.t('results.noOtherMatching')
+		)}
+	{/if}
+
+	{#if results.match.groups.titleAndDegree.present.length > 0 || results.match.groups.titleAndDegree.missing.length > 0}
+		{@render keywordBlock(
+			i18n.t('results.titleAndDegreeTitle'),
+			results.match.groups.titleAndDegree,
+			i18n.t('results.noMatchingTitleDegree')
+		)}
+	{/if}
 
 	<div class="weak-words-section">
 		<h3>{i18n.t('results.weakWordsTitle')} ({results.weakWords.length})</h3>
@@ -200,7 +213,12 @@
 		width: 80px;
 		height: 80px;
 		border-radius: 50%;
-		background: conic-gradient(var(--score-color) calc(var(--score) * 1%), var(--border-color) 0);
+		background: conic-gradient(
+			var(--score-color) 0%,
+			var(--score-color) calc(var(--score) * 1%),
+			var(--border-color) calc(var(--score) * 1%),
+			var(--border-color) 100%
+		);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -279,19 +297,16 @@
 	}
 
 	.keywordtable tbody tr:hover {
-		background-color: rgba(0, 0, 0, 0.015);
-	}
-
-	:global([data-theme='dark']) .keywordtable tbody tr:hover {
-		background-color: rgba(255, 255, 255, 0.015);
+		background-color: var(--surface-hover);
+		opacity: 0.8;
 	}
 
 	.missing-row {
-		background-color: rgba(245, 158, 11, 0.02);
+		background-color: rgba(217, 119, 87, 0.02);
 	}
 
 	:global([data-theme='dark']) .missing-row {
-		background-color: rgba(245, 158, 11, 0.05);
+		background-color: rgba(217, 119, 87, 0.05);
 	}
 
 	.text-center {
@@ -303,12 +318,8 @@
 		font-weight: 500;
 	}
 
-	.error-text {
-		color: #d97706;
-	}
-
-	:global([data-theme='dark']) .error-text {
-		color: #fbbf24;
+	.warning-text {
+		color: var(--accent-color);
 	}
 
 	.status-icon {
@@ -320,19 +331,11 @@
 	}
 
 	.status-icon.present {
-		color: #059669;
-	}
-
-	:global([data-theme='dark']) .status-icon.present {
-		color: #34d399;
+		color: var(--success-color);
 	}
 
 	.status-icon.missing {
-		color: #d97706;
-	}
-
-	:global([data-theme='dark']) .status-icon.missing {
-		color: #fbbf24;
+		color: var(--accent-color);
 	}
 
 	.empty-state {
@@ -346,14 +349,10 @@
 		font-style: normal;
 		padding: 1rem !important;
 		background-color: rgba(16, 185, 129, 0.1);
-		color: #059669;
+		color: var(--success-color);
 		border-radius: 8px;
 		border: 1px solid rgba(16, 185, 129, 0.2);
 		text-align: left !important;
-	}
-
-	:global([data-theme='dark']) .empty-state.success {
-		color: #34d399;
 	}
 
 	.weak-words-section {

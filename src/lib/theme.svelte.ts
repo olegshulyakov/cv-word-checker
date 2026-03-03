@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { STORAGE_KEYS } from './state.svelte';
 
 export type ThemePreference = 'system' | 'light' | 'dark';
 
@@ -8,7 +9,7 @@ export class ThemeState {
 
 	constructor() {
 		if (browser) {
-			const localTheme = localStorage.getItem('cvwc_theme') as ThemePreference | null;
+			const localTheme = localStorage.getItem(STORAGE_KEYS.THEME) as ThemePreference | null;
 			this.preference = localTheme === 'light' || localTheme === 'dark' ? localTheme : 'system';
 			this.apply();
 
@@ -25,9 +26,9 @@ export class ThemeState {
 		this.preference = theme;
 		if (browser) {
 			if (theme === 'system') {
-				localStorage.removeItem('cvwc_theme');
+				localStorage.removeItem(STORAGE_KEYS.THEME);
 			} else {
-				localStorage.setItem('cvwc_theme', theme);
+				localStorage.setItem(STORAGE_KEYS.THEME, theme);
 			}
 			this.apply();
 		}

@@ -50,7 +50,7 @@
 			<a
 				href="https://github.com/olegshulyakov/cv-word-checker"
 				target="_blank"
-				rel="noreferrer"
+				rel="noopener noreferrer"
 				class="icon-button"
 				aria-label={i18n.t('header.githubRepo')}
 				title={i18n.t('header.githubRepo')}
@@ -137,10 +137,15 @@
 		transition: all 0.2s;
 	}
 
-	.lang-selector select:hover,
-	.lang-selector select:focus {
+	.lang-selector select:hover {
 		background-color: var(--surface-hover);
 		border-color: var(--border-color);
+	}
+
+	.lang-selector select:focus-visible {
+		background-color: var(--surface-hover);
+		border-color: var(--accent-color);
+		box-shadow: 0 0 0 2px var(--focus-ring);
 	}
 
 	.icon-button {

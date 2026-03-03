@@ -78,5 +78,33 @@ describe('Analyzer', () => {
 				expect.arrayContaining(['engineer'])
 			);
 		});
+
+		it('should match multi-word phrases (TEST-02)', () => {
+			const cvText = 'I have experience in machine learning.';
+			const jdText = 'machine learning and python.';
+			const stopWords = new Set(['and', 'in', 'have']);
+			const tech = new Set(['machine learning', 'python']);
+
+			const results = matchKeywords(cvText, jdText, stopWords, tech, new Set(), new Set());
+
+			// console.log('Filtered JD:', results.filteredJdKeywords?.map(k => k.term));
+			// Wait, I can't access it easily if it's internal. I'll just log present/missing.
+			// console.log('Present:', results.presentKeywords.map(k => k.term));
+			// console.log('Missing:', results.missingKeywords.map(k => k.term));
+
+			expect(results.presentKeywords.map((k) => k.term)).toContain('machine learning');
+			expect(results.matchScore).toBe(50); // 1 of 2
+		});
+
+		it('should prioritize Technical Skills over Abilities (BUG-05)', () => {
+			const text = 'leadership';
+			const tech = new Set(['leadership']);
+			const abilities = new Set(['leadership']);
+
+			const results = matchKeywords(text, text, new Set(), tech, abilities, new Set());
+
+			expect(results.groups.technicalSkills.present.map((k) => k.term)).toContain('leadership');
+			expect(results.groups.abilities.present).toHaveLength(0);
+		});
 	});
 });

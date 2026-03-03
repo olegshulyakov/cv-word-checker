@@ -1,13 +1,16 @@
 <script lang="ts">
 	import { clearAllData } from '$lib/state.svelte';
+	import { i18n } from '$lib/i18n.svelte';
 </script>
 
 <footer class="footer">
 	<div class="container">
-		<p class="processing-note">All processing is local. Your data never leaves your browser.</p>
+		<p class="processing-note">{i18n.t('footer.note')}</p>
 		<nav class="links">
-			<button class="btn-clear" onclick={clearAllData}>Clear all data</button>
-			<a href="/privacy">Privacy Policy</a>
+			<button class="btn-clear" onclick={clearAllData} type="button">
+				{i18n.t('footer.clearBtn')}
+			</button>
+			<a href="/privacy">{i18n.t('footer.privacyLink')}</a>
 		</nav>
 	</div>
 </footer>

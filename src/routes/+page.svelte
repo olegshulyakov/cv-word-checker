@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { createPersistentState } from '$lib/state.svelte';
+	import { createPersistentState, STORAGE_KEYS } from '$lib/state.svelte';
 	import { readFileAsText } from '$lib/utils/file';
 	import { analyze, type AnalysisResults } from '$lib/utils/engine';
 	import ResultsPanel from '$lib/components/ResultsPanel.svelte';
 	import { i18n } from '$lib/i18n.svelte';
 
-	const cvText = createPersistentState('cvwc_cv', '');
-	const jdText = createPersistentState('cvwc_jd', '');
+	const cvText = createPersistentState(STORAGE_KEYS.CV, '');
+	const jdText = createPersistentState(STORAGE_KEYS.JD, '');
 	let analyzing = $state(false);
 	let analysisResult = $state<AnalysisResults | null>(null);
 
@@ -14,6 +14,11 @@
 		e.preventDefault();
 		const file = e.dataTransfer?.files[0];
 		if (file) {
+			const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+			if (file.size > MAX_FILE_SIZE) {
+				alert(i18n.t('page.fileTooLarge'));
+				return;
+			}
 			const ext = file.name.split('.').pop()?.toLowerCase();
 			if (['txt', 'md', 'html'].includes(ext || '')) {
 				const text = await readFileAsText(file);
@@ -112,7 +117,6 @@
 	}
 
 	.page-header p {
-		margin: 0;
 		color: var(--text-muted);
 		font-size: 1.125rem;
 		max-width: 600px;

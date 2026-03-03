@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import { createPersistentState } from './state.svelte';
+import { createPersistentState, STORAGE_KEYS } from './state.svelte';
 
 export type LocaleDict = {
 	ui: Record<string, string>;
@@ -10,7 +10,7 @@ export type LocaleDict = {
 	titleAndDegreeKeywords: string[];
 };
 
-export const currentLang = createPersistentState('cvwc_lang', '');
+export const currentLang = createPersistentState(STORAGE_KEYS.LANG, '');
 
 const supportedLangs = [
 	{ code: 'en', label: 'English' },
@@ -25,6 +25,7 @@ const supportedLangs = [
 ];
 
 let dictionary = $state<LocaleDict | null>(null);
+let fallbackDict = $state<LocaleDict | null>(null);
 
 export const i18n = {
 	get dict() {
@@ -51,8 +52,20 @@ export const i18n = {
 		}
 
 		try {
+			// Always ensure English fallback is loaded
+			if (!fallbackDict && lang !== 'en') {
+				const fallbackModule = await import('./locales/en.json');
+				fallbackDict = fallbackModule.default;
+			}
+
 			const module = await import(`./locales/${lang}.json`);
 			dictionary = module.default;
+
+			// If we just loaded English, it's also our fallback
+			if (lang === 'en') {
+				fallbackDict = dictionary;
+			}
+
 			currentLang.value = lang;
 
 			if (browser) {
@@ -68,6 +81,6 @@ export const i18n = {
 	},
 	t(key: string): string {
 		if (!dictionary) return key;
-		return dictionary.ui[key] || key;
+		return dictionary.ui[key] || fallbackDict?.ui[key] || key;
 	}
 };

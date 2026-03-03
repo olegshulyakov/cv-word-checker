@@ -19,14 +19,20 @@ export function findWeakWords(
 		let startIndex = lowerText.indexOf(lowerPhrase);
 
 		while (startIndex !== -1) {
-			// Check if it's a whole word match (not part of another word like 'responsible for' inside 'irresponsible for')
-			const beforeChar = startIndex === 0 ? ' ' : lowerText[startIndex - 1];
-			const afterChar =
-				startIndex + lowerPhrase.length >= lowerText.length
-					? ' '
-					: lowerText[startIndex + lowerPhrase.length];
+			// Check if it's a whole word match (not part of another word)
+			// For CJK scripts, we skip boundary checks as they don't use spaces
+			const isCJK = /[\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff]/;
+			const isNonWord = /[^\p{L}\p{N}]/u;
 
-			if (/[^a-z0-9]/.test(beforeChar) && /[^a-z0-9]/.test(afterChar)) {
+			const isBeforeBoundary =
+				startIndex === 0 || isCJK.test(lowerPhrase[0]) || isNonWord.test(lowerText[startIndex - 1]);
+
+			const isAfterBoundary =
+				startIndex + lowerPhrase.length >= lowerText.length ||
+				isCJK.test(lowerPhrase[lowerPhrase.length - 1]) ||
+				isNonWord.test(lowerText[startIndex + lowerPhrase.length]);
+
+			if (isBeforeBoundary && isAfterBoundary) {
 				// We want to capture the original casing from the text
 				findings.push({
 					originalPhrase: cvText.substring(startIndex, startIndex + lowerPhrase.length),

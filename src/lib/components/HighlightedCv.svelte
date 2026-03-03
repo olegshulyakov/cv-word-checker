@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { WeakWordFinding } from '$lib/utils/wordcheck';
+	import { i18n } from '$lib/i18n.svelte';
 
 	let {
 		text,
@@ -21,6 +22,9 @@
 		let currentIndex = 0;
 
 		for (const finding of findings) {
+			// Skip if this finding starts before where we already are (overlap)
+			if (finding.startIndex < currentIndex) continue;
+
 			if (finding.startIndex > currentIndex) {
 				result.push({
 					type: 'text',
@@ -28,15 +32,12 @@
 				});
 			}
 
-			// In case of overlapping findings (shouldn't happen with our current logic, but just in case)
-			if (finding.startIndex >= currentIndex) {
-				result.push({
-					type: 'highlight',
-					content: text.slice(finding.startIndex, finding.endIndex),
-					finding
-				});
-				currentIndex = finding.endIndex;
-			}
+			result.push({
+				type: 'highlight',
+				content: text.slice(finding.startIndex, finding.endIndex),
+				finding
+			});
+			currentIndex = finding.endIndex;
 		}
 
 		if (currentIndex < text.length) {
@@ -55,11 +56,18 @@
 		{#if segment.type === 'text'}
 			<span class="text-segment">{segment.content}</span>
 		{:else if segment.type === 'highlight' && segment.finding}
-			<span class="highlight-wrapper">
+			<span
+				class="highlight-wrapper"
+				tabindex="0"
+				role="button"
+				aria-label="{i18n.t('results.weakWordsTooltipTitle')}: {segment.content}. {i18n.t(
+					'results.weakWordsTooltipPrefix'
+				)} {segment.finding.suggestions.join(', ')}"
+			>
 				<mark class="highlight-mark">{segment.content}</mark>
-				<span class="tooltip">
-					<strong>Weak Phrase</strong><br />
-					Consider: {segment.finding.suggestions.join(', ')}
+				<span class="tooltip" aria-hidden="true">
+					<strong>{i18n.t('results.weakWordsTooltipTitle')}</strong><br />
+					{i18n.t('results.weakWordsTooltipPrefix')} {segment.finding.suggestions.join(', ')}
 				</span>
 			</span>
 		{/if}
@@ -82,6 +90,7 @@
 		position: relative;
 		display: inline-block;
 		cursor: help;
+		outline: none;
 	}
 
 	.highlight-mark {
@@ -90,6 +99,16 @@
 		border-radius: 2px;
 		padding: 0 2px;
 		color: inherit;
+		transition: background-color 0.2s;
+	}
+
+	.highlight-wrapper:hover .highlight-mark,
+	.highlight-wrapper:focus .highlight-mark {
+		background-color: rgba(255, 193, 7, 0.5);
+	}
+
+	.highlight-wrapper:focus-visible .highlight-mark {
+		box-shadow: 0 0 0 2px var(--focus-ring);
 	}
 
 	.tooltip {
@@ -99,7 +118,7 @@
 		background-color: var(--text-color);
 		color: var(--surface-color);
 		text-align: left;
-		border-radius: 6px;
+		border-radius: 8px;
 		padding: 0.5rem 0.75rem;
 		position: absolute;
 		z-index: 10;
@@ -107,9 +126,12 @@
 		left: 50%;
 		transform: translateX(-50%);
 		opacity: 0;
-		transition: opacity 0.2s;
+		transition:
+			opacity 0.2s,
+			visibility 0.2s,
+			transform 0.2s;
 		font-size: 0.875rem;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 		pointer-events: none;
 	}
 
@@ -124,9 +146,11 @@
 		border-color: var(--text-color) transparent transparent transparent;
 	}
 
-	.highlight-wrapper:hover .tooltip {
+	.highlight-wrapper:hover .tooltip,
+	.highlight-wrapper:focus-within .tooltip {
 		visibility: visible;
 		opacity: 1;
+		transform: translateX(-50%) translateY(-4px);
 	}
 
 	strong {
