@@ -44,7 +44,11 @@
 		</div>
 	</div>
 
-	{#snippet keywordBlock(title: string, group: { present: any[]; missing: any[] }, emptyStateMsg: string)}
+	{#snippet keywordBlock(
+		title: string,
+		group: { present: any[]; missing: any[] },
+		emptyStateMsg: string
+	)}
 		<div class="keywords-section">
 			<h3>{title}</h3>
 			<div class="table-container">
@@ -70,7 +74,8 @@
 											stroke="currentColor"
 											stroke-width="2"
 											stroke-linecap="round"
-											stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+											stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg
+										>
 									</span>
 									<strong>{kw.term}</strong>
 								</td>
@@ -92,8 +97,13 @@
 											stroke-width="2"
 											stroke-linecap="round"
 											stroke-linejoin="round"
-											><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"
-											></line></svg>
+											><line x1="18" y1="6" x2="6" y2="18"></line><line
+												x1="6"
+												y1="6"
+												x2="18"
+												y2="18"
+											></line></svg
+										>
 									</span>
 									<strong>{kw.term}</strong>
 								</td>
@@ -114,10 +124,26 @@
 		</div>
 	{/snippet}
 
-	{@render keywordBlock(i18n.t('results.technicalSkillsTitle'), results.match.groups.technicalSkills, i18n.t('results.noMatchingSkills'))}
-	{@render keywordBlock(i18n.t('results.abilitiesTitle'), results.match.groups.abilities, 'No matching abilities found.')}
-	{@render keywordBlock(i18n.t('results.otherKeywordsTitle'), results.match.groups.otherKeywords, i18n.t('results.noOtherMatching'))}
-	{@render keywordBlock(i18n.t('results.titleAndDegreeTitle'), results.match.groups.titleAndDegree, 'No title or degree keywords matched.')}
+	{@render keywordBlock(
+		i18n.t('results.technicalSkillsTitle'),
+		results.match.groups.technicalSkills,
+		i18n.t('results.noMatchingSkills')
+	)}
+	{@render keywordBlock(
+		i18n.t('results.abilitiesTitle'),
+		results.match.groups.abilities,
+		'No matching abilities found.'
+	)}
+	{@render keywordBlock(
+		i18n.t('results.otherKeywordsTitle'),
+		results.match.groups.otherKeywords,
+		i18n.t('results.noOtherMatching')
+	)}
+	{@render keywordBlock(
+		i18n.t('results.titleAndDegreeTitle'),
+		results.match.groups.titleAndDegree,
+		'No title or degree keywords matched.'
+	)}
 
 	<div class="weak-words-section">
 		<h3>{i18n.t('results.weakWordsTitle')} ({results.weakWords.length})</h3>
