@@ -69,7 +69,7 @@
 					<strong>{i18n.t('results.weakWordsTooltipTitle')}</strong><br />
 					{i18n.t('results.weakWordsTooltipPrefix')}
 					<ul class="suggestion-list">
-						{#each segment.finding.suggestions as suggestion}
+						{#each segment.finding.suggestions as suggestion (suggestion)}
 							<li>{suggestion}</li>
 						{/each}
 					</ul>
