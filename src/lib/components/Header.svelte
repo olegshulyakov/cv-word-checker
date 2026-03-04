@@ -63,8 +63,7 @@
 
 <style>
 	header {
-		border-bottom: 1px solid var(--border-color);
-		background-color: var(--surface-color);
+		background-color: var(--bg-color);
 		padding: 1rem;
 	}
 

@@ -122,8 +122,9 @@
 	}
 
 	.page-header h1 {
-		margin: 0 0 0.5rem 0;
-		font-size: 2rem;
+		margin: 0 auto 0.5rem;
+		font-size: 3rem;
+		line-height: 3.5rem;
 		font-weight: 700;
 		color: var(--text-color);
 	}

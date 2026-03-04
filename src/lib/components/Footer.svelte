@@ -28,7 +28,7 @@
 		margin-top: auto;
 		border-top: 1px solid var(--border-color);
 		padding: 1rem;
-		background-color: var(--surface-color);
+		background-color: var(--bg-color);
 		color: var(--text-muted);
 		font-size: 0.875rem;
 	}

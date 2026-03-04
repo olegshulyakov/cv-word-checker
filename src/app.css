@@ -1,7 +1,7 @@
 :root {
 	/* Light Theme (Claude.ai inspired: calm, desaturated) */
-	--bg-color: #fbfbfa;
-	--surface-color: #f4f4f0;
+	--bg-color: #faf9f5;
+	--surface-color: #ffffff;
 	--surface-hover: #eaeae5;
 	--text-color: #3f3f46;
 	--text-muted: #71717a;
@@ -24,8 +24,8 @@
 
 :root[data-theme='dark'] {
 	/* Dark Theme */
-	--bg-color: #18181b;
-	--surface-color: #27272a;
+	--bg-color: #141413;
+	--surface-color: #30302e;
 	--surface-hover: #3f3f46;
 	--text-color: #e4e4e7;
 	--text-muted: #a1a1aa;

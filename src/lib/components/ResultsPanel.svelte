@@ -179,7 +179,7 @@
 
 <style>
 	.results-panel {
-		margin-top: 2rem;
+		margin-top: 1rem;
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
@@ -189,8 +189,8 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		padding-bottom: 1.5rem;
-		border-bottom: 1px solid var(--border-color);
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--border-color);
 	}
 
 	@media (min-width: 640px) {
