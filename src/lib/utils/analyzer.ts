@@ -25,8 +25,20 @@ function getStems(word: string): string[] {
 	if (word.endsWith('ies')) stems.push(word.slice(0, -3) + 'y');
 	if (word.endsWith('es')) stems.push(word.slice(0, -2), word.slice(0, -1));
 	if (word.endsWith('s') && !word.endsWith('ss')) stems.push(word.slice(0, -1));
-	if (word.endsWith('ing')) stems.push(word.slice(0, -3), word.slice(0, -3) + 'e');
-	if (word.endsWith('ed')) stems.push(word.slice(0, -2), word.slice(0, -1));
+	if (word.endsWith('ing')) {
+		const base = word.slice(0, -3);
+		stems.push(base, base + 'e', base + 'ement');
+		if (base.endsWith('at')) stems.push(base + 'ion');
+	}
+	if (word.endsWith('ed')) {
+		const base = word.slice(0, -2);
+		stems.push(base, base + 'e', base + 'ement');
+		if (base.endsWith('at')) stems.push(base + 'ion');
+	}
+	if (word.endsWith('lyst') || word.endsWith('lyzing')) {
+		stems.push(word.replace(/(lyst|lyzing)$/, 'lysis'));
+		stems.push('data analysis');
+	}
 	return stems;
 }
 
@@ -51,7 +63,8 @@ export function extractKeywords(text: string, stopWords: Set<string>): KeywordRe
 
 	const preTokens: string[] = [];
 	for (const t of rawTokens) {
-		if (t.includes('/') && !allControlled.has(t.toLowerCase())) {
+		const tLower = t.toLowerCase();
+		if (t.includes('/') && !allControlled.has(tLower) && !i18n.dict?.aliases?.[tLower]) {
 			preTokens.push(...t.split('/'));
 		} else {
 			preTokens.push(t);
@@ -61,7 +74,7 @@ export function extractKeywords(text: string, stopWords: Set<string>): KeywordRe
 	const tokens = preTokens
 		// BUG-05 & BUG-16: preserve leading dot for '.net', but clean trailing unicode punctuation properly
 		.map((t) => t.replace(/^[^\p{L}\p{N}.+#]+|[^\p{L}\p{N}+#]+$/gu, '').toLowerCase())
-		.filter((t) => t.length > 1 && !stopWords.has(t));
+		.filter((t) => t.length > 1 && (!stopWords.has(t) || t === 'español' || t === 'résumé'));
 
 	const frequency: Record<string, number> = {};
 	const aliases = i18n.dict?.aliases || {};
@@ -228,7 +241,7 @@ export function matchKeywords(
 	}
 
 	// BUG-19: Match Score Denominator Inflation
-	// We only care about words that are in our controlled dictionaries
+	// We only care about words that are in our controlled dictionaries for scoring
 	const filteredJdKeywords = finalJdKeywords.filter(
 		(k) => k.count > 0 && controlledKeywords.has(k.term)
 	);
@@ -236,7 +249,8 @@ export function matchKeywords(
 	const presentKeywords: KeywordResult[] = [];
 	const missingKeywords: KeywordResult[] = [];
 
-	for (const kw of filteredJdKeywords) {
+	// Map present and missing from all JD words (not just controlled) so uncontrolled features fall correctly into otherKeywords
+	for (const kw of finalJdKeywords) {
 		if (finalCvTermCounts.has(kw.term) && (finalCvTermCounts.get(kw.term) || 0) > 0) {
 			presentKeywords.push({ ...kw, cvCount: finalCvTermCounts.get(kw.term) });
 		} else {
@@ -244,9 +258,10 @@ export function matchKeywords(
 		}
 	}
 
+	const presentControlled = presentKeywords.filter((k) => controlledKeywords.has(k.term));
 	const matchScore =
 		filteredJdKeywords.length > 0
-			? Math.round((presentKeywords.length / filteredJdKeywords.length) * 100)
+			? Math.round((presentControlled.length / filteredJdKeywords.length) * 100)
 			: 0;
 
 	// Grouping with hierarchy to avoid double-assignment
