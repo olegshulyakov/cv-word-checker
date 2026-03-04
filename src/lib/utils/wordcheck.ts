@@ -5,6 +5,10 @@ export interface WeakWordFinding {
 	endIndex: number;
 }
 
+function escapeRegExp(string: string) {
+	return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 export function findWeakWords(
 	cvText: string,
 	weakWordsDict: Record<string, string[]>
@@ -12,37 +16,26 @@ export function findWeakWords(
 	if (!cvText) return [];
 
 	const findings: WeakWordFinding[] = [];
-	const lowerText = cvText.toLowerCase();
 
 	for (const [weakPhrase, suggestions] of Object.entries(weakWordsDict)) {
-		const lowerPhrase = weakPhrase.toLowerCase();
-		let startIndex = lowerText.indexOf(lowerPhrase);
+		// Split the weak phrase into constituent words
+		const words = weakPhrase.trim().split(/\s+/);
 
-		while (startIndex !== -1) {
-			// Check if it's a whole word match (not part of another word)
-			// For CJK scripts, we skip boundary checks as they don't use spaces
-			const isCJK = /[\u4e00-\u9fa5\u3040-\u309f\u30a0-\u30ff]/;
-			const isNonWord = /[^\p{L}\p{N}]/u;
+		// Join words with a pattern that matches any sequence of NON-letters and NON-numbers.
+		// This neatly bridges across spaces, newlines, tabs, and markdown symbols like **, _, etc. (BUG-20, BUG-21)
+		const patternBody = words.map(escapeRegExp).join('[^\\p{L}\\p{N}]+');
 
-			const isBeforeBoundary =
-				startIndex === 0 || isCJK.test(lowerPhrase[0]) || isNonWord.test(lowerText[startIndex - 1]);
+		// Boundary check: word must not be immediately preceded or followed by a letter/number
+		const regex = new RegExp(`(?<![\\p{L}\\p{N}])${patternBody}(?![\\p{L}\\p{N}])`, 'gui');
 
-			const isAfterBoundary =
-				startIndex + lowerPhrase.length >= lowerText.length ||
-				isCJK.test(lowerPhrase[lowerPhrase.length - 1]) ||
-				isNonWord.test(lowerText[startIndex + lowerPhrase.length]);
-
-			if (isBeforeBoundary && isAfterBoundary) {
-				// We want to capture the original casing from the text
-				findings.push({
-					originalPhrase: cvText.substring(startIndex, startIndex + lowerPhrase.length),
-					suggestions,
-					startIndex,
-					endIndex: startIndex + lowerPhrase.length
-				});
-			}
-
-			startIndex = lowerText.indexOf(lowerPhrase, startIndex + 1);
+		let match;
+		while ((match = regex.exec(cvText)) !== null) {
+			findings.push({
+				originalPhrase: cvText.substring(match.index, match.index + match[0].length),
+				suggestions,
+				startIndex: match.index,
+				endIndex: match.index + match[0].length
+			});
 		}
 	}
 
