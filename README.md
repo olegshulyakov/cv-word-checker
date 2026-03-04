@@ -1,42 +1,81 @@
-# sv
+# CV Word Checker
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A client-side web application that helps job seekers optimise their CVs for Applicant Tracking Systems (ATS) and human reviewers. Paste your resume and a job description — the app identifies missing keywords and suggests stronger language, entirely in your browser.
 
-## Creating a project
+**All processing is local. No data ever leaves your device.**
 
-If you're seeing this, you've probably already done this step. Congrats!
+---
+
+## Features
+
+- **ATS Keyword Matching** — Compares your CV against a job description and highlights present and missing keywords, grouped into _Skills & Technologies_, _Abilities_, _Title & Degree_, and _Other Terms_. Shows a match-score ring indicator.
+- **Word Improvement** — Scans your CV for weak or passive phrases (e.g. "responsible for", "helped") and suggests stronger alternatives, highlighted inline with tooltips.
+- **Rewrite with AI** — Builds a structured rewrite prompt from the analysis results, copies it to your clipboard, and optionally opens your chosen AI agent (ChatGPT, Claude, Gemini, Perplexity, DeepSeek, Groq, Qwen).
+- **Multilingual** — 9 languages: English, German, Spanish, French, Hindi, Japanese, Portuguese, Russian, Chinese (Simplified). Auto-detected from the browser; manually overridable.
+- **Offline Ready** — Progressive Web App (PWA) via Vite PWA. Works fully offline after the first load.
+- **Privacy First** — Only CV text, job description text, language preference, theme preference, and selected AI agent are saved to `localStorage`. Analysis results are never stored.
+
+---
+
+## Tech Stack
+
+| Layer     | Technology                                              |
+| --------- | ------------------------------------------------------- |
+| Framework | SvelteKit (Svelte 5)                                    |
+| Language  | TypeScript                                              |
+| Bundler   | Vite                                                    |
+| Styling   | Plain CSS with custom properties (no utility framework) |
+| Icons     | Lucide Svelte                                           |
+| PWA       | `@vite-pwa/sveltekit` + Workbox                         |
+| Testing   | Vitest (unit) + Playwright (browser)                    |
+
+---
+
+## Getting Started
+
+Install dependencies:
 
 ```sh
-# create a new project
-npx sv create my-app
+npm install
 ```
 
-To recreate this project with the same configuration:
+Start the development server:
 
 ```sh
-# recreate this project
-npx sv@0.12.4 create --template minimal --types ts --add prettier eslint vitest="usages:unit,component" --install npm .
+npm start
+
+# open in browser automatically:
+npm start -- --open
 ```
 
-## Developing
+---
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Scripts
 
-```sh
-npm run dev
+| Command                | Description                              |
+| ---------------------- | ---------------------------------------- |
+| `npm start`            | Start the local dev server               |
+| `npm run build`        | Create a production build                |
+| `npm run preview`      | Preview the production build locally     |
+| `npm run check`        | Type-check with `svelte-check`           |
+| `npm run test`         | Run all tests (unit + browser)           |
+| `npm run test:unit`    | Run Vitest unit tests (Node environment) |
+| `npm run test:browser` | Run Vitest browser tests via Playwright  |
+| `npm run lint`         | Check formatting and linting             |
+| `npm run format`       | Auto-fix formatting with Prettier        |
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+---
 
-## Building
+## Deployment
 
-To create a production version of your app:
+The app builds to a static output compatible with any static host:
 
-```sh
-npm run build
-```
+- **GitHub Pages** — works from a subfolder path (see `svelte.config.js`)
+- **Nginx** — see `nginx.conf` in the repo root for an example config
+- **Netlify / Vercel / Cloudflare Pages** — no special config needed
 
-You can preview the production build with `npm run preview`.
+---
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## License
+
+[MIT](LICENSE)
