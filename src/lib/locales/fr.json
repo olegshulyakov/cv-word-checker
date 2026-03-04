@@ -39,7 +39,10 @@
 		"footer.clearBtn": "Effacer toutes les données",
 		"footer.clearConfirm": "Êtes-vous sûr de vouloir effacer toutes les données ? Cela supprimera votre CV actuel et le texte de la description de poste.",
 		"footer.privacyLink": "Politique de confidentialité",
-		"results.noOtherMatching": "Aucun autre terme correspondant trouvé."
+		"results.noOtherMatching": "Aucun autre terme correspondant trouvé.",
+		"results.rewriteWithAi": "Réécrire avec l'IA",
+		"results.rewritePromptCopied": "Prompt copié dans le presse-papiers !",
+		"results.rewritePromptTemplate": "J'ai besoin d'aide pour optimiser mon CV pour une candidature.\n\nLacunes en mots-clés (présents dans la description du poste, manquants dans le CV) : [KEYWORD_GAPS]\nPhrases faibles à améliorer : [WEAK_PHRASES]\n\nVeuillez réécrire mon CV en utilisant la description du poste comme référence.\n\n--- DESCRIPTION DU POSTE ---\n[Paste job description here]\n\n--- MON CV ---\n[Paste CV here]"
 	},
 	"stopWords": [
 		"a",

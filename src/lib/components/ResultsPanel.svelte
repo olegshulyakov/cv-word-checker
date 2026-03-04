@@ -3,13 +3,16 @@
 	import type { KeywordResult } from '$lib/utils/analyzer';
 	import HighlightedCv from './HighlightedCv.svelte';
 	import { i18n } from '$lib/i18n.svelte';
+	import { aiAgents } from '$lib/aiAgents';
 
 	let {
 		results,
-		cvText
+		cvText,
+		jdText
 	}: {
 		results: AnalysisResults;
 		cvText: string;
+		jdText: string;
 	} = $props();
 
 	let scoreColor = $derived.by(() => {
@@ -23,6 +26,65 @@
 		if (score >= 80) return i18n.t('results.scoreExcellent');
 		if (score >= 50) return i18n.t('results.scoreFair');
 		return i18n.t('results.scoreNeedsImprovement');
+	}
+
+	let selectedAgentId = $state(aiAgents[0].id);
+	let showToast = $state(false);
+
+	function getKeywordGaps(): string {
+		const groups = results.match.groups;
+		const missing = [
+			...groups.technicalSkills.missing,
+			...groups.abilities.missing,
+			...groups.otherKeywords.missing,
+			...groups.titleAndDegree.missing
+		];
+		const uniqueMissing = Array.from(new Set(missing.map((k) => k.term)));
+		return uniqueMissing.length > 0 ? uniqueMissing.join(', ') : 'None';
+	}
+
+	function getWeakPhrases(): string {
+		const phrases = results.weakWords.map((w) => w.originalPhrase);
+		const uniquePhrases = Array.from(new Set(phrases));
+		return uniquePhrases.length > 0 ? uniquePhrases.join(', ') : 'None';
+	}
+
+	async function rewriteWithAi() {
+		const agent = aiAgents.find((a) => a.id === selectedAgentId);
+		if (!agent) return;
+
+		const gaps = getKeywordGaps();
+		const weak = getWeakPhrases();
+
+		let prompt = i18n.t('results.rewritePromptTemplate');
+		prompt = prompt
+			.replace('[KEYWORD_GAPS]', gaps)
+			.replace('[WEAK_PHRASES]', weak)
+			.replace('[Paste job description here]', jdText)
+			.replace('[Paste CV here]', cvText);
+
+		await copyToClipboard(prompt);
+
+		if (agent.method === 'url') {
+			// Wait 5 seconds before redirecting
+			setTimeout(() => {
+				const encodedPrompt = encodeURIComponent(prompt);
+				const url = agent.urlTemplate.replace('{prompt}', encodedPrompt);
+				window.open(url, '_blank');
+			}, 5000);
+		}
+	}
+
+	async function copyToClipboard(text: string) {
+		try {
+			await navigator.clipboard.writeText(text);
+			showToast = true;
+			setTimeout(() => {
+				showToast = false;
+			}, 3000);
+		} catch (err) {
+			console.error('Failed to copy prompt to clipboard', err);
+		}
 	}
 </script>
 
@@ -47,6 +109,22 @@
 				<span class="time-label">{i18n.t('results.analyzedIn')} {results.analysisTimeMs}ms</span>
 			</div>
 		</div>
+	</div>
+
+	<div class="ai-rewrite-section">
+		<div class="ai-controls">
+			<select bind:value={selectedAgentId} class="agent-select">
+				{#each aiAgents as agent (agent.id)}
+					<option value={agent.id}>{agent.name}</option>
+				{/each}
+			</select>
+			<button onclick={rewriteWithAi} class="btn-primary">
+				{i18n.t('results.rewriteWithAi')}
+			</button>
+		</div>
+		{#if showToast}
+			<div class="toast" role="alert">{i18n.t('results.rewritePromptCopied')}</div>
+		{/if}
 	</div>
 
 	{#snippet keywordBlock(
@@ -365,5 +443,91 @@
 	.section-desc {
 		margin: 0 0 1.5rem 0;
 		color: var(--text-muted);
+	}
+
+	.ai-rewrite-section {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 1rem;
+		position: relative;
+		padding: 1rem;
+		background-color: var(--surface-hover);
+		border-radius: 8px;
+		border: 1px solid var(--border-color);
+	}
+
+	.ai-controls {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+
+	.agent-select {
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		border: 1px solid var(--border-color);
+		background: var(--surface-color);
+		color: var(--text-color);
+		font-size: 0.9375rem;
+		height: 38px;
+	}
+
+	.agent-select:focus {
+		outline: none;
+		border-color: var(--accent-color);
+		box-shadow: 0 0 0 3px var(--focus-ring);
+	}
+
+	.btn-primary {
+		padding: 0.5rem 1.25rem;
+		background: var(--accent-color);
+		color: var(--bg-color);
+		border: 1px solid var(--accent-color);
+		border-radius: 6px;
+		font-weight: 500;
+		cursor: pointer;
+		transition:
+			background-color 0.2s,
+			border-color 0.2s;
+		height: 38px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.btn-primary:hover {
+		background: var(--accent-hover);
+		border-color: var(--accent-hover);
+	}
+
+	.toast {
+		padding: 0.5rem 1rem;
+		background-color: var(--success-color);
+		color: var(--bg-color);
+		border-radius: 6px;
+		font-size: 0.875rem;
+		animation: fadeInOut 3s forwards;
+		font-weight: 500;
+	}
+
+	@keyframes fadeInOut {
+		0% {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+		10% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		90% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		100% {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
 	}
 </style>

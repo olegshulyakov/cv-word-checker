@@ -39,7 +39,10 @@
 		"footer.clearBtn": "Limpar todos os dados",
 		"footer.clearConfirm": "Tem certeza de que deseja limpar todos os dados? Isso excluirá seu currículo atual e o texto da descrição do cargo.",
 		"footer.privacyLink": "Política de Privacidade",
-		"results.noOtherMatching": "Nenhum outro termo correspondente encontrado."
+		"results.noOtherMatching": "Nenhum outro termo correspondente encontrado.",
+		"results.rewriteWithAi": "Reescrever com IA",
+		"results.rewritePromptCopied": "Prompt copiado para a área de transferência!",
+		"results.rewritePromptTemplate": "Preciso de ajuda para otimizar o meu currículo para uma candidatura de emprego.\n\nLacunas de palavras-chave (presentes na descrição do trabalho, ausentes no currículo): [KEYWORD_GAPS]\nFrases fracas para melhorar: [WEAK_PHRASES]\n\nPor favor, reescreva o meu currículo usando a descrição do trabalho como referencia.\n\n--- DESCRIÇÃO DO TRABALHO ---\n[Paste job description here]\n\n--- MEU CURRÍCULO ---\n[Paste CV here]"
 	},
 	"stopWords": [
 		"a",

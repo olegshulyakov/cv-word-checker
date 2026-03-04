@@ -39,7 +39,10 @@
 		"results.noOtherMatching": "No other matching terms found.",
 		"footer.clearBtn": "Clear all data",
 		"footer.clearConfirm": "Are you sure you want to clear all data? This will delete your current CV and job description text.",
-		"footer.privacyLink": "Privacy Policy"
+		"footer.privacyLink": "Privacy Policy",
+		"results.rewriteWithAi": "Rewrite with AI",
+		"results.rewritePromptCopied": "Prompt copied to clipboard!",
+		"results.rewritePromptTemplate": "I need help optimising my CV for a job application.\n\nKeyword gaps (present in job description, missing from CV): [KEYWORD_GAPS]\nWeak phrases to improve: [WEAK_PHRASES]\n\nPlease rewrite my CV using the job description as a reference.\n\n--- JOB DESCRIPTION ---\n[Paste job description here]\n\n--- MY CV ---\n[Paste CV here]"
 	},
 	"stopWords": [
 		"a",

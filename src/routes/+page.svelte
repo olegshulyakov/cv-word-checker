@@ -105,7 +105,7 @@
 	{/if}
 
 	{#if analysisResult}
-		<ResultsPanel results={analysisResult} cvText={cvText.value} />
+		<ResultsPanel results={analysisResult} cvText={cvText.value} jdText={jdText.value} />
 	{/if}
 </div>
 

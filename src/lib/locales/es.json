@@ -39,7 +39,10 @@
 		"footer.clearBtn": "Borrar todos los datos",
 		"footer.clearConfirm": "¿Está seguro de que desea borrar todos los datos? Esto eliminará su CV actual y el texto de la descripción del trabajo.",
 		"footer.privacyLink": "Política de Privacidad",
-		"results.noOtherMatching": "No se encontraron otros términos coincidentes."
+		"results.noOtherMatching": "No se encontraron otros términos coincidentes.",
+		"results.rewriteWithAi": "Reescribir con IA",
+		"results.rewritePromptCopied": "¡Prompt copiado al portapapeles!",
+		"results.rewritePromptTemplate": "Necesito ayuda para optimizar mi currículum para una oferta de trabajo.\n\nBrechas de palabras clave (presentes en la descripción del trabajo, ausentes en el CV): [KEYWORD_GAPS]\nFrases débiles a mejorar: [WEAK_PHRASES]\n\nPor favor, reescribe mi CV usando la descripción del trabajo como referencia.\n\n--- DESCRIPCIÓN DEL TRABAJO ---\n[Paste job description here]\n\n--- MI CV ---\n[Paste CV here]"
 	},
 	"stopWords": [
 		"a",

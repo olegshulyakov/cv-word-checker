@@ -39,7 +39,10 @@
 		"footer.clearBtn": "सभी डेटा साफ़ करें",
 		"footer.clearConfirm": "क्या आप वाकई सारा डेटा साफ़ करना चाहते हैं? इससे आपका वर्तमान सीवी और नौकरी विवरण टेक्स्ट हटा दिया जाएगा।",
 		"footer.privacyLink": "गोपनीयता नीति",
-		"results.noOtherMatching": "कोई अन्य मिलान शब्द नहीं मिला।"
+		"results.noOtherMatching": "कोई अन्य मिलान शब्द नहीं मिला।",
+		"results.rewriteWithAi": "AI के साथ फिर से लिखें",
+		"results.rewritePromptCopied": "प्रॉम्ट क्लिपबोर्ड पर कॉपी किया गया!",
+		"results.rewritePromptTemplate": "मुझे नौकरी के आवेदन के लिए अपना सीवी (CV) बेहतर बनाने में मदद चाहिए।\n\nकीवर्ड अंतर (जो नौकरी के विवरण में हैं, लेकिन सीवी में नहीं): [KEYWORD_GAPS]\nसुधार के लिए कमजोर वाक्यांश: [WEAK_PHRASES]\n\nकृपया नौकरी के विवरण को संदर्भ के रूप में उपयोग करते हुए मेरे सीवी को फिर से लिखें।\n\n--- नौकरी का विवरण ---\n[Paste job description here]\n\n--- मेरा सीवी ---\n[Paste CV here]"
 	},
 	"stopWords": [
 		"अंदर",

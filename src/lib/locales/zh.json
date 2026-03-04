@@ -39,7 +39,10 @@
 		"footer.clearBtn": "清除所有数据",
 		"footer.clearConfirm": "您确定要清除所有数据吗？这将删除您当前的简历和职位描述文本。",
 		"footer.privacyLink": "隐私政策",
-		"results.noOtherMatching": "未发现其他匹配项。"
+		"results.noOtherMatching": "未发现其他匹配项。",
+		"results.rewriteWithAi": "使用 AI 重写",
+		"results.rewritePromptCopied": "提示词已复制到剪贴板！",
+		"results.rewritePromptTemplate": "我需要帮助优化我的求职简历。\n\n关键词差异（职位描述中存在但简历中缺失）：[KEYWORD_GAPS]\n需要改进的弱项短语：[WEAK_PHRASES]\n\n请参考职位描述重写我的简历。\n\n--- 职位描述 ---\n[Paste job description here]\n\n--- 我的简历 ---\n[Paste CV here]"
 	},
 	"stopWords": [
 		"的",
