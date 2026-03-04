@@ -2,9 +2,10 @@ import { describe, it, expect } from 'vitest';
 import { stripHtmlAndMarkdown } from './parser';
 
 describe('stripHtmlAndMarkdown', () => {
-	it('should handle empty strings', () => {
+	it('should handle empty strings and null/undefined inputs', () => {
 		expect(stripHtmlAndMarkdown('')).toBe('');
 		expect(stripHtmlAndMarkdown(null as unknown as string)).toBe('');
+		expect(stripHtmlAndMarkdown(undefined as unknown as string)).toBe('');
 	});
 
 	it('should strip HTML tags', () => {
@@ -55,5 +56,25 @@ describe('stripHtmlAndMarkdown', () => {
 		expect(stripHtmlAndMarkdown(input)).toBe(
 			'Developer Resume Experience Senior Engineer at TechCorp Led the team to success Built cool stuff'
 		);
+	});
+
+	it('should inject a space when stripping adjacent HTML tags (BUG-14 regression guard)', () => {
+		// Without a space injection: <b>Responsible</b>for → "Responsiblefor" (bug)
+		// With correct fix: → "Responsible for"
+		expect(stripHtmlAndMarkdown('<b>Responsible</b>for')).toBe('Responsible for');
+		expect(stripHtmlAndMarkdown('<em>Node</em>.js')).toBe('Node .js');
+	});
+
+	it('should strip inline code spans', () => {
+		expect(stripHtmlAndMarkdown('Use `npm install` to set up.')).toBe('Use npm install to set up.');
+	});
+
+	it('should strip fenced code blocks', () => {
+		const input = 'Description:\n```\nconst x = 1;\n```\nEnd.';
+		const result = stripHtmlAndMarkdown(input);
+		// Code block content should be removed; surrounding prose should remain
+		expect(result).toContain('Description');
+		expect(result).toContain('End');
+		expect(result).not.toContain('const x');
 	});
 });

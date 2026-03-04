@@ -29,8 +29,25 @@ describe('state module', () => {
 		const state = createPersistentState('json_key', initialObj);
 		expect(state.value).toEqual(initialObj);
 
-		const newObj = { b: 2 };
-		state.value = newObj;
-		expect(JSON.parse(localStorage.getItem('json_key')!)).toEqual(newObj);
+		const updatedObj = { a: 2 };
+		state.value = updatedObj;
+		expect(JSON.parse(localStorage.getItem('json_key')!)).toEqual(updatedObj);
+	});
+
+	it('should fall back to initialValue when localStorage contains corrupted JSON', () => {
+		// Simulates corruption: a value that cannot be JSON.parsed for an object-type state
+		localStorage.setItem('corrupt_key', '{not valid json');
+		const initial = { x: 42 };
+		const state = createPersistentState('corrupt_key', initial);
+		// The try/catch in createPersistentState should silently recover to initialValue
+		expect(state.value).toEqual(initial);
+	});
+
+	it('should use initialValue when the key does not exist in localStorage', () => {
+		// Ensure the key is absent
+		localStorage.removeItem('missing_key');
+		const state = createPersistentState('missing_key', 'default');
+		expect(state.value).toBe('default');
 	});
 });
+

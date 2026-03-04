@@ -87,11 +87,6 @@ describe('Analyzer', () => {
 
 			const results = matchKeywords(cvText, jdText, stopWords, tech, new Set(), new Set());
 
-			// console.log('Filtered JD:', results.filteredJdKeywords?.map(k => k.term));
-			// Wait, I can't access it easily if it's internal. I'll just log present/missing.
-			// console.log('Present:', results.presentKeywords.map(k => k.term));
-			// console.log('Missing:', results.missingKeywords.map(k => k.term));
-
 			expect(results.presentKeywords.map((k) => k.term)).toContain('machine learning');
 			expect(results.matchScore).toBe(50); // 1 of 2
 		});
@@ -105,6 +100,66 @@ describe('Analyzer', () => {
 
 			expect(results.groups.technicalSkills.present.map((k) => k.term)).toContain('leadership');
 			expect(results.groups.abilities.present).toHaveLength(0);
+		});
+
+		it('should return matchScore 100 when CV covers all JD keywords', () => {
+			const cvText = 'I am a React developer with CSS and Svelte skills.';
+			const jdText = 'React Svelte developer CSS.';
+
+			const results = matchKeywords(
+				cvText,
+				jdText,
+				stopWords,
+				technicalSkillsKeywords,
+				abilitiesKeywords,
+				titleAndDegreeKeywords
+			);
+
+			expect(results.matchScore).toBe(100);
+			expect(results.missingKeywords).toHaveLength(0);
+		});
+
+		it('should return matchScore 0 when CV has no JD keywords', () => {
+			const results = matchKeywords(
+				'I enjoy cooking pasta.',
+				'Looking for a React Svelte developer.',
+				stopWords,
+				technicalSkillsKeywords,
+				abilitiesKeywords,
+				titleAndDegreeKeywords
+			);
+
+			expect(results.matchScore).toBe(0);
+			expect(results.presentKeywords).toHaveLength(0);
+		});
+
+		it('should match keywords case-insensitively', () => {
+			// CV uses uppercase REACT; JD uses lowercase react
+			const results = matchKeywords(
+				'REACT developer.',
+				'react css.',
+				stopWords,
+				technicalSkillsKeywords,
+				abilitiesKeywords,
+				titleAndDegreeKeywords
+			);
+
+			expect(results.presentKeywords.map((k) => k.term)).toContain('react');
+		});
+
+		it('should place unknown JD terms that are not in any dictionary into otherKeywords', () => {
+			// "kubernetes" is not in any of the test dictionaries
+			const results = matchKeywords(
+				'I know kubernetes and docker.',
+				'Need kubernetes experience.',
+				stopWords,
+				technicalSkillsKeywords, // react, css, svelte
+				abilitiesKeywords, // leadership
+				titleAndDegreeKeywords // developer, engineer
+			);
+
+			const otherPresent = results.groups.otherKeywords.present.map((k) => k.term);
+			expect(otherPresent).toContain('kubernetes');
 		});
 	});
 });

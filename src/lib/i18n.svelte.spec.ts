@@ -30,11 +30,11 @@ vi.mock('./locales/de.json', () => ({
 }));
 
 describe('i18n module', () => {
-	beforeEach(() => {
-		// Reset state if needed, though svelte state might persist in vitest
-	});
+	// Note: i18n module state persists across tests because its Svelte $state is module-level.
+	// Tests are ordered so that English is loaded last (ensuring the fallback tests work).
 
 	it('should have initial state as not loaded', () => {
+		// This test must run first — before any loadLanguage call.
 		expect(i18n.isLoaded).toBe(false);
 	});
 
@@ -42,6 +42,16 @@ describe('i18n module', () => {
 		await i18n.loadLanguage('en');
 		expect(i18n.isLoaded).toBe(true);
 		expect(i18n.t('header.title')).toBe('CV Word Checker');
+	});
+
+	it('should expose populated dictionary data after loading English', async () => {
+		await i18n.loadLanguage('en');
+		// i18n.dict is the raw LocaleDict. These arrays drive the engine — verify they are non-empty.
+		expect(i18n.dict).not.toBeNull();
+		expect(i18n.dict!.stopWords.length).toBeGreaterThan(0);
+		expect(Object.keys(i18n.dict!.weakWords).length).toBeGreaterThan(0);
+		expect(i18n.dict!.technicalSkillsKeywords.length).toBeGreaterThan(0);
+		expect(i18n.dict!.abilitiesKeywords.length).toBeGreaterThan(0);
 	});
 
 	it('should fall back to English for missing keys', async () => {

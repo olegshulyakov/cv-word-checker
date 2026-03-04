@@ -50,4 +50,38 @@ describe('theme module', () => {
 		themeState.set('light');
 		expect(document.documentElement.hasAttribute('data-theme')).toBe(false);
 	});
+
+	it('should resolve "system" to "dark" when prefers-color-scheme is dark', () => {
+		// Override the matchMedia mock so it returns matches: true for dark
+		Object.defineProperty(window, 'matchMedia', {
+			writable: true,
+			value: vi.fn().mockImplementation((query) => ({
+				matches: query === '(prefers-color-scheme: dark)',
+				media: query,
+				onchange: null,
+				addListener: vi.fn(),
+				removeListener: vi.fn(),
+				addEventListener: vi.fn(),
+				removeEventListener: vi.fn(),
+				dispatchEvent: vi.fn()
+			}))
+		});
+		const darkSystemState = new ThemeState();
+		expect(darkSystemState.preference).toBe('system');
+		expect(darkSystemState.current).toBe('dark');
+	});
+
+	it('should persist theme preference to localStorage when set', () => {
+		themeState.set('dark');
+		// ThemeState uses STORAGE_KEYS.THEME internally
+		const stored = localStorage.getItem('cvwc_theme');
+		expect(stored).toBe('dark');
+	});
+
+	it('should restore theme from localStorage on new ThemeState instance', () => {
+		localStorage.setItem('cvwc_theme', 'dark');
+		const restoredState = new ThemeState();
+		expect(restoredState.preference).toBe('dark');
+		expect(restoredState.current).toBe('dark');
+	});
 });
