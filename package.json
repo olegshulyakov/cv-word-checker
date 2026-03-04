@@ -41,7 +41,6 @@
 		"vitest-browser-svelte": "^2.0.2"
 	},
 	"dependencies": {
-		"bits-ui": "^2.16.2",
 		"lucide-svelte": "^0.576.0"
 	}
 }
