@@ -73,7 +73,7 @@
 				const encodedPrompt = encodeURIComponent(prompt);
 				const url = agent.urlTemplate.replace('{prompt}', encodedPrompt);
 				window.open(url, '_blank');
-			}, 5000);
+			}, 2000);
 		}
 	}
 
@@ -99,7 +99,7 @@
 				const encodedPrompt = encodeURIComponent(prompt);
 				const url = agent.urlTemplate.replace('{prompt}', encodedPrompt);
 				window.open(url, '_blank');
-			}, 5000);
+			}, 2000);
 		}
 	}
 
