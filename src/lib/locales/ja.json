@@ -42,7 +42,9 @@
 		"results.noOtherMatching": "他の該当する用語は見つかりませんでした。",
 		"results.rewriteWithAi": "AIでリライトする",
 		"results.rewritePromptCopied": "プロンプトをクリップボードにコピーしました！",
-		"results.rewritePromptTemplate": "求人応募のために履歴書の最適化を手伝ってください。\n\nキーワードの差異（求人票にはあるが履歴書にないもの）: [KEYWORD_GAPS]\n改善すべき弱い表現: [WEAK_PHRASES]\n\n求人票を参考にして履歴書を書き直してください。\n\n--- 求人票 ---\n[Paste job description here]\n\n--- 履歴書 ---\n[Paste CV here]"
+		"results.rewritePromptTemplate": "求人応募のために履歴書の最適化を手伝ってください。\n\nキーワードの差異（求人票にはあるが履歴書にないもの）: [KEYWORD_GAPS]\n改善すべき弱い表現: [WEAK_PHRASES]\n\n求人票を参考にして履歴書を書き直してください。\n\n--- 求人票 ---\n[JOB_DESCRIPTION]\n\n--- 履歴書 ---\n[MY_CV]",
+		"results.checkCandidateWithAi": "候補者をチェック",
+		"results.checkCandidatePromptTemplate": "提供された求人票と照らし合わせて、この候補者の履歴書を評価してください。彼らの強み、弱み、およびその役割に対する総合的な適性を特定してください。\n\n--- 求人票 ---\n[JOB_DESCRIPTION]\n\n--- 履歴書 ---\n[MY_CV]"
 	},
 	"stopWords": [
 		"あそこ",

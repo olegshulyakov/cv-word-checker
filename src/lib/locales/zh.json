@@ -42,7 +42,9 @@
 		"results.noOtherMatching": "未发现其他匹配项。",
 		"results.rewriteWithAi": "使用 AI 重写",
 		"results.rewritePromptCopied": "提示词已复制到剪贴板！",
-		"results.rewritePromptTemplate": "我需要帮助优化我的求职简历。\n\n关键词差异（职位描述中存在但简历中缺失）：[KEYWORD_GAPS]\n需要改进的弱项短语：[WEAK_PHRASES]\n\n请参考职位描述重写我的简历。\n\n--- 职位描述 ---\n[Paste job description here]\n\n--- 我的简历 ---\n[Paste CV here]"
+		"results.rewritePromptTemplate": "我需要帮助优化我的求职简历。\n\n关键词差异（职位描述中存在但简历中缺失）：[KEYWORD_GAPS]\n需要改进的弱项短语：[WEAK_PHRASES]\n\n请参考职位描述重写我的简历。\n\n--- 职位描述 ---\n[JOB_DESCRIPTION]\n\n--- 我的简历 ---\n[MY_CV]",
+		"results.checkCandidateWithAi": "评估候选人",
+		"results.checkCandidatePromptTemplate": "请根据提供的职位描述评估该候选人的简历。找出他们的优势、劣势以及对该职位的整体适合度。\n\n--- 职位描述 ---\n[JOB_DESCRIPTION]\n\n--- 简历 ---\n[MY_CV]"
 	},
 	"stopWords": [
 		"的",

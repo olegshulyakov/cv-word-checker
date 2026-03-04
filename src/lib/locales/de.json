@@ -42,7 +42,9 @@
 		"footer.privacyLink": "Datenschutzerklärung",
 		"results.rewriteWithAi": "Mit KI umschreiben",
 		"results.rewritePromptCopied": "Prompt in die Zwischenablage kopiert!",
-		"results.rewritePromptTemplate": "Ich benötige Hilfe bei der Optimierung meines Lebenslaufs für eine Stellenanzeige.\n\nSchlüsselwortlücken (in der Stellenbeschreibung vorhanden, im Lebenslauf fehlend): [KEYWORD_GAPS]\nSchwache Formulierungen zur Verbesserung: [WEAK_PHRASES]\n\nBitte schreiben Sie meinen Lebenslauf unter Bezugnahme auf die Stellenbeschreibung um.\n\n--- STELLENBESCHREIBUNG ---\n[Paste job description here]\n\n--- MEIN LEBENSLAUF ---\n[Paste CV here]"
+		"results.rewritePromptTemplate": "Ich benötige Hilfe bei der Optimierung meines Lebenslaufs für eine Stellenanzeige.\n\nSchlüsselwortlücken (in der Stellenbeschreibung vorhanden, im Lebenslauf fehlend): [KEYWORD_GAPS]\nSchwache Formulierungen zur Verbesserung: [WEAK_PHRASES]\n\nBitte schreiben Sie meinen Lebenslauf unter Bezugnahme auf die Stellenbeschreibung um.\n\n--- STELLENBESCHREIBUNG ---\n[JOB_DESCRIPTION]\n\n--- MEIN LEBENSLAUF ---\n[MY_CV]",
+		"results.checkCandidateWithAi": "Kandidat prüfen",
+		"results.checkCandidatePromptTemplate": "Bitte bewerten Sie den Lebenslauf dieses Kandidaten anhand der bereitgestellten Stellenbeschreibung. Identifizieren Sie seine Stärken, Schwächen und generelle Eignung für die Rolle.\n\n--- STELLENBESCHREIBUNG ---\n[JOB_DESCRIPTION]\n\n--- LEBENSLAUF ---\n[MY_CV]"
 	},
 	"stopWords": [
 		"aber",

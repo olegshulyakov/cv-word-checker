@@ -60,8 +60,34 @@
 		prompt = prompt
 			.replace('[KEYWORD_GAPS]', gaps)
 			.replace('[WEAK_PHRASES]', weak)
-			.replace('[Paste job description here]', jdText)
-			.replace('[Paste CV here]', cvText);
+			.replace('[JOB_DESCRIPTION]', jdText)
+			.replace('[MY_CV]', cvText);
+
+		await copyToClipboard(prompt);
+
+		if (agent.method === 'url') {
+			// Wait 5 seconds before redirecting
+			setTimeout(() => {
+				const encodedPrompt = encodeURIComponent(prompt);
+				const url = agent.urlTemplate.replace('{prompt}', encodedPrompt);
+				window.open(url, '_blank');
+			}, 5000);
+		}
+	}
+
+	async function checkCandidateWithAi() {
+		const agent = aiAgents.find((a) => a.id === selectedAgentId);
+		if (!agent) return;
+
+		const gaps = getKeywordGaps();
+		const weak = getWeakPhrases();
+
+		let prompt = i18n.t('results.checkCandidatePromptTemplate');
+		prompt = prompt
+			.replace('[KEYWORD_GAPS]', gaps)
+			.replace('[WEAK_PHRASES]', weak)
+			.replace('[JOB_DESCRIPTION]', jdText)
+			.replace('[MY_CV]', cvText);
 
 		await copyToClipboard(prompt);
 
@@ -120,6 +146,9 @@
 			</select>
 			<button onclick={rewriteWithAi} class="btn-primary">
 				{i18n.t('results.rewriteWithAi')}
+			</button>
+			<button onclick={checkCandidateWithAi} class="btn-secondary">
+				{i18n.t('results.checkCandidateWithAi')}
 			</button>
 		</div>
 		{#if showToast}
@@ -480,26 +509,42 @@
 		box-shadow: 0 0 0 3px var(--focus-ring);
 	}
 
-	.btn-primary {
+	.btn-primary,
+	.btn-secondary {
 		padding: 0.5rem 1.25rem;
-		background: var(--accent-color);
-		color: var(--bg-color);
-		border: 1px solid var(--accent-color);
 		border-radius: 6px;
 		font-weight: 500;
 		cursor: pointer;
 		transition:
 			background-color 0.2s,
-			border-color 0.2s;
+			border-color 0.2s,
+			color 0.2s;
 		height: 38px;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 	}
 
+	.btn-primary {
+		background: var(--accent-color);
+		color: var(--bg-color);
+		border: 1px solid var(--accent-color);
+	}
+
 	.btn-primary:hover {
 		background: var(--accent-hover);
 		border-color: var(--accent-hover);
+	}
+
+	.btn-secondary {
+		background: transparent;
+		color: var(--text-color);
+		border: 1px solid var(--border-color);
+	}
+
+	.btn-secondary:hover {
+		background: var(--surface-hover);
+		border-color: var(--text-muted);
 	}
 
 	.toast {

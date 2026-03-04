@@ -192,10 +192,10 @@ Weak phrases to improve: [WEAK_PHRASES]
 Please rewrite my CV using the job description as a reference.
 
 --- JOB DESCRIPTION ---
-[Paste job description here]
+[JOB_DESCRIPTION]
 
 --- MY CV ---
-[Paste CV here]
+[MY_CV]
 ```
 
 `[KEYWORD_GAPS]` and `[WEAK_PHRASES]` are injected from the analysis results at redirect time. The template is defined per locale in the language files so it reads naturally in the user's chosen language.
