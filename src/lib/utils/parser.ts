@@ -15,6 +15,10 @@ export function stripHtmlAndMarkdown(text: string): string {
 		.replace(/&gt;/g, '>');
 
 	// Simple markdown strip (headers, bold, italic, lists, links)
+	// Remove fenced code blocks
+	parsed = parsed.replace(/```[\s\S]*?```/g, ' ');
+	// Remove inline code
+	parsed = parsed.replace(/`([^`]+)`/g, '$1');
 	// Remove blockquotes
 	parsed = parsed.replace(/^>\s+/gm, '');
 	// Remove list markers
