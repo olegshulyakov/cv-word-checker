@@ -21,12 +21,18 @@ export function findWeakWords(
 		// Split the weak phrase into constituent words
 		const words = weakPhrase.trim().split(/\s+/);
 
-		// Join words with a pattern that matches any sequence of NON-letters and NON-numbers.
-		// This neatly bridges across spaces, newlines, tabs, and markdown symbols like **, _, etc. (BUG-20, BUG-21)
-		const patternBody = words.map(escapeRegExp).join('[^\\p{L}\\p{N}]+');
+		// Join words with a pattern that matches any sequence of NON-letters and NON-numbers, OR HTML tags.
+		// This neatly bridges across spaces, newlines, tabs, and markdown symbols like **, _, etc. (BUG-20, BUG-21, BUG-23)
+		const patternBody = words.map(escapeRegExp).join('(?:<[^>]*>|[^\\p{L}\\p{N}])+');
+
+		// Check if the phrase contains CJK characters (BUG-24)
+		const isCJK = /[\u4e00-\u9fa5\u3040-\u30ff\uac00-\ud7af]/.test(weakPhrase);
 
 		// Boundary check: word must not be immediately preceded or followed by a letter/number
-		const regex = new RegExp(`(?<![\\p{L}\\p{N}])${patternBody}(?![\\p{L}\\p{N}])`, 'gui');
+		// For CJK languages that don't use spaces, we drop the strict boundary requirement
+		const prefix = isCJK ? '' : '(?<![\\p{L}\\p{N}])';
+		const suffix = isCJK ? '' : '(?![\\p{L}\\p{N}])';
+		const regex = new RegExp(`${prefix}${patternBody}${suffix}`, 'gui');
 
 		let match;
 		while ((match = regex.exec(cvText)) !== null) {
