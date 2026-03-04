@@ -44,7 +44,8 @@
 		"results.rewritePromptCopied": "Prompt copiado para a área de transferência!",
 		"results.rewritePromptTemplate": "Preciso de ajuda para otimizar o meu currículo para uma candidatura de emprego.\n\nLacunas de palavras-chave (presentes na descrição do trabalho, ausentes no currículo): [KEYWORD_GAPS]\nFrases fracas para melhorar: [WEAK_PHRASES]\n\nPor favor, reescreva o meu currículo usando a descrição do trabalho como referencia.\n\n--- DESCRIÇÃO DO TRABALHO ---\n[JOB_DESCRIPTION]\n\n--- MEU CURRÍCULO ---\n[MY_CV]",
 		"results.checkCandidateWithAi": "Verificar candidato",
-		"results.checkCandidatePromptTemplate": "Por favor, avalie o currículo deste candidato comparado à descrição do trabalho fornecida. Identifique os seus pontos fortes, fraquezas e a adequação geral para a função.\n\n--- DESCRIÇÃO DO TRABALHO ---\n[JOB_DESCRIPTION]\n\n--- CURRÍCULO ---\n[MY_CV]"
+		"results.checkCandidatePromptTemplate": "Por favor, avalie o currículo deste candidato comparado à descrição do trabalho fornecida. Identifique os seus pontos fortes, fraquezas e a adequação geral para a função.\n\n--- DESCRIÇÃO DO TRABALHO ---\n[JOB_DESCRIPTION]\n\n--- CURRÍCULO ---\n[MY_CV]",
+		"results.aiAgentSelector": "Selecionar agente de IA"
 	},
 	"stopWords": [
 		"a",

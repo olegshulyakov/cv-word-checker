@@ -60,12 +60,10 @@
 				class="highlight-wrapper"
 				tabindex="0"
 				role="button"
-				aria-label="{i18n.t('results.weakWordsTooltipTitle')}: {segment.content}. {i18n.t(
-					'results.weakWordsTooltipPrefix'
-				)} {segment.finding.suggestions.join(', ')}"
+				aria-describedby="tooltip-{segment.finding.startIndex}"
 			>
 				<mark class="highlight-mark">{segment.content}</mark>
-				<span class="tooltip" aria-hidden="true">
+				<span class="tooltip" role="tooltip" id="tooltip-{segment.finding.startIndex}">
 					<strong>{i18n.t('results.weakWordsTooltipTitle')}</strong><br />
 					{i18n.t('results.weakWordsTooltipPrefix')}
 					<ul class="suggestion-list">

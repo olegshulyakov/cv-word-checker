@@ -44,7 +44,8 @@
 		"results.rewritePromptCopied": "Prompt copié dans le presse-papiers !",
 		"results.rewritePromptTemplate": "J'ai besoin d'aide pour optimiser mon CV pour une candidature.\n\nLacunes en mots-clés (présents dans la description du poste, manquants dans le CV) : [KEYWORD_GAPS]\nPhrases faibles à améliorer : [WEAK_PHRASES]\n\nVeuillez réécrire mon CV en utilisant la description du poste comme référence.\n\n--- DESCRIPTION DU POSTE ---\n[JOB_DESCRIPTION]\n\n--- MON CV ---\n[MY_CV]",
 		"results.checkCandidateWithAi": "Vérifier le candidat",
-		"results.checkCandidatePromptTemplate": "Veuillez évaluer le CV de ce candidat par rapport à la description du poste fournie. Identifiez ses forces, ses faiblesses et son adéquation globale au rôle.\n\n--- DESCRIPTION DU POSTE ---\n[JOB_DESCRIPTION]\n\n--- CV ---\n[MY_CV]"
+		"results.checkCandidatePromptTemplate": "Veuillez évaluer le CV de ce candidat par rapport à la description du poste fournie. Identifiez ses forces, ses faiblesses et son adéquation globale au rôle.\n\n--- DESCRIPTION DU POSTE ---\n[JOB_DESCRIPTION]\n\n--- CV ---\n[MY_CV]",
+		"results.aiAgentSelector": "Sélectionner l'agent d'IA"
 	},
 	"stopWords": [
 		"a",

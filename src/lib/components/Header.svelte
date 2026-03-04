@@ -13,7 +13,7 @@
 <header>
 	<div class="container">
 		<a href="/" class="logo">
-			<img src={favicon} alt="Logo" class="icon" />
+			<img src={favicon} alt="" aria-hidden="true" class="icon" />
 			<span class="text">{i18n.t('header.title')}</span>
 		</a>
 

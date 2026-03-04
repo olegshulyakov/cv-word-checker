@@ -44,7 +44,8 @@
 		"results.rewritePromptCopied": "¡Prompt copiado al portapapeles!",
 		"results.rewritePromptTemplate": "Necesito ayuda para optimizar mi currículum para una oferta de trabajo.\n\nBrechas de palabras clave (presentes en la descripción del trabajo, ausentes en el CV): [KEYWORD_GAPS]\nFrases débiles a mejorar: [WEAK_PHRASES]\n\nPor favor, reescribe mi CV usando la descripción del trabajo como referencia.\n\n--- DESCRIPCIÓN DEL TRABAJO ---\n[JOB_DESCRIPTION]\n\n--- MI CV ---\n[MY_CV]",
 		"results.checkCandidateWithAi": "Comprobar candidato",
-		"results.checkCandidatePromptTemplate": "Por favor, evalúe el CV de este candidato frente a la descripción del trabajo proporcionada. Identifique sus puntos fuertes, debilidades y su idoneidad general para el puesto.\n\n--- DESCRIPCIÓN DEL TRABAJO ---\n[JOB_DESCRIPTION]\n\n--- CV ---\n[MY_CV]"
+		"results.checkCandidatePromptTemplate": "Por favor, evalúe el CV de este candidato frente a la descripción del trabajo proporcionada. Identifique sus puntos fuertes, debilidades y su idoneidad general para el puesto.\n\n--- DESCRIPCIÓN DEL TRABAJO ---\n[JOB_DESCRIPTION]\n\n--- CV ---\n[MY_CV]",
+		"results.aiAgentSelector": "Seleccionar agente de IA"
 	},
 	"stopWords": [
 		"a",

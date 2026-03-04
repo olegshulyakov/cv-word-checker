@@ -54,7 +54,12 @@
 
 <div class="ai-rewrite-section">
 	<div class="ai-controls">
-		<select bind:value={selectedAgent.value} class="agent-select">
+		<select
+			bind:value={selectedAgent.value}
+			class="agent-select"
+			aria-label={i18n.t('results.aiAgentSelector')}
+			title={i18n.t('results.aiAgentSelector')}
+		>
 			{#each aiAgents as agent (agent.id)}
 				<option value={agent.id}>{agent.name}</option>
 			{/each}

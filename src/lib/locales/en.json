@@ -44,7 +44,8 @@
 		"results.rewritePromptCopied": "Prompt copied to clipboard!",
 		"results.rewritePromptTemplate": "I need help optimising my CV for a job application.\n\nKeyword gaps (present in job description, missing from CV): [KEYWORD_GAPS]\nWeak phrases to improve: [WEAK_PHRASES]\n\nPlease rewrite my CV using the job description as a reference.\n\n--- JOB DESCRIPTION ---\n[JOB_DESCRIPTION]\n\n--- MY CV ---\n[MY_CV]",
 		"results.checkCandidateWithAi": "Check candidate",
-		"results.checkCandidatePromptTemplate": "Please evaluate this candidate's CV against the provided job description. Identify their strengths, weaknesses, and overall suitability for the role.\n\nKeyword gaps (present in job description, missing from CV): [KEYWORD_GAPS]\nWeak phrases found: [WEAK_PHRASES]\n\n--- JOB DESCRIPTION ---\n[JOB_DESCRIPTION]\n\n--- CV ---\n[MY_CV]"
+		"results.checkCandidatePromptTemplate": "Please evaluate this candidate's CV against the provided job description. Identify their strengths, weaknesses, and overall suitability for the role.\n\nKeyword gaps (present in job description, missing from CV): [KEYWORD_GAPS]\nWeak phrases found: [WEAK_PHRASES]\n\n--- JOB DESCRIPTION ---\n[JOB_DESCRIPTION]\n\n--- CV ---\n[MY_CV]",
+		"results.aiAgentSelector": "Select AI agent"
 	},
 	"stopWords": [
 		"a",
