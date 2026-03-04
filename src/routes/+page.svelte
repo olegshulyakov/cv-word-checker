@@ -28,6 +28,10 @@
 				} else {
 					jdText.value = text;
 				}
+				// Value is already set — analyze immediately if both fields are filled
+				if (cvText.value.trim() && jdText.value.trim() && !analyzing) {
+					handleAnalyze();
+				}
 			} else {
 				alert(i18n.t('page.fileError'));
 			}
@@ -35,6 +39,16 @@
 	}
 
 	let error = $state<string | null>(null);
+
+	// onpaste fires before the browser commits pasted text to the textarea value.
+	// queueMicrotask defers the check until after that DOM update, reliably.
+	function checkAndAnalyze() {
+		queueMicrotask(() => {
+			if (cvText.value.trim() && jdText.value.trim() && !analyzing) {
+				handleAnalyze();
+			}
+		});
+	}
 
 	async function handleAnalyze() {
 		if (!cvText.value.trim() || !jdText.value.trim()) return;
@@ -69,6 +83,7 @@
 				bind:value={cvText.value}
 				ondrop={(e) => handleDrop(e, 'cv')}
 				ondragover={(e) => e.preventDefault()}
+				onpaste={checkAndAnalyze}
 				placeholder={i18n.t('page.cvPlaceholder')}
 				spellcheck="false"
 			></textarea>
@@ -81,6 +96,7 @@
 				bind:value={jdText.value}
 				ondrop={(e) => handleDrop(e, 'jd')}
 				ondragover={(e) => e.preventDefault()}
+				onpaste={checkAndAnalyze}
 				placeholder={i18n.t('page.jdPlaceholder')}
 				spellcheck="false"
 			></textarea>
