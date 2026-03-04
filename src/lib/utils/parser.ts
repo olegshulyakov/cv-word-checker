@@ -22,11 +22,11 @@ export function stripHtmlAndMarkdown(text: string): string {
 	parsed = parsed.replace(/^\d+\.\s+/gm, '');
 	// Remove headers
 	parsed = parsed.replace(/^#{1,6}\s+/gm, '');
-	// Remove links [text](url) -> text
-	parsed = parsed.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
-	// Remove bold/italic (catch **, *, __, _)
-	parsed = parsed.replace(/(\*\*|__)(.*?)\1/g, '$2');
-	parsed = parsed.replace(/(\*|_)(.*?)\1/g, '$2');
+	// Replace links [text](url) -> ' text ' to avoid fusion
+	parsed = parsed.replace(/\[([^\]]+)\]\([^)]+\)/g, ' $1 ');
+	// Replace bold/italic (catch **, *, __, _) with spaces
+	parsed = parsed.replace(/(\*\*|__)(.*?)\1/g, ' $2 ');
+	parsed = parsed.replace(/(\*|_)(.*?)\1/g, ' $2 ');
 
 	// Normalize spaces
 	return parsed.replace(/\s+/g, ' ').trim();
