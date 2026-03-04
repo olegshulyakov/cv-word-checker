@@ -4,6 +4,7 @@
 	import HighlightedCv from './HighlightedCv.svelte';
 	import { i18n } from '$lib/i18n.svelte';
 	import { aiAgents } from '$lib/aiAgents';
+	import { createPersistentState, STORAGE_KEYS } from '$lib/state.svelte';
 
 	let {
 		results,
@@ -28,7 +29,7 @@
 		return i18n.t('results.scoreNeedsImprovement');
 	}
 
-	let selectedAgentId = $state(aiAgents[0].id);
+	const selectedAgent = createPersistentState(STORAGE_KEYS.AI_AGENT, aiAgents[0].id);
 	let showToast = $state(false);
 
 	function getKeywordGaps(): string {
@@ -50,7 +51,7 @@
 	}
 
 	async function rewriteWithAi() {
-		const agent = aiAgents.find((a) => a.id === selectedAgentId);
+		const agent = aiAgents.find((a) => a.id === selectedAgent.value);
 		if (!agent) return;
 
 		const gaps = getKeywordGaps();
@@ -76,7 +77,7 @@
 	}
 
 	async function checkCandidateWithAi() {
-		const agent = aiAgents.find((a) => a.id === selectedAgentId);
+		const agent = aiAgents.find((a) => a.id === selectedAgent.value);
 		if (!agent) return;
 
 		const gaps = getKeywordGaps();
@@ -139,7 +140,7 @@
 
 	<div class="ai-rewrite-section">
 		<div class="ai-controls">
-			<select bind:value={selectedAgentId} class="agent-select">
+			<select bind:value={selectedAgent.value} class="agent-select">
 				{#each aiAgents as agent (agent.id)}
 					<option value={agent.id}>{agent.name}</option>
 				{/each}
