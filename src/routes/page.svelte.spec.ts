@@ -13,6 +13,6 @@ describe('/+page.svelte', () => {
 
 		const heading = page.getByRole('heading', { level: 1 });
 		await expect.element(heading).toBeInTheDocument();
-		await expect.element(heading).toHaveTextContent('Optimize your CV for the job');
+		await expect.element(heading).toHaveTextContent('Optimize your CV');
 	});
 });
