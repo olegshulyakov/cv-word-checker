@@ -4,6 +4,7 @@
 	import { analyze, type AnalysisResults } from '$lib/utils/engine';
 	import ResultsPanel from '$lib/components/ResultsPanel.svelte';
 	import { i18n } from '$lib/i18n.svelte';
+	import { Search, LoaderCircle } from 'lucide-svelte';
 
 	const cvText = createPersistentState(STORAGE_KEYS.CV, '');
 	const jdText = createPersistentState(STORAGE_KEYS.JD, '');
@@ -90,8 +91,10 @@
 		<div class="actions">
 			<button class="btn-primary" onclick={handleAnalyze} disabled={analyzing}>
 				{#if analyzing}
+					<LoaderCircle size={18} class="spin" />
 					{i18n.t('page.analyzingBtn')}
 				{:else}
+					<Search size={18} />
 					{i18n.t('page.analyzeBtn')}
 				{/if}
 			</button>
@@ -183,6 +186,10 @@
 		transition:
 			background-color 0.2s,
 			transform 0.1s;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
 	}
 
 	.btn-primary:hover:not(:disabled) {
@@ -206,5 +213,18 @@
 		border: 1px solid rgba(239, 68, 68, 0.2);
 		text-align: center;
 		font-weight: 500;
+	}
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	:global(.spin) {
+		animation: spin 1s linear infinite;
 	}
 </style>

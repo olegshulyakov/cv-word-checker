@@ -5,6 +5,7 @@
 	import { i18n } from '$lib/i18n.svelte';
 	import { aiAgents } from '$lib/aiAgents';
 	import { createPersistentState, STORAGE_KEYS } from '$lib/state.svelte';
+	import { Sparkles, UserCheck } from 'lucide-svelte';
 
 	let {
 		results,
@@ -146,9 +147,11 @@
 				{/each}
 			</select>
 			<button onclick={rewriteWithAi} class="btn-primary">
+				<Sparkles size={18} />
 				{i18n.t('results.rewriteWithAi')}
 			</button>
 			<button onclick={checkCandidateWithAi} class="btn-secondary">
+				<UserCheck size={18} />
 				{i18n.t('results.checkCandidateWithAi')}
 			</button>
 		</div>
@@ -524,6 +527,7 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
+		gap: 0.5rem;
 	}
 
 	.btn-primary {

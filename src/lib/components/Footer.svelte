@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { clearAllData } from '$lib/state.svelte';
 	import { i18n } from '$lib/i18n.svelte';
+	import { Trash2 } from 'lucide-svelte';
 </script>
 
 <footer class="footer">
@@ -16,6 +17,7 @@
 				}}
 				type="button"
 			>
+				<Trash2 size={14} />
 				{i18n.t('footer.clearBtn')}
 			</button>
 			<a href="/privacy">{i18n.t('footer.privacyLink')}</a>
@@ -73,6 +75,9 @@
 		padding: 0;
 		font: inherit;
 		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
 	}
 
 	a:hover,
