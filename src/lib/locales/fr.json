@@ -10,7 +10,7 @@
 		"page.cvPlaceholder": "Collez ici le texte complet de votre CV...",
 		"page.jdLabel": "Description du poste",
 		"page.jdPlaceholder": "Collez ici les exigences de l'offre d'emploi...",
-		"page.analyzeBtn": "Analyser la correspondance",
+		"page.analyzeBtn": "Analyser",
 		"page.analyzingBtn": "Analyse en cours...",
 		"page.analysisError": "Échec de l'analyse. Veuillez réessayer.",
 		"page.fileError": "Seuls les fichiers .txt, .md et .html sont pris en charge.",

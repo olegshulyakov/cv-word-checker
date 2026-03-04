@@ -10,7 +10,7 @@
 		"page.cvPlaceholder": "在此粘贴您的完整简历文本...",
 		"page.jdLabel": "职位描述 / JD",
 		"page.jdPlaceholder": "在此粘贴职位的具体要求...",
-		"page.analyzeBtn": "分析匹配度",
+		"page.analyzeBtn": "分析",
 		"page.analyzingBtn": "正在分析...",
 		"page.analysisError": "分析失败。请再试一次。",
 		"page.fileError": "仅支持 .txt、.md 和 .html 文件。",

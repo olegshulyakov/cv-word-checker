@@ -10,7 +10,7 @@
 		"page.cvPlaceholder": "Paste your full resume text here...",
 		"page.jdLabel": "Job Description / PD",
 		"page.jdPlaceholder": "Paste the job posting requirements here...",
-		"page.analyzeBtn": "Analyze Match",
+		"page.analyzeBtn": "Analyze",
 		"page.analyzingBtn": "Analyzing...",
 		"page.analysisError": "Analysis failed. Please try again.",
 		"page.fileError": "Only .txt, .md, and .html files are supported.",

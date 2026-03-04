@@ -10,7 +10,7 @@
 		"page.cvPlaceholder": "Fügen Sie hier Ihren vollständigen Lebenslaufstext ein...",
 		"page.jdLabel": "Stellenbeschreibung",
 		"page.jdPlaceholder": "Fügen Sie hier die Anforderungen der Stellenausschreibung ein...",
-		"page.analyzeBtn": "Übereinstimmung analysieren",
+		"page.analyzeBtn": "Analysieren",
 		"page.analyzingBtn": "Wird analysiert...",
 		"page.analysisError": "Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
 		"page.fileError": "Nur .txt-, .md- und .html-Dateien werden unterstützt.",

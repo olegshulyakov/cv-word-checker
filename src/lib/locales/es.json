@@ -10,7 +10,7 @@
 		"page.cvPlaceholder": "Pegue el texto completo de su currículum aquí...",
 		"page.jdLabel": "Descripción del puesto",
 		"page.jdPlaceholder": "Pegue los requisitos de la oferta de trabajo aquí...",
-		"page.analyzeBtn": "Analizar coincidencia",
+		"page.analyzeBtn": "Analizar",
 		"page.analyzingBtn": "Analizando...",
 		"page.analysisError": "Error en el análisis. Por favor, inténtelo de nuevo.",
 		"page.fileError": "Solo se admiten archivos .txt, .md y .html.",

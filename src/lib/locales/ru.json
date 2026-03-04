@@ -10,7 +10,7 @@
 		"page.cvPlaceholder": "Вставьте текст вашего резюме здесь...",
 		"page.jdLabel": "Описание вакансии",
 		"page.jdPlaceholder": "Вставьте требования вакансии здесь...",
-		"page.analyzeBtn": "Анализировать совпадение",
+		"page.analyzeBtn": "Анализировать",
 		"page.analyzingBtn": "Анализируем...",
 		"page.analysisError": "Анализ не удался. Пожалуйста, попробуйте еще раз.",
 		"page.fileError": "Поддерживаются только файлы .txt, .md и .html.",

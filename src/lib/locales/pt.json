@@ -10,7 +10,7 @@
 		"page.cvPlaceholder": "Cole o texto completo do seu currículo aqui...",
 		"page.jdLabel": "Descrição da Vaga",
 		"page.jdPlaceholder": "Cole os requisitos da vaga aqui...",
-		"page.analyzeBtn": "Analisar Correspondência",
+		"page.analyzeBtn": "Analisar",
 		"page.analyzingBtn": "Analisando...",
 		"page.analysisError": "Falha na análise. Por favor, tente novamente.",
 		"page.fileError": "Apenas arquivos .txt, .md e .html são suportados.",

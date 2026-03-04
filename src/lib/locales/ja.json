@@ -10,7 +10,7 @@
 		"page.cvPlaceholder": "ここに職務経歴書のテキストを貼り付けてください...",
 		"page.jdLabel": "求人内容 / JD",
 		"page.jdPlaceholder": "ここに求人内容の要件を貼り付けてください...",
-		"page.analyzeBtn": "マッチングを分析",
+		"page.analyzeBtn": "分析",
 		"page.analyzingBtn": "分析中...",
 		"page.analysisError": "解析に失敗しました。もう一度お試しください。",
 		"page.fileError": ".txt、.md、.html ファイルのみ対応しています。",
