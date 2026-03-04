@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { i18n } from './i18n.svelte';
 
 // Mock dynamic import for locales

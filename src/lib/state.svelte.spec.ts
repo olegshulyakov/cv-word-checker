@@ -50,4 +50,3 @@ describe('state module', () => {
 		expect(state.value).toBe('default');
 	});
 });
-
