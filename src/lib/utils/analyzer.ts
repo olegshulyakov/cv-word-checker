@@ -1,4 +1,5 @@
 import { stripHtmlAndMarkdown } from './parser';
+import { i18n } from '../i18n.svelte';
 
 export interface KeywordResult {
 	term: string;
@@ -18,23 +19,85 @@ export interface MatchResults {
 	};
 }
 
+function getStems(word: string): string[] {
+	if (word.length <= 3) return [word];
+	const stems = [word];
+	if (word.endsWith('ies')) stems.push(word.slice(0, -3) + 'y');
+	if (word.endsWith('es')) stems.push(word.slice(0, -2), word.slice(0, -1));
+	if (word.endsWith('s') && !word.endsWith('ss')) stems.push(word.slice(0, -1));
+	if (word.endsWith('ing')) stems.push(word.slice(0, -3), word.slice(0, -3) + 'e');
+	if (word.endsWith('ed')) stems.push(word.slice(0, -2), word.slice(0, -1));
+	return stems;
+}
+
 export function extractKeywords(text: string, stopWords: Set<string>): KeywordResult[] {
 	if (!text) return [];
 
-	const cleanText = stripHtmlAndMarkdown(text).toLowerCase();
+	// BUG-03 & BUG-09: Replace hyphens with spaces to normalize compound words
+	const cleanText = stripHtmlAndMarkdown(text).toLowerCase().replace(/-/g, ' ');
 
-	// Match words or multi-word terms. For now, simple word tokenization.
-	// In the future, this could be enhanced to detect multi-word skills like 'machine learning'.
-	// We replace non-alphanumeric (except basic punctuation used in tech like C#, C++, Node.js) with space
-	const tokens = cleanText
-		.replace(/[^\w\s+#.-]/g, ' ')
-		.split(/\s+/)
-		.map((t) => t.replace(/^[.-]+|[.-]+$/g, '')) // trim trailing/leading punctuation
+	// Match words or multi-word terms.
+	// BUG-16 & BUG-01: preserve unicode letters, numbers, and core tech punctuation (+ # . \/)
+	const rawTokens = cleanText.replace(/[^\p{L}\p{N}\s+#./]/gu, ' ').split(/\s+/);
+
+	const allControlled = new Set<string>();
+	if (i18n.dict) {
+		[
+			...i18n.dict.technicalSkillsKeywords,
+			...i18n.dict.abilitiesKeywords,
+			...i18n.dict.titleAndDegreeKeywords
+		].forEach((k) => allControlled.add(String(k).toLowerCase()));
+	}
+
+	const preTokens: string[] = [];
+	for (const t of rawTokens) {
+		if (t.includes('/') && !allControlled.has(t.toLowerCase())) {
+			preTokens.push(...t.split('/'));
+		} else {
+			preTokens.push(t);
+		}
+	}
+
+	const tokens = preTokens
+		// BUG-05 & BUG-16: preserve leading dot for '.net', but clean trailing unicode punctuation properly
+		.map((t) => t.replace(/^[^\p{L}\p{N}.+#]+|[^\p{L}\p{N}+#]+$/gu, '').toLowerCase())
 		.filter((t) => t.length > 1 && !stopWords.has(t));
 
 	const frequency: Record<string, number> = {};
+	const aliases = i18n.dict?.aliases || {};
+
 	for (const token of tokens) {
-		frequency[token] = (frequency[token] || 0) + 1;
+		const matchedCanonicals = new Set<string>();
+
+		// 1. Direct Alias Match
+		if (aliases[token]) {
+			matchedCanonicals.add(aliases[token]);
+		}
+
+		// 2. Direct exact match
+		if (allControlled.has(token)) {
+			matchedCanonicals.add(token);
+		}
+
+		// 3. Fallback to stemming
+		const stems = getStems(token);
+		for (const stem of stems) {
+			if (aliases[stem]) {
+				matchedCanonicals.add(aliases[stem]);
+			}
+			if (allControlled.has(stem)) {
+				matchedCanonicals.add(stem);
+			}
+		}
+
+		// 4. Default: just track the raw word for phrase matching later
+		if (matchedCanonicals.size === 0) {
+			matchedCanonicals.add(token);
+		}
+
+		for (const canonical of matchedCanonicals) {
+			frequency[canonical] = (frequency[canonical] || 0) + 1;
+		}
 	}
 
 	return Object.entries(frequency)
@@ -50,15 +113,15 @@ export function matchKeywords(
 	abilitiesKeywords: Set<string>,
 	titleAndDegreeKeywords: Set<string>
 ): MatchResults {
-	const cleanCv = stripHtmlAndMarkdown(cvText).toLowerCase();
-	const cleanJd = stripHtmlAndMarkdown(jdText).toLowerCase();
+	const cleanCv = stripHtmlAndMarkdown(cvText).toLowerCase().replace(/-/g, ' ');
+	const cleanJd = stripHtmlAndMarkdown(jdText).toLowerCase().replace(/-/g, ' ');
 
-	const jdKeywords = extractKeywords(jdText, stopWords);
-	const cvKeywords = extractKeywords(cvText, stopWords);
+	const jdKeywords = extractKeywords(cleanJd, stopWords);
+	const cvKeywords = extractKeywords(cleanCv, stopWords);
 
 	const cvTermCounts = new Map(cvKeywords.map((k) => [k.term, k.count]));
 
-	// To handle multi-word phrase matching (BUG-03), we'll also check the full list of controlled keywords
+	// Gather controlled keywords
 	const controlledKeywords = new Set([
 		...technicalSkillsKeywords,
 		...abilitiesKeywords,
@@ -66,19 +129,37 @@ export function matchKeywords(
 	]);
 
 	// Filter and combine results: standard single-word keywords + detected multi-word keywords
-	// For JD
 	const finalJdKeywords: KeywordResult[] = [...jdKeywords];
+	const aliases = i18n.dict?.aliases || {};
+
+	// Add multi-word aliases scanning to raw text
+	// Multi-word aliases (e.g. "amazon web services" -> "aws")
+	const multiWordAliases = Object.entries(aliases).filter(([k]) => k.includes(' '));
+
+	// Process phrase keywords for JD
 	for (const kw of controlledKeywords) {
 		if (kw.includes(' ')) {
-			// It's a phrase
 			const escapedKw = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 			const regex = new RegExp(`\\b${escapedKw}\\b`, 'gu');
-			const count = (cleanJd.match(regex) || []).length;
+			let count = (cleanJd.match(regex) || []).length;
+
+			// Check multi-word aliases that map to this keyword
+			for (const [aliasPhrase, target] of multiWordAliases) {
+				if (target === kw) {
+					const escapedAlias = aliasPhrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+					const aliasRegex = new RegExp(`\\b${escapedAlias}\\b`, 'gu');
+					count += (cleanJd.match(aliasRegex) || []).length;
+				}
+			}
+
 			if (count > 0) {
 				if (!finalJdKeywords.some((k) => k.term === kw)) {
 					finalJdKeywords.push({ term: kw, count });
+				} else {
+					const existing = finalJdKeywords.find((k) => k.term === kw);
+					if (existing) existing.count += count;
 				}
-				// Subtract counts from individual words to avoid double-counting (BUG-03)
+				// Subtract counts from individual words to avoid double-counting
 				const words = kw.split(' ');
 				for (const word of words) {
 					const existing = finalJdKeywords.find((k) => k.term === word);
@@ -90,15 +171,26 @@ export function matchKeywords(
 		}
 	}
 
-	// For CV
+	// Process phrase keywords for CV
 	const finalCvTermCounts = new Map(cvTermCounts);
 	for (const kw of controlledKeywords) {
 		if (kw.includes(' ')) {
 			const escapedKw = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 			const regex = new RegExp(`\\b${escapedKw}\\b`, 'gu');
-			const count = (cleanCv.match(regex) || []).length;
+			let count = (cleanCv.match(regex) || []).length;
+
+			// Check multi-word aliases that map to this keyword
+			for (const [aliasPhrase, target] of multiWordAliases) {
+				if (target === kw) {
+					const escapedAlias = aliasPhrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+					const aliasRegex = new RegExp(`\\b${escapedAlias}\\b`, 'gu');
+					count += (cleanCv.match(aliasRegex) || []).length;
+				}
+			}
+
 			if (count > 0) {
-				finalCvTermCounts.set(kw, count);
+				const prev = finalCvTermCounts.get(kw) || 0;
+				finalCvTermCounts.set(kw, prev + count);
 				// Subtract from individual words
 				const words = kw.split(' ');
 				for (const word of words) {
@@ -109,8 +201,37 @@ export function matchKeywords(
 		}
 	}
 
-	// Remove zero-count keywords from finalJdKeywords (those completely swallowed by phrases)
-	const filteredJdKeywords = finalJdKeywords.filter((k) => k.count > 0);
+	// Also explicitly check multi-word aliases that map to SINGLE-word controlled keywords
+	// (e.g. "amazon web services" -> "aws")
+	for (const [aliasPhrase, target] of multiWordAliases) {
+		if (!target.includes(' ') && controlledKeywords.has(target)) {
+			// Check JD
+			const escapedAlias = aliasPhrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+			const aliasRegex = new RegExp(`\\b${escapedAlias}\\b`, 'gu');
+			const jdCount = (cleanJd.match(aliasRegex) || []).length;
+			if (jdCount > 0) {
+				const existing = finalJdKeywords.find((k) => k.term === target);
+				if (existing) {
+					existing.count += jdCount;
+				} else {
+					finalJdKeywords.push({ term: target, count: jdCount });
+				}
+			}
+
+			// Check CV
+			const cvCount = (cleanCv.match(aliasRegex) || []).length;
+			if (cvCount > 0) {
+				const prev = finalCvTermCounts.get(target) || 0;
+				finalCvTermCounts.set(target, prev + cvCount);
+			}
+		}
+	}
+
+	// BUG-19: Match Score Denominator Inflation
+	// We only care about words that are in our controlled dictionaries
+	const filteredJdKeywords = finalJdKeywords.filter(
+		(k) => k.count > 0 && controlledKeywords.has(k.term)
+	);
 
 	const presentKeywords: KeywordResult[] = [];
 	const missingKeywords: KeywordResult[] = [];
@@ -128,7 +249,7 @@ export function matchKeywords(
 			? Math.round((presentKeywords.length / filteredJdKeywords.length) * 100)
 			: 0;
 
-	// Grouping with hierarchy to avoid double-assignment (BUG-05)
+	// Grouping with hierarchy to avoid double-assignment
 	const groups = {
 		technicalSkills: { present: [] as KeywordResult[], missing: [] as KeywordResult[] },
 		abilities: { present: [] as KeywordResult[], missing: [] as KeywordResult[] },

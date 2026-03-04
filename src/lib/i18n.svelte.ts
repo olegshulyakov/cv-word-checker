@@ -8,6 +8,7 @@ export type LocaleDict = {
 	technicalSkillsKeywords: string[];
 	abilitiesKeywords: string[];
 	titleAndDegreeKeywords: string[];
+	aliases?: Record<string, string>;
 };
 
 export const currentLang = createPersistentState(STORAGE_KEYS.LANG, '');
