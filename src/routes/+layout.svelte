@@ -9,7 +9,7 @@
 	let { children } = $props();
 
 	onMount(async () => {
-		await i18n.loadLanguage(currentLang.value);
+		i18n.loadLanguage(currentLang.value);
 		try {
 			const { registerSW } = await import('virtual:pwa-register');
 			registerSW({ immediate: true });

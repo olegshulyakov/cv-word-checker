@@ -25,8 +25,15 @@ const supportedLangs = [
 	{ code: 'ru', label: 'Русский' }
 ];
 
+// All locale files are bundled eagerly at build time — available offline immediately,
+// with no runtime network requests needed.
+const locales = import.meta.glob('./locales/*.json', { eager: true }) as Record<
+	string,
+	{ default: LocaleDict }
+>;
+
 let dictionary = $state<LocaleDict | null>(null);
-let fallbackDict = $state<LocaleDict | null>(null);
+let fallbackDict: LocaleDict | null = null;
 
 export const i18n = {
 	get dict() {
@@ -38,56 +45,39 @@ export const i18n = {
 	get supportedLangs() {
 		return supportedLangs;
 	},
-	async loadLanguage(lang: string) {
+	loadLanguage(lang: string) {
 		if (!lang) {
-			if (browser) {
-				lang = navigator.language.split('-')[0];
-			} else {
-				lang = 'en';
-			}
+			lang = browser ? navigator.language.split('-')[0] : 'en';
 		}
 
-		// Fallback to English if language is not supported
+		// Fall back to English if the requested language is not supported
 		if (!supportedLangs.find((l) => l.code === lang)) {
 			lang = 'en';
 		}
 
-		try {
-			const locales = import.meta.glob('./locales/*.json');
+		const key = `./locales/${lang}.json`;
+		const locale = locales[key];
 
-			// Always ensure English fallback is loaded
-			if (!fallbackDict && lang !== 'en') {
-				const fallbackLoader = locales['./locales/en.json'];
-				if (fallbackLoader) {
-					const fallbackModule = (await fallbackLoader()) as { default: LocaleDict };
-					fallbackDict = fallbackModule.default || fallbackModule;
-				}
-			}
+		if (!locale) {
+			console.error(`Locale file not found for "${lang}", falling back to English`);
+			if (lang !== 'en') this.loadLanguage('en');
+			return;
+		}
 
-			const loader = locales[`./locales/${lang}.json`];
-			if (loader) {
-				const module = (await loader()) as { default: LocaleDict };
-				dictionary = module.default || module;
-			} else {
-				throw new Error(`Locale file not found for ${lang}`);
-			}
+		dictionary = locale.default;
 
-			// If we just loaded English, it's also our fallback
-			if (lang === 'en') {
-				fallbackDict = dictionary;
-			}
+		// Cache the English locale as the UI-string fallback
+		if (lang === 'en') {
+			fallbackDict = dictionary;
+		} else if (!fallbackDict) {
+			const enLocale = locales['./locales/en.json'];
+			fallbackDict = enLocale?.default ?? null;
+		}
 
-			currentLang.value = lang;
+		currentLang.value = lang;
 
-			if (browser) {
-				document.documentElement.lang = lang;
-			}
-		} catch (e) {
-			console.error(`Failed to load language ${lang}`, e);
-			// Fallback
-			if (lang !== 'en') {
-				await this.loadLanguage('en');
-			}
+		if (browser) {
+			document.documentElement.lang = lang;
 		}
 	},
 	t(key: string): string {
