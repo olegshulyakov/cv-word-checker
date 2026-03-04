@@ -72,7 +72,7 @@ Inspired by tools like CV Word Checker. Behavior:
 - Language auto-detected from browser `navigator.language`, with a manual override selector in the header
 - Initial launch languages: **English**, **Spanish**, **French**, **German**, **Portuguese**, **Chinese (Simplified)**, **Japanese**, **Arabic**, **Hindi**, **Russian** — architecture must make adding further languages trivial
 - Keyword analysis and word improvement dictionaries are language-aware (each locale ships its own weak-word list)
-- Locale files are fetched lazily on first use — only the active language is loaded
+- Locale files are fetched eager on first application use
 
 ---
 
@@ -158,14 +158,13 @@ Inspired by tools like CV Word Checker. Behavior:
 
 Only the following keys are written to `localStorage` — nothing else is persisted or transmitted:
 
-| Key                  | Value                             | Purpose                                               |
-| -------------------- | --------------------------------- | ----------------------------------------------------- |
-| `cvwc_cv`            | string                            | CV textarea content — survives page refresh           |
-| `cvwc_jd`            | string                            | Job description textarea content                      |
-| `cvwc_lang`          | string (e.g. `"es"`)              | User's explicit language choice                       |
-| `cvwc_theme`         | `"light"` / `"dark"` / `"system"` | Theme toggle state                                    |
-| `cvwc_ai_agent`      | string (e.g. `"chatgpt"`)         | Last selected AI agent for the Rewrite feature        |
-| `cvwc_ai_custom_url` | string                            | User-defined URL template for the Custom agent option |
+| Key             | Value                             | Purpose                                        |
+| --------------- | --------------------------------- | ---------------------------------------------- |
+| `cvwc_cv`       | string                            | CV textarea content — survives page refresh    |
+| `cvwc_jd`       | string                            | Job description textarea content               |
+| `cvwc_lang`     | string (e.g. `"es"`)              | User's explicit language choice                |
+| `cvwc_theme`    | `"light"` / `"dark"` / `"system"` | Theme toggle state                             |
+| `cvwc_ai_agent` | string (e.g. `"chatgpt"`)         | Last selected AI agent for the Rewrite feature |
 
 Analysis results are never stored — they are derived from the CV + JD and recomputed in milliseconds. A **"Clear all data"** option in the footer wipes all five keys.
 
@@ -200,22 +199,21 @@ Please rewrite my CV using the job description as a reference.
 
 `[KEYWORD_GAPS]` and `[WEAK_PHRASES]` are injected from the analysis results at redirect time. The template is defined per locale in the language files so it reads naturally in the user's chosen language.
 
-The prompt is delivered via deep-link URL (`?q=` or equivalent) where the agent supports it, otherwise copied to clipboard with a toast confirmation.
+**Prompt delivery:** The full prompt is **always copied to the clipboard first** (with a toast confirmation), giving the user an immediate backup copy. For agents that support a URL entry point, the app waits briefly and then opens the agent in a new tab — the user can paste the prompt directly into the agent's input. For clipboard-only agents, the copy is the sole delivery mechanism.
 
 **Agent list (v1):**
 
-| Agent      | Method                                                                         |
-| ---------- | ------------------------------------------------------------------------------ |
-| ChatGPT    | `https://chatgpt.com/?q={prompt}`                                              |
-| Claude     | `https://claude.ai/new?q={prompt}`                                             |
-| Gemini     | `https://gemini.google.com/app?q={prompt}`                                     |
-| Perplexity | `https://www.perplexity.ai/?q={prompt}`                                        |
-| Groq       | Clipboard copy (no public URL param)                                           |
-| Qwen       | Clipboard copy (no public URL param)                                           |
-| DeepSeek   | `https://chat.deepseek.com/?q={prompt}`                                        |
-| Custom URL | User-defined URL template with `{prompt}` placeholder, saved to `localStorage` |
+| Agent      | URL template                            | Method    |
+| ---------- | --------------------------------------- | --------- |
+| ChatGPT    | `https://chatgpt.com/`                  | URL       |
+| Claude     | `https://claude.ai/new`                 | URL       |
+| Gemini     | `https://gemini.google.com/app`         | URL       |
+| Perplexity | `https://www.perplexity.ai/`            | URL       |
+| Groq       | —                                       | Clipboard |
+| Qwen       | —                                       | Clipboard |
+| DeepSeek   | `https://chat.deepseek.com/?q={prompt}` | URL       |
 
-Agents are defined in a single config file (`src/lib/aiAgents.js`) as a plain array of objects — adding a new agent requires only one line. Each entry has a `method: "url" | "clipboard"` flag so delivery behaviour can be updated independently of component logic. The dropdown renders directly from this list.
+Agents are defined in a single config file (`src/lib/aiAgents.ts`) as a plain array of objects — adding a new agent requires only one line. Each entry has a `method: "url" | "clipboard"` flag so delivery behaviour can be updated independently of component logic. The dropdown renders directly from this list.
 
 - Initial page load under 200 KB (uncompressed JS + CSS) — no heavy NLP libraries
 - Analysis of a typical CV (800 words) + JD (500 words) should complete in under 500 ms
