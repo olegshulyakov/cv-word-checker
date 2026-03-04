@@ -35,7 +35,31 @@ export const aiAgents: AiAgent[] = [
 	{
 		id: 'deepseek',
 		name: 'DeepSeek',
-		urlTemplate: 'https://chat.deepseek.com/?q={prompt}',
+		urlTemplate: 'https://chat.deepseek.com/',
+		method: 'url'
+	},
+	{
+		id: 'mistral',
+		name: 'Mistral',
+		urlTemplate: 'https://chat.mistral.ai/',
+		method: 'url'
+	},
+	{
+		id: 'meta',
+		name: 'Meta AI',
+		urlTemplate: 'https://www.meta.ai/',
+		method: 'url'
+	},
+	{
+		id: 'duckduckgo',
+		name: 'DuckDuckGo AI',
+		urlTemplate: 'https://duck.ai/',
+		method: 'url'
+	},
+	{
+		id: 'qwen',
+		name: 'Qwen',
+		urlTemplate: 'https://chat.qwen.ai/',
 		method: 'url'
 	}
 ];

@@ -203,15 +203,17 @@ Please rewrite my CV using the job description as a reference.
 
 **Agent list (v1):**
 
-| Agent      | URL template                            | Method    |
-| ---------- | --------------------------------------- | --------- |
-| ChatGPT    | `https://chatgpt.com/`                  | URL       |
-| Claude     | `https://claude.ai/new`                 | URL       |
-| Gemini     | `https://gemini.google.com/app`         | URL       |
-| Perplexity | `https://www.perplexity.ai/`            | URL       |
-| Groq       | —                                       | Clipboard |
-| Qwen       | —                                       | Clipboard |
-| DeepSeek   | `https://chat.deepseek.com/?q={prompt}` | URL       |
+| Agent         | URL template                    | Method |
+| ------------- | ------------------------------- | ------ |
+| ChatGPT       | `https://chatgpt.com/`          | URL    |
+| Claude        | `https://claude.ai/new`         | URL    |
+| Gemini        | `https://gemini.google.com/app` | URL    |
+| Perplexity    | `https://www.perplexity.ai/`    | URL    |
+| DeepSeek      | `https://chat.deepseek.com/`    | URL    |
+| Mistral       | `https://chat.mistral.ai/`      | URL    |
+| Meta AI       | `https://www.meta.ai/`          | URL    |
+| DuckDuckGo AI | `https://duck.ai/`              | URL    |
+| Qwen          | `https://chat.qwen.ai/`         | URL    |
 
 Agents are defined in a single config file (`src/lib/aiAgents.ts`) as a plain array of objects — adding a new agent requires only one line. Each entry has a `method: "url" | "clipboard"` flag so delivery behaviour can be updated independently of component logic. The dropdown renders directly from this list.
 
