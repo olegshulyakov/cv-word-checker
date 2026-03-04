@@ -53,14 +53,24 @@ export const i18n = {
 		}
 
 		try {
+			const locales = import.meta.glob('./locales/*.json');
+
 			// Always ensure English fallback is loaded
 			if (!fallbackDict && lang !== 'en') {
-				const fallbackModule = await import('./locales/en.json');
-				fallbackDict = fallbackModule.default;
+				const fallbackLoader = locales['./locales/en.json'];
+				if (fallbackLoader) {
+					const fallbackModule = (await fallbackLoader()) as { default: LocaleDict };
+					fallbackDict = fallbackModule.default || fallbackModule;
+				}
 			}
 
-			const module = await import(`./locales/${lang}.json`);
-			dictionary = module.default;
+			const loader = locales[`./locales/${lang}.json`];
+			if (loader) {
+				const module = (await loader()) as { default: LocaleDict };
+				dictionary = module.default || module;
+			} else {
+				throw new Error(`Locale file not found for ${lang}`);
+			}
 
 			// If we just loaded English, it's also our fallback
 			if (lang === 'en') {
