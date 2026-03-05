@@ -2,6 +2,7 @@
 	import '../app.css';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import SEO from '$lib/components/SEO.svelte';
 	import favicon from '$lib/assets/favicon.svg';
 	import { i18n, currentLang } from '$lib/i18n.svelte';
 	import { onMount } from 'svelte';
@@ -21,8 +22,9 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>{i18n.t('header.title')}</title>
 </svelte:head>
+
+<SEO />
 
 {#if i18n.isLoaded}
 	<div class="app-shell">
