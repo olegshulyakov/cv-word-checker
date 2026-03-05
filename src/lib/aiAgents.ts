@@ -61,5 +61,11 @@ export const aiAgents: AiAgent[] = [
 		name: 'Qwen',
 		urlTemplate: 'https://chat.qwen.ai/',
 		method: 'url'
+	},
+	{
+		id: 'yandex',
+		name: 'Yandex AI',
+		urlTemplate: 'https://alice.yandex.ru/',
+		method: 'url'
 	}
 ];
