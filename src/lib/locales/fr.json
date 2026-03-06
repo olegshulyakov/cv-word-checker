@@ -232,10 +232,8 @@
 		"apprentissage automatique",
 		"automatisation des tests",
 		"développement frontend",
-		"gcp",
 		"gestion de produit",
 		"gestion de projet",
-		"ia",
 		"science des données"
 	],
 	"abilitiesKeywords": [
@@ -328,6 +326,19 @@
 		"spécialiste",
 		"stagiaire"
 	],
+	"keywordLabels": {
+		"chef de produit it": "Chef de produit IT",
+		"chef de projet it": "Chef de projet IT",
+		"développeur c#": "Développeur C#",
+		"développeur c++": "Développeur C++",
+		"développeur ios": "Développeur iOS",
+		"développeur java": "Développeur Java",
+		"développeur node.js": "Développeur Node.js",
+		"dsi": "DSI",
+		"ingénieur aqa": "Ingénieur AQA",
+		"ingénieur devops": "Ingénieur DevOps",
+		"ingénieur qa": "Ingénieur QA"
+	},
 	"aliases": {
 		"android developer": "développeur android",
 		"aqa engineer": "ingénieur aqa",

@@ -10,7 +10,9 @@ export function getKeywordGaps(matchGroups: MatchResults['groups']): string {
 		...matchGroups.otherKeywords.missing,
 		...matchGroups.titleAndDegree.missing
 	];
-	const uniqueMissing = Array.from(new Set(missing.map((k) => k.term)));
+	const uniqueMissing = Array.from(new Set(missing.map((k) => k.term))).map((term) =>
+		i18n.keywordLabel(term)
+	);
 	return uniqueMissing.length > 0 ? uniqueMissing.join(', ') : 'None';
 }
 

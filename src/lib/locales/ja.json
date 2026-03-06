@@ -250,6 +250,14 @@
 		"証明書",
 		"資格"
 	],
+	"keywordLabels": {
+		"aqaエンジニア": "AQAエンジニア",
+		"devopsエンジニア": "DevOpsエンジニア",
+		"ios開発者": "iOS開発者",
+		"itプロジェクトマネージャー": "ITプロジェクトマネージャー",
+		"itプロダクトマネージャー": "ITプロダクトマネージャー",
+		"qaエンジニア": "QAエンジニア"
+	},
 	"aliases": {
 		"android developer": "android開発者",
 		"aqa engineer": "aqaエンジニア",

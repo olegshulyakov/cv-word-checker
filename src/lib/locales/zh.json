@@ -217,6 +217,14 @@
 		"负责人",
 		"顾问"
 	],
+	"keywordLabels": {
+		"aqa工程师": "AQA工程师",
+		"devops工程师": "DevOps工程师",
+		"ios开发人员": "iOS开发人员",
+		"it产品经理": "IT产品经理",
+		"it项目经理": "IT项目经理",
+		"qa工程师": "QA工程师"
+	},
 	"aliases": {
 		"android developer": "android开发人员",
 		"aqa engineer": "aqa工程师",

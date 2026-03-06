@@ -291,10 +291,8 @@
 		"automação de testes",
 		"ciência de dados",
 		"desenvolvimento frontend",
-		"gcp",
 		"gestão de produto",
-		"gestão de projetos",
-		"ia"
+		"gestão de projetos"
 	],
 	"abilitiesKeywords": [
 		"acelerou",
@@ -389,6 +387,18 @@
 		"mestre",
 		"sênior"
 	],
+	"keywordLabels": {
+		"desenvolvedor c#": "Desenvolvedor C#",
+		"desenvolvedor c++": "Desenvolvedor C++",
+		"desenvolvedor ios": "Desenvolvedor iOS",
+		"desenvolvedor java": "Desenvolvedor Java",
+		"desenvolvedor node.js": "Desenvolvedor Node.js",
+		"engenheiro aqa": "Engenheiro AQA",
+		"engenheiro devops": "Engenheiro DevOps",
+		"engenheiro qa": "Engenheiro QA",
+		"gerente de produto it": "Gerente de produto IT",
+		"gerente de projetos it": "Gerente de projetos IT"
+	},
 	"aliases": {
 		"android developer": "desenvolvedor android",
 		"aqa engineer": "engenheiro aqa",
@@ -412,8 +422,6 @@
 		"frontend development": "desenvolvimento frontend",
 		"gerentes": "gerente",
 		"golang developer": "desenvolvedor golang",
-		"google cloud platform": "gcp",
-		"google cloud": "gcp",
 		"ios developer": "desenvolvedor ios",
 		"it product manager": "gerente de produto it",
 		"it project manager": "gerente de projetos it",

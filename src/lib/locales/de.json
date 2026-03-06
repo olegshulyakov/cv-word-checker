@@ -401,6 +401,25 @@
 		"wissenschaftler",
 		"zertifikat"
 	],
+	"keywordLabels": {
+		"business analyse": "Business Analyse",
+		"frontend entwicklung": "Frontend Entwicklung",
+		"android entwickler": "Android Entwickler",
+		"aqa ingenieur": "AQA Ingenieur",
+		"c# entwickler": "C# Entwickler",
+		"c++ entwickler": "C++ Entwickler",
+		"devops ingenieur": "DevOps Ingenieur",
+		"flutter entwickler": "Flutter Entwickler",
+		"frontend entwickler": "Frontend Entwickler",
+		"golang entwickler": "Golang Entwickler",
+		"ios entwickler": "iOS Entwickler",
+		"it produktmanager": "IT Produktmanager",
+		"it projektmanager": "IT Projektmanager",
+		"java entwickler": "Java Entwickler",
+		"node.js entwickler": "Node.js Entwickler",
+		"python entwickler": "Python Entwickler",
+		"qa ingenieur": "QA Ingenieur"
+	},
 	"aliases": {
 		"android developer": "android entwickler",
 		"aqa engineer": "aqa ingenieur",

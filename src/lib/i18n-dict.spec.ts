@@ -15,4 +15,12 @@ describe('i18n dictionary merging', () => {
 		expect(i18n.dict!.aliases?.['technical product manager']).toBe('it produktmanager');
 		expect(i18n.dict!.aliases?.['tanstack query']).toBe('react query');
 	});
+
+	it('resolves explicit and fallback keyword labels for the active locale', async () => {
+		i18n.loadLanguage('de');
+
+		expect(i18n.keywordLabel('it produktmanager')).toBe('IT Produktmanager');
+		expect(i18n.keywordLabel('react query')).toBe('React Query');
+		expect(i18n.keywordLabel('datenwissenschaft')).toBe('Datenwissenschaft');
+	});
 });

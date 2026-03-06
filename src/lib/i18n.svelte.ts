@@ -9,6 +9,7 @@ export type LocaleDict = {
 	technicalSkillsKeywords: string[];
 	abilitiesKeywords: string[];
 	titleAndDegreeKeywords: string[];
+	keywordLabels?: Record<string, string>;
 	aliases?: Record<string, string>;
 };
 
@@ -66,11 +67,19 @@ function mergeLocaleDict(locale: LocaleDict, fallback: LocaleDict): LocaleDict {
 			locale.titleAndDegreeKeywords,
 			fallback.titleAndDegreeKeywords
 		),
+		keywordLabels: {
+			...(fallback.keywordLabels ?? {}),
+			...(locale.keywordLabels ?? {})
+		},
 		aliases: {
 			...(fallback.aliases ?? {}),
 			...(locale.aliases ?? {})
 		}
 	};
+}
+
+function sentenceCaseKeyword(term: string, lang: string): string {
+	return term.replace(/^\p{L}/u, (letter) => letter.toLocaleUpperCase(lang));
 }
 
 export const i18n = {
@@ -124,5 +133,14 @@ export const i18n = {
 	t(key: string): string {
 		if (!dictionary) return key;
 		return dictionary.ui[key] || fallbackDict?.ui[key] || key;
+	},
+	keywordLabel(term: string): string {
+		const lang = currentLang.value || 'en';
+
+		return (
+			dictionary?.keywordLabels?.[term] ??
+			fallbackDict?.keywordLabels?.[term] ??
+			sentenceCaseKeyword(term, lang)
+		);
 	}
 };

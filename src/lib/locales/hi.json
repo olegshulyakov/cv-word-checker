@@ -328,6 +328,12 @@
 		"स्नातक",
 		"स्नातकोत्तर"
 	],
+	"keywordLabels": {
+		"aqa इंजीनियर": "AQA इंजीनियर",
+		"devops इंजीनियर": "DevOps इंजीनियर",
+		"ios डेवलपर": "iOS डेवलपर",
+		"qa इंजीनियर": "QA इंजीनियर"
+	},
 	"aliases": {
 		"android developer": "android डेवलपर",
 		"aqa engineer": "aqa इंजीनियर",

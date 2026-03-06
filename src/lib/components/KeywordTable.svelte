@@ -41,7 +41,7 @@
 									stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg
 								>
 							</span>
-							<strong>{kw.term}</strong>
+							<strong>{i18n.keywordLabel(kw.term)}</strong>
 						</td>
 						<td class="text-center count-cell">{kw.cvCount || 0}</td>
 						<td class="text-center count-cell">{kw.count}</td>
@@ -65,7 +65,7 @@
 									></line></svg
 								>
 							</span>
-							<strong>{kw.term}</strong>
+							<strong>{i18n.keywordLabel(kw.term)}</strong>
 						</td>
 						<td class="text-center count-cell warning-text">0</td>
 						<td class="text-center count-cell">{kw.count}</td>

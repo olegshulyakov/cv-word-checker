@@ -391,10 +391,8 @@
 		"automatización de pruebas",
 		"ciencia de datos",
 		"desarrollo frontend",
-		"gcp",
 		"gestión de producto",
-		"gestión de proyectos",
-		"ia"
+		"gestión de proyectos"
 	],
 	"abilitiesKeywords": [
 		"aceleró",
@@ -488,6 +486,18 @@
 		"maestría",
 		"practicante"
 	],
+	"keywordLabels": {
+		"desarrollador c#": "Desarrollador C#",
+		"desarrollador c++": "Desarrollador C++",
+		"desarrollador ios": "Desarrollador iOS",
+		"desarrollador java": "Desarrollador Java",
+		"desarrollador node.js": "Desarrollador Node.js",
+		"gerente de producto it": "Gerente de producto IT",
+		"gerente de proyectos it": "Gerente de proyectos IT",
+		"ingeniero aqa": "Ingeniero AQA",
+		"ingeniero devops": "Ingeniero DevOps",
+		"ingeniero qa": "Ingeniero QA"
+	},
 	"aliases": {
 		"android developer": "desarrollador android",
 		"aqa engineer": "ingeniero aqa",
