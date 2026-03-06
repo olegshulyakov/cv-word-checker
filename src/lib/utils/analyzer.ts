@@ -172,12 +172,15 @@ export function matchKeywords(
 					const existing = finalJdKeywords.find((k) => k.term === kw);
 					if (existing) existing.count += count;
 				}
-				// Subtract counts from individual words to avoid double-counting
-				const words = kw.split(' ');
-				for (const word of words) {
-					const existing = finalJdKeywords.find((k) => k.term === word);
-					if (existing) {
-						existing.count = Math.max(0, existing.count - count);
+				// Preserve component words for title phrases like "node.js developer"
+				// so titles do not mask the underlying tech or generic role terms.
+				if (!titleAndDegreeKeywords.has(kw)) {
+					const words = kw.split(' ');
+					for (const word of words) {
+						const existing = finalJdKeywords.find((k) => k.term === word);
+						if (existing) {
+							existing.count = Math.max(0, existing.count - count);
+						}
 					}
 				}
 			}
@@ -204,11 +207,12 @@ export function matchKeywords(
 			if (count > 0) {
 				const prev = finalCvTermCounts.get(kw) || 0;
 				finalCvTermCounts.set(kw, prev + count);
-				// Subtract from individual words
-				const words = kw.split(' ');
-				for (const word of words) {
-					const existingCount = finalCvTermCounts.get(word) || 0;
-					finalCvTermCounts.set(word, Math.max(0, existingCount - count));
+				if (!titleAndDegreeKeywords.has(kw)) {
+					const words = kw.split(' ');
+					for (const word of words) {
+						const existingCount = finalCvTermCounts.get(word) || 0;
+						finalCvTermCounts.set(word, Math.max(0, existingCount - count));
+					}
 				}
 			}
 		}
