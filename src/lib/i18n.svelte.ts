@@ -1,4 +1,5 @@
 import { browser } from '$app/environment';
+import { SvelteSet } from 'svelte/reactivity';
 import { createPersistentState, STORAGE_KEYS } from './state.svelte';
 
 export type LocaleDict = {
@@ -35,6 +36,43 @@ const locales = import.meta.glob('./locales/*.json', { eager: true }) as Record<
 let dictionary = $state<LocaleDict | null>(null);
 let fallbackDict: LocaleDict | null = null;
 
+function uniqueStrings(...lists: (string[] | undefined)[]): string[] {
+	const seen = new SvelteSet<string>();
+	const merged: string[] = [];
+
+	for (const list of lists) {
+		for (const value of list ?? []) {
+			if (!seen.has(value)) {
+				seen.add(value);
+				merged.push(value);
+			}
+		}
+	}
+
+	return merged;
+}
+
+function mergeLocaleDict(locale: LocaleDict, fallback: LocaleDict): LocaleDict {
+	if (locale === fallback) return fallback;
+
+	return {
+		...locale,
+		technicalSkillsKeywords: uniqueStrings(
+			locale.technicalSkillsKeywords,
+			fallback.technicalSkillsKeywords
+		),
+		abilitiesKeywords: uniqueStrings(locale.abilitiesKeywords, fallback.abilitiesKeywords),
+		titleAndDegreeKeywords: uniqueStrings(
+			locale.titleAndDegreeKeywords,
+			fallback.titleAndDegreeKeywords
+		),
+		aliases: {
+			...(fallback.aliases ?? {}),
+			...(locale.aliases ?? {})
+		}
+	};
+}
+
 export const i18n = {
 	get dict() {
 		return dictionary;
@@ -57,6 +95,7 @@ export const i18n = {
 
 		const key = `./locales/${lang}.json`;
 		const locale = locales[key];
+		const enLocale = locales['./locales/en.json'];
 
 		if (!locale) {
 			console.error(`Locale file not found for "${lang}", falling back to English`);
@@ -64,15 +103,17 @@ export const i18n = {
 			return;
 		}
 
-		dictionary = locale.default;
-
 		// Cache the English locale as the UI-string fallback
 		if (lang === 'en') {
-			fallbackDict = dictionary;
+			fallbackDict = locale.default;
 		} else if (!fallbackDict) {
-			const enLocale = locales['./locales/en.json'];
 			fallbackDict = enLocale?.default ?? null;
 		}
+
+		dictionary =
+			lang === 'en' || !fallbackDict
+				? locale.default
+				: mergeLocaleDict(locale.default, fallbackDict);
 
 		currentLang.value = lang;
 
