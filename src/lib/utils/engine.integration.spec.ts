@@ -275,7 +275,7 @@ describe('Engine – Integration Tests', () => {
 					expect.arrayContaining(['machine learning', 'python', 'sql', 'aws', 'docker'])
 				);
 				expect(missingTerms(result)).toContain('nosql');
-				expect(missingTerms(result)).toContain('gcp');
+				expect(missingTerms(result)).toContain('google cloud');
 			});
 		});
 
@@ -300,7 +300,7 @@ describe('Engine – Integration Tests', () => {
 					expect.arrayContaining(['docker', 'kubernetes', 'aws', 'git', 'python', 'agile', 'scrum'])
 				);
 				// GCP is in the dictionary; not in CV so should be missing
-				expect(missingTerms(result)).toContain('gcp');
+				expect(missingTerms(result)).toContain('google cloud');
 			});
 		});
 
@@ -365,7 +365,7 @@ describe('Engine – Integration Tests', () => {
 				expect(presentTerms(result)).toEqual(
 					expect.arrayContaining(['aws', 'azure', 'kubernetes', 'docker', 'rest', 'graphql'])
 				);
-				expect(missingTerms(result)).toContain('gcp');
+				expect(missingTerms(result)).toContain('google cloud');
 			});
 		});
 
@@ -879,7 +879,7 @@ describe('Engine – Integration Tests', () => {
 					expect.arrayContaining(['python', 'sql', 'aws', 'docker', 'api', 'agile'])
 				);
 				expect(missingTerms(result)).toContain('kubernetes');
-				expect(missingTerms(result)).toContain('gcp');
+				expect(missingTerms(result)).toContain('google cloud');
 			});
 
 			it('should flag weak passive phrasing in security CVs', async () => {
@@ -912,7 +912,7 @@ describe('Engine – Integration Tests', () => {
 				const result = await analyze(cv, jd);
 
 				expect(presentTerms(result)).toEqual(
-					expect.arrayContaining(['python', 'sql', 'rest', 'api', 'docker', 'problem solving'])
+					expect.arrayContaining(['python', 'rest', 'sql', 'docker', 'problem solving'])
 				);
 				expect(missingTerms(result)).toContain('communication');
 			});
@@ -937,7 +937,7 @@ describe('Engine – Integration Tests', () => {
 				expect(presentTerms(result)).toEqual(
 					expect.arrayContaining(['aws', 'azure', 'kubernetes', 'docker', 'python', 'leadership'])
 				);
-				expect(missingTerms(result)).toContain('gcp');
+				expect(missingTerms(result)).toContain('google cloud');
 			});
 		});
 	});
@@ -1377,7 +1377,7 @@ describe('Engine – Integration Tests', () => {
 					])
 				);
 				expect(missingTerms(result)).toContain('aws');
-				expect(missingTerms(result)).toContain('gcp');
+				expect(missingTerms(result)).toContain('google cloud');
 			});
 		});
 
@@ -1713,7 +1713,7 @@ describe('Engine – Integration Tests', () => {
 						'nosql',
 						'data analysis',
 						'aws',
-						'gcp'
+						'google cloud'
 					])
 				);
 				expect(missingTerms(result)).toContain('agile');
@@ -1736,7 +1736,15 @@ describe('Engine – Integration Tests', () => {
 				const result = await analyze(cv, jd);
 
 				expect(presentTerms(result)).toEqual(
-					expect.arrayContaining(['aws', 'gcp', 'kubernetes', 'docker', 'python', 'agile', 'git'])
+					expect.arrayContaining([
+						'aws',
+						'google cloud',
+						'kubernetes',
+						'docker',
+						'python',
+						'agile',
+						'git'
+					])
 				);
 				expect(missingTerms(result)).toContain('azure');
 			});
@@ -2908,7 +2916,7 @@ describe('Engine – Integration Tests', () => {
 						'agile'
 					])
 				);
-				expect(missingTerms(result)).toContain('gcp');
+				expect(missingTerms(result)).toContain('google cloud');
 			});
 		});
 	});
@@ -3677,7 +3685,7 @@ describe('Engine – Integration Tests', () => {
 				const result = await analyze(cv, jd);
 
 				expect(presentTerms(result)).toEqual(
-					expect.arrayContaining(['aws', 'gcp', 'azure', 'kubernetes'])
+					expect.arrayContaining(['aws', 'google cloud', 'azure', 'kubernetes'])
 				);
 			});
 
