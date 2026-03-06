@@ -1,4 +1,4 @@
-import { stripHtmlAndMarkdown } from './parser';
+import { stripHtmlAndMarkdown } from '../utils/parser';
 import { i18n } from '../i18n.svelte';
 
 export interface KeywordResult {

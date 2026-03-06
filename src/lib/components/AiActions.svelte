@@ -3,9 +3,9 @@
 	import { i18n } from '$lib/i18n.svelte';
 	import { aiAgents } from '$lib/aiAgents';
 	import { createPersistentState, STORAGE_KEYS } from '$lib/state.svelte';
-	import { buildPrompt, openAgentUrl } from '$lib/utils/promptBuilder';
-	import type { MatchResults } from '$lib/utils/analyzer';
-	import type { WeakWordFinding } from '$lib/utils/wordcheck';
+	import { buildPrompt, openAgentUrl } from '$lib/engine/promptBuilder';
+	import type { MatchResults } from '$lib/engine/analyzer';
+	import type { WeakWordFinding } from '$lib/engine/wordcheck';
 
 	let {
 		matchGroups,

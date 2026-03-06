@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { i18n } from '$lib/i18n.svelte';
-	import type { MatchResults } from '$lib/utils/analyzer';
+	import type { MatchResults } from '$lib/engine/analyzer';
 	import type { Snippet } from 'svelte';
 
 	let {

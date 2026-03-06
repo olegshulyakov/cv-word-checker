@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { WeakWordFinding } from '$lib/utils/wordcheck';
+	import type { WeakWordFinding } from '$lib/engine/wordcheck';
 	import { i18n } from '$lib/i18n.svelte';
 
 	let {

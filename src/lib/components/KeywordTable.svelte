@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { KeywordResult } from '$lib/utils/analyzer';
+	import type { KeywordResult } from '$lib/engine/analyzer';
 	import { i18n } from '$lib/i18n.svelte';
 
 	let {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createPersistentState, STORAGE_KEYS } from '$lib/state.svelte';
 	import { readFileAsText } from '$lib/utils/file';
-	import { analyze, type AnalysisResults } from '$lib/utils/engine';
+	import { analyze, type AnalysisResults } from '$lib/engine/engine';
 	import ResultsPanel from '$lib/components/ResultsPanel.svelte';
 	import { i18n } from '$lib/i18n.svelte';
 	import { Search, LoaderCircle } from 'lucide-svelte';

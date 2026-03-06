@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AnalysisResults } from '$lib/utils/engine';
+	import type { AnalysisResults } from '$lib/engine/engine';
 	import HighlightedCv from './HighlightedCv.svelte';
 	import { i18n } from '$lib/i18n.svelte';
 	import ScoreHeader from './ScoreHeader.svelte';
