@@ -1,18 +1,25 @@
 export function stripHtmlAndMarkdown(text: string): string {
 	if (!text) return '';
 
-	// Remove script and style content
-	let parsed = text.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ');
+	let parsed = text;
 
-	// Simple HTML strip
-	parsed = parsed.replace(/<[^>]+>/g, ' ');
+	if (typeof document !== 'undefined') {
+		const doc = new DOMParser().parseFromString(text, 'text/html');
+		parsed = doc.body.textContent ?? '';
+	} else {
+		// Remove script and style content
+		parsed = parsed.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, ' ');
 
-	// Decode some common HTML entities
-	parsed = parsed
-		.replace(/&nbsp;/g, ' ')
-		.replace(/&amp;/g, '&')
-		.replace(/&lt;/g, '<')
-		.replace(/&gt;/g, '>');
+		// Simple HTML strip
+		parsed = parsed.replace(/<[^>]+>/g, ' ');
+
+		// Decode some common HTML entities
+		parsed = parsed
+			.replace(/&nbsp;/g, ' ')
+			.replace(/&amp;/g, '&')
+			.replace(/&lt;/g, '<')
+			.replace(/&gt;/g, '>');
+	}
 
 	// Simple markdown strip (headers, bold, italic, lists, links)
 	// Remove fenced code blocks
