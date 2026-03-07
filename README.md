@@ -43,9 +43,6 @@ Start the development server:
 
 ```sh
 npm start
-
-# open in browser automatically:
-npm start -- --open
 ```
 
 ---
@@ -56,11 +53,7 @@ npm start -- --open
 | ---------------------- | ---------------------------------------- |
 | `npm start`            | Start the local dev server               |
 | `npm run build`        | Create a production build                |
-| `npm run preview`      | Preview the production build locally     |
-| `npm run check`        | Type-check with `svelte-check`           |
 | `npm run test`         | Run all tests (unit + browser)           |
-| `npm run test:unit`    | Run Vitest unit tests (Node environment) |
-| `npm run test:browser` | Run Vitest browser tests via Playwright  |
 | `npm run lint`         | Check formatting and linting             |
 | `npm run format`       | Auto-fix formatting with Prettier        |
 
