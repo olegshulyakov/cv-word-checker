@@ -34,10 +34,10 @@ export function buildPrompt(
 
 	let prompt = i18n.t(templateKey);
 	prompt = prompt
-		.replace('[KEYWORD_GAPS]', gaps)
-		.replace('[WEAK_PHRASES]', weak)
-		.replace('[JOB_DESCRIPTION]', jdText)
-		.replace('[MY_CV]', cvText);
+		.replaceAll('[KEYWORD_GAPS]', gaps)
+		.replaceAll('[WEAK_PHRASES]', weak)
+		.replaceAll('[JOB_DESCRIPTION]', jdText)
+		.replaceAll('[MY_CV]', cvText);
 
 	return prompt;
 }
