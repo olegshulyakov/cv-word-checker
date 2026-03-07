@@ -117,11 +117,13 @@
 		</div>
 	{/if}
 
-	{#if error}
-		<div class="error-banner">
-			{error}
-		</div>
-	{/if}
+	<div aria-live="assertive" class="error-region">
+		{#if error}
+			<div class="error-banner" role="alert">
+				{error}
+			</div>
+		{/if}
+	</div>
 
 	{#if analysisResult}
 		<ResultsPanel results={analysisResult} cvText={cvText.value} jdText={jdText.value} />
