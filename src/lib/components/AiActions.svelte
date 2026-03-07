@@ -2,7 +2,7 @@
 	import { Sparkles, UserCheck } from 'lucide-svelte';
 	import { i18n } from '$lib/i18n.svelte';
 	import { aiAgents } from '$lib/aiAgents';
-	import { createPersistentState, STORAGE_KEYS } from '$lib/state.svelte';
+	import { selectedAgent } from '$lib/state.svelte';
 	import { buildPrompt, openAgentUrl } from '$lib/engine/promptBuilder';
 	import type { MatchResults } from '$lib/engine/analyzer';
 	import type { WeakWordFinding } from '$lib/engine/wordcheck';
@@ -19,7 +19,6 @@
 		jdText: string;
 	} = $props();
 
-	const selectedAgent = createPersistentState(STORAGE_KEYS.AI_AGENT, aiAgents[0].id);
 	let showToast = $state(false);
 
 	async function copyToClipboard(text: string) {
@@ -73,9 +72,11 @@
 			{i18n.t('results.checkCandidateWithAi')}
 		</button>
 	</div>
-	{#if showToast}
-		<div class="toast" role="alert">{i18n.t('results.rewritePromptCopied')}</div>
-	{/if}
+	<div aria-live="polite" class="toast-region">
+		{#if showToast}
+			<div class="toast" role="alert">{i18n.t('results.rewritePromptCopied')}</div>
+		{/if}
+	</div>
 </div>
 
 <style>

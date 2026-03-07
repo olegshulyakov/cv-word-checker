@@ -1,4 +1,8 @@
 import { browser } from '$app/environment';
+import { SvelteSet } from 'svelte/reactivity';
+import { aiAgents } from './aiAgents';
+
+const persistentRegistry = new SvelteSet<{ reset: () => void }>();
 
 export function createPersistentState<T>(key: string, initialValue: T) {
 	let value = $state(initialValue);
@@ -17,7 +21,7 @@ export function createPersistentState<T>(key: string, initialValue: T) {
 		}
 	}
 
-	return {
+	const stateObj = {
 		get value() {
 			return value;
 		},
@@ -32,6 +36,14 @@ export function createPersistentState<T>(key: string, initialValue: T) {
 			}
 		}
 	};
+
+	persistentRegistry.add({
+		reset() {
+			value = initialValue;
+		}
+	});
+
+	return stateObj;
 }
 
 export const STORAGE_KEYS = {
@@ -39,9 +51,10 @@ export const STORAGE_KEYS = {
 	JD: 'cvwc_jd',
 	LANG: 'cvwc_lang',
 	THEME: 'cvwc_theme',
-	AI_AGENT: 'cvwc_ai_agent',
-	AI_CUSTOM_URL: 'cvwc_ai_custom_url'
+	AI_AGENT: 'cvwc_ai_agent'
 };
+
+export const selectedAgent = createPersistentState(STORAGE_KEYS.AI_AGENT, aiAgents[0].id);
 
 export function clearAllData(confirmMessage: string) {
 	if (browser) {
