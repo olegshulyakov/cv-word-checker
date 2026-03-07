@@ -117,7 +117,7 @@
 		color: var(--text-muted);
 	}
 
-	:global(.globe-icon) {
+	.lang-selector :global(.globe-icon) {
 		position: absolute;
 		left: 0.5rem;
 		pointer-events: none;
