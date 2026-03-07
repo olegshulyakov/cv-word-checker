@@ -41,6 +41,10 @@
 
 		<Footer />
 	</div>
+{:else}
+	<div class="app-shell loading-skeleton">
+		<div class="spinner"></div>
+	</div>
 {/if}
 
 <style>
@@ -56,5 +60,26 @@
 		max-width: var(--max-width);
 		margin: 0 auto;
 		width: 100%;
+	}
+
+	.loading-skeleton {
+		align-items: center;
+		justify-content: center;
+		background-color: var(--bg-color);
+	}
+
+	.spinner {
+		width: 40px;
+		height: 40px;
+		border: 4px solid var(--border-color);
+		border-top-color: var(--accent-color);
+		border-radius: 50%;
+		animation: spin 1s linear infinite;
+	}
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
 	}
 </style>
