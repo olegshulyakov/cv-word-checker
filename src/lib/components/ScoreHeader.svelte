@@ -39,11 +39,6 @@
 	<div class="score-text">
 		<strong>{getScoreLabel(match.matchScore)}</strong>
 		<span class="time-label">
-			<!-- Note: We should ideally pass the analysis time as a prop if we want to show it here.
-                 For now, let's allow it as an optional prop if needed, or remove it.
-                 Actually, the time is shown in the original code:
-                 "{i18n.t('results.analyzedIn')} {results.analysisTimeMs}ms"
-            -->
 			{#if children}
 				{@render children()}
 			{/if}
