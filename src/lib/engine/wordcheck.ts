@@ -1,12 +1,10 @@
+import { escapeRegExp } from '../utils/regex';
+
 export interface WeakWordFinding {
 	originalPhrase: string;
 	suggestions: string[];
 	startIndex: number;
 	endIndex: number;
-}
-
-function escapeRegExp(string: string) {
-	return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 export function findWeakWords(

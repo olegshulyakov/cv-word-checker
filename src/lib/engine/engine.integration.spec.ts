@@ -43,7 +43,8 @@
 
 import { describe, it, expect, beforeAll } from 'vitest';
 import { analyze } from './engine';
-import { extractKeywords, matchKeywords } from './analyzer';
+import { matchKeywords } from './analyzer';
+import { extractKeywords } from './tokenizer';
 import { i18n } from '../i18n.svelte';
 
 // ---------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { extractKeywords, matchKeywords } from './analyzer';
+import { matchKeywords } from './analyzer';
+import { extractKeywords } from './tokenizer';
 
 describe('Analyzer', () => {
 	describe('extractKeywords', () => {
