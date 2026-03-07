@@ -7,6 +7,8 @@ export class ThemeState {
 	preference = $state<ThemePreference>('system');
 	current = $state<'light' | 'dark'>('light');
 
+	private abortController = new AbortController();
+
 	constructor() {
 		if (browser) {
 			const localTheme = localStorage.getItem(STORAGE_KEYS.THEME) as ThemePreference | null;
@@ -14,11 +16,15 @@ export class ThemeState {
 			this.apply();
 
 			// Listen for system changes
-			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-				if (this.preference === 'system') {
-					this.apply();
-				}
-			});
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener(
+				'change',
+				() => {
+					if (this.preference === 'system') {
+						this.apply();
+					}
+				},
+				{ signal: this.abortController.signal }
+			);
 		}
 	}
 
@@ -55,6 +61,10 @@ export class ThemeState {
 		} else {
 			this.set('system');
 		}
+	}
+
+	destroy() {
+		this.abortController.abort();
 	}
 }
 
