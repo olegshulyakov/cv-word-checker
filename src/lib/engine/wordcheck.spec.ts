@@ -49,6 +49,20 @@ describe('wordcheck', () => {
 		expect(findings[0].originalPhrase).toBe('Responsible for');
 	});
 
+	it('should handle overlapping occurrences correctly', () => {
+		const text = 'I am responsible for managing the team.';
+		const dict = {
+			'responsible for': ['led'],
+			'responsible for managing': ['directed']
+		};
+		const findings = findWeakWords(text, dict);
+		expect(findings.length).toBe(2);
+		expect(findings[0].originalPhrase).toBe('responsible for');
+		expect(findings[1].originalPhrase).toBe('responsible for managing');
+		expect(findings[0].startIndex).toBe(5);
+		expect(findings[1].startIndex).toBe(5);
+	});
+
 	describe('Known engine failures (it — expected to fail until fixed)', () => {
 		it('BUG-24 — should handle non-Latin word boundaries (TEST-01) without space separation', () => {
 			// The `(?<![\p{L}\p{N}])` boundary logic completely breaks on CJK languages
