@@ -49,13 +49,13 @@ npm start
 
 ## Scripts
 
-| Command                | Description                              |
-| ---------------------- | ---------------------------------------- |
-| `npm start`            | Start the local dev server               |
-| `npm run build`        | Create a production build                |
-| `npm run test`         | Run all tests (unit + browser)           |
-| `npm run lint`         | Check formatting and linting             |
-| `npm run format`       | Auto-fix formatting with Prettier        |
+| Command          | Description                       |
+| ---------------- | --------------------------------- |
+| `npm start`      | Start the local dev server        |
+| `npm run build`  | Create a production build         |
+| `npm run test`   | Run all tests (unit + browser)    |
+| `npm run lint`   | Check formatting and linting      |
+| `npm run format` | Auto-fix formatting with Prettier |
 
 ---
 
