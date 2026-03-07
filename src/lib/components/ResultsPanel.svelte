@@ -124,16 +124,16 @@
 		font-size: 0.875rem;
 		color: var(--text-muted);
 		font-style: italic;
-		padding: 1.5rem !important;
+		padding: 1.5rem;
 	}
 
 	.empty-state.success {
 		font-style: normal;
-		padding: 1rem !important;
-		background-color: rgba(16, 185, 129, 0.1);
+		padding: 1rem;
+		background-color: var(--success-surface);
 		color: var(--success-color);
 		border-radius: 8px;
-		border: 1px solid rgba(16, 185, 129, 0.2);
-		text-align: left !important;
+		border: 1px solid var(--success-border);
+		text-align: left;
 	}
 </style>

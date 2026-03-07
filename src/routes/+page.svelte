@@ -222,11 +222,11 @@
 	}
 
 	.error-banner {
-		background-color: rgba(239, 68, 68, 0.1);
+		background-color: var(--error-surface);
 		color: var(--error-color);
 		padding: 1rem;
 		border-radius: 8px;
-		border: 1px solid rgba(239, 68, 68, 0.2);
+		border: 1px solid var(--error-border);
 		text-align: center;
 		font-weight: 500;
 	}

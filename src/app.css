@@ -15,6 +15,20 @@
 	--error-color: #ef4444;
 	--success-color: #10b981;
 
+	/* Semantic Surfaces */
+	--warning-surface: rgba(245, 158, 11, 0.1);
+	--warning-surface-hover: rgba(245, 158, 11, 0.2);
+	--error-surface: rgba(239, 68, 68, 0.1);
+	--error-border: rgba(239, 68, 68, 0.2);
+	--success-surface: rgba(16, 185, 129, 0.1);
+	--success-border: rgba(16, 185, 129, 0.2);
+	--amber-surface: rgba(255, 193, 7, 0.3);
+	--amber-surface-hover: rgba(255, 193, 7, 0.5);
+	--amber-border: #ffc107;
+	--table-header-bg: rgba(0, 0, 0, 0.03);
+	--table-row-missing: rgba(217, 119, 87, 0.02);
+	--shadow-color: rgba(0, 0, 0, 0.15);
+
 	/* Semantic Variables */
 	--font-sans:
 		'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
@@ -35,6 +49,20 @@
 	--accent-color: #d97757;
 	--accent-hover: #e48a6d;
 	--warning-color: #fbbf24;
+
+	/* Semantic Surfaces - Dark variants */
+	--warning-surface: rgba(251, 191, 36, 0.1);
+	--warning-surface-hover: rgba(251, 191, 36, 0.2);
+	--error-surface: rgba(239, 68, 68, 0.15);
+	--error-border: rgba(239, 68, 68, 0.25);
+	--success-surface: rgba(16, 185, 129, 0.15);
+	--success-border: rgba(16, 185, 129, 0.25);
+	--amber-surface: rgba(255, 193, 7, 0.2);
+	--amber-surface-hover: rgba(255, 193, 7, 0.3);
+	--amber-border: #fbbf24;
+	--table-header-bg: rgba(255, 255, 255, 0.03);
+	--table-row-missing: rgba(217, 119, 87, 0.05);
+	--shadow-color: rgba(0, 0, 0, 0.3);
 }
 
 *,

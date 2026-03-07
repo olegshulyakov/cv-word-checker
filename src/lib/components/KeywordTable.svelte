@@ -112,13 +112,9 @@
 	}
 
 	.keywordtable th {
-		background-color: rgba(0, 0, 0, 0.03);
+		background-color: var(--table-header-bg);
 		font-weight: 600;
 		color: var(--text-color);
-	}
-
-	:global([data-theme='dark']) .keywordtable th {
-		background-color: rgba(255, 255, 255, 0.03);
 	}
 
 	.keywordtable tr:last-child td {
@@ -131,15 +127,11 @@
 	}
 
 	.missing-row {
-		background-color: rgba(217, 119, 87, 0.02);
-	}
-
-	:global([data-theme='dark']) .missing-row {
-		background-color: rgba(217, 119, 87, 0.05);
+		background-color: var(--table-row-missing);
 	}
 
 	.text-center {
-		text-align: center !important;
+		text-align: center;
 	}
 
 	.count-cell {
@@ -171,6 +163,6 @@
 		font-size: 0.875rem;
 		color: var(--text-muted);
 		font-style: italic;
-		padding: 1.5rem !important;
+		padding: 1.5rem;
 	}
 </style>

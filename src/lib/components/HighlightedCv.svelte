@@ -97,8 +97,8 @@
 	}
 
 	.highlight-mark {
-		background-color: rgba(255, 193, 7, 0.3); /* Amber background */
-		border-bottom: 2px solid #ffc107;
+		background-color: var(--amber-surface);
+		border-bottom: 2px solid var(--amber-border);
 		border-radius: 2px;
 		padding: 0 2px;
 		color: inherit;
@@ -107,7 +107,7 @@
 
 	.highlight-wrapper:hover .highlight-mark,
 	.highlight-wrapper:focus .highlight-mark {
-		background-color: rgba(255, 193, 7, 0.5);
+		background-color: var(--amber-surface-hover);
 	}
 
 	.highlight-wrapper:focus-visible .highlight-mark {
@@ -134,7 +134,7 @@
 			visibility 0.2s,
 			transform 0.2s;
 		font-size: 0.875rem;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+		box-shadow: 0 4px 12px var(--shadow-color);
 		pointer-events: none;
 	}
 
@@ -157,7 +157,7 @@
 	}
 
 	strong {
-		color: #ffc107;
+		color: var(--amber-border);
 	}
 
 	.suggestion-list {
