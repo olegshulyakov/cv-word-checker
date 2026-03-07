@@ -48,6 +48,6 @@ export function openAgentUrl(agentId: string, prompt: string) {
 	if (agent.method === 'url') {
 		const encodedPrompt = encodeURIComponent(prompt);
 		const url = agent.urlTemplate.replace('{prompt}', encodedPrompt);
-		window.open(url, '_blank');
+		window.open(url, '_blank', 'noopener,noreferrer');
 	}
 }
