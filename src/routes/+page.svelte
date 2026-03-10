@@ -41,13 +41,13 @@
 	let error = $state<string | null>(null);
 
 	// onpaste fires before the browser commits pasted text to the textarea value.
-	// queueMicrotask defers the check until after that DOM update, reliably.
+	// setTimeout defers the check until after that DOM update, reliably.
 	function checkAndAnalyze() {
-		queueMicrotask(() => {
+		setTimeout(() => {
 			if (cvText.value.trim() && jdText.value.trim() && !analyzing) {
 				handleAnalyze();
 			}
-		});
+		}, 0);
 	}
 
 	async function handleAnalyze() {
